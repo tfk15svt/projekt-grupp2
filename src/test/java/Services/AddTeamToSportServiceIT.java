@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  *
  * @author Veiret
  */
-public class AddTeamToSportIT {
+public class AddTeamToSportServiceIT {
     private static Sport sport;
     private static Long sportId;
     private static Team team;
@@ -39,12 +39,12 @@ public class AddTeamToSportIT {
         DbConn.staticClose();
     }
     /**
-     * Test of execute method, of class AddTeamToSport.
+     * Test of execute method, of class AddTeamToSportService.
      */
     @Test
     public void testExecute() {
         System.out.println("execute");
-        AddTeamToSport instance = new AddTeamToSport("TeamAddTeamToNewSport", sportId);
+        AddTeamToSportService instance = new AddTeamToSportService("TeamAddTeamToNewSport", sportId);
         instance.init(new BrokerFactory());
         DbConn.staticOpen();
         instance.execute();

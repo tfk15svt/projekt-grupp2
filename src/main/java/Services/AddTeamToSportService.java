@@ -14,10 +14,10 @@ import com.mycompany.sportstatsveiret.Team;
  *
  * @author Veiret
  */
-public class AddTeamToSport extends Service{
+public class AddTeamToSportService extends Service{
     private String name;
     private final Long sportId;
-    public AddTeamToSport(String name, Long sportId){
+    public AddTeamToSportService(String name, Long sportId){
         this.name = name;
         
         
