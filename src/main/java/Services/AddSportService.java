@@ -29,12 +29,13 @@ public class AddSportService extends Service {
         }
         
     }
+    @Override
     public Sport execute() {
         SportBroker sportBroker = getBrokerFactory().getSportBroker();
-        Sport result = sportBroker.create();
-        result.setName(name);
-        sportBroker.saveSport(result);
-        return result;
+        Sport sport = sportBroker.create();
+        sport.setName(name);
+        sportBroker.saveSport(sport);
+        return sport;
     }
     
 }

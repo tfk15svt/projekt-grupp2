@@ -19,27 +19,29 @@ import com.mycompany.sportstatsveiret.Sport;
 //hejhejhej
 public class AddLeagueToSportService extends Service{
     private final Long sportId;
-    private final League league;
-    public AddLeagueToSportService(Long sportId, League league){
+    private final String leagueName;
+    public AddLeagueToSportService(Long sportId, String leagueName){
         this.sportId = sportId;
         if (sportId == null){
             throw new ServiceException("Sport is null");
         }
-        this.league = league;
-        if(league == null){
+        this.leagueName = leagueName;
+        if(leagueName == null){
             throw new ServiceException("League is null");
         }
     }
     @Override
-    public Boolean execute() {
+    public League execute() {
         BrokerFactory brokerFactory = getBrokerFactory();
+        League league = brokerFactory.getLeagueBroker().create();
+        league.setName(leagueName);
         Sport sport = brokerFactory.getSportBroker().findById(sportId);
         if (sport == null){
             throw new ServiceException("There is no sport with that Id");
         }
         league.setSport(sport);
         brokerFactory.getLeagueBroker().saveLeague(league);
-        return true;
+        return league;
     }
     
 }

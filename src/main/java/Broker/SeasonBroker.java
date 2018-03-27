@@ -14,4 +14,8 @@ public class SeasonBroker {
     public Season findSeasonById (Long id) {
         return new Season (SeasonDao.findById(id));
     }
+    
+    public Season create(){
+        return new Season();
+    }
 }

@@ -31,4 +31,8 @@ public class LeagueBroker {
                 .collect(Collectors.toList());
         return result;
     }
+    
+    public League create(){
+        return new League();
+    }
 }
