@@ -33,31 +33,25 @@ public class AddLeagueToSportServiceIT {
         sport = new Sport();
         sport.setName("addLeagueToSportServiceTest");
         sport.getDao().save();
-        league = new League();
-        league.setName("theLeagueServiceTest");
         sportId = sport.getDao().getLongId();
-         DbConn.staticClose();
     }
     @AfterClass
     public static void tearDown(){
         //Delete the test objects
-        DbConn.staticOpen();
-        league.getDao().delete();
+        sport.getDao().getAll(LeagueDao.class).get(0).delete();
         sport.getDao().delete();
         DbConn.staticClose();
     }
     @Test
     public void testExecute() {
         //
-        AddLeagueToSportService instance = new AddLeagueToSportService(sportId,league);
+        AddLeagueToSportService instance = new AddLeagueToSportService(sportId,"theLeagueServiceTest");
         instance.init(new BrokerFactory());
         instance.execute();
         
         List<League> list = sport.getDao().getAll(LeagueDao.class).stream()
                 .map(leagueDao -> new League((LeagueDao) leagueDao))
-                .collect(Collectors.toList());
-        DbConn.staticClose();
-        
+                .collect(Collectors.toList());        
         int expectedListSize = 1;
         int listSize = list.size();
         

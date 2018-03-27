@@ -43,6 +43,7 @@ public class AddLeagueToSportServiceTest {
         when(brokerFactory.getLeagueBroker()).thenReturn(leagueBroker);
         when(sportBroker.findById(1L)).thenReturn(sport);
         when(sportBroker.findById(2L)).thenReturn(null);
+        when(leagueBroker.create()).thenReturn(league);
     }
     /**
      * Test constructor
@@ -54,18 +55,18 @@ public class AddLeagueToSportServiceTest {
         League nullLeague = null;
         
         try {
-            new AddLeagueToSportService(nullSportId, league);
+            new AddLeagueToSportService(nullSportId, "league");
             fail();
         } catch (ServiceException e){
             
         }
         try {
-            new AddLeagueToSportService(notNullSportId, nullLeague);
+            new AddLeagueToSportService(notNullSportId, null);
             fail();
         } catch (ServiceException e){
             
         }
-        new AddLeagueToSportService(notNullSportId, league);
+        new AddLeagueToSportService(notNullSportId, "league");
     }
     /**
      * Test of init method, of class AddLeagueToSportService.
@@ -74,7 +75,7 @@ public class AddLeagueToSportServiceTest {
     public void testInit() {
         System.out.println("init");
         BrokerFactory nullBrokerFactory = null;
-        AddLeagueToSportService instance = new AddLeagueToSportService(1L, league);
+        AddLeagueToSportService instance = new AddLeagueToSportService(1L, "league");
        
         try {
             instance.init(nullBrokerFactory);
@@ -91,8 +92,8 @@ public class AddLeagueToSportServiceTest {
     @Test
     public void testExecute() {
         System.out.println("execute");
-        AddLeagueToSportService instance = new AddLeagueToSportService(1L, league);
-        AddLeagueToSportService instance2 = new AddLeagueToSportService(2L, league);
+        AddLeagueToSportService instance = new AddLeagueToSportService(1L, "league");
+        AddLeagueToSportService instance2 = new AddLeagueToSportService(2L, "league");
         instance.init(brokerFactory);
         instance2.init(brokerFactory);
         try {
