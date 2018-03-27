@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Veiret
  */
-public class AddTeamToSportTest {
+public class AddTeamToSportServiceTest {
     private Team team;
     private Sport sport;
     private BrokerFactory brokerFactory;
@@ -47,22 +47,22 @@ public class AddTeamToSportTest {
     @Test
     public void testConstructor() {
         try {
-            new AddTeamToSport("", null);
+            new AddTeamToSportService("", null);
             fail();
         } catch (ServiceException e) {
             
         }
         try {
-            new AddTeamToSport(null, 1L);
+            new AddTeamToSportService(null, 1L);
             fail();
         } catch (ServiceException e) {
             
         }
-        new AddTeamToSport("", 1L);
+        new AddTeamToSportService("", 1L);
     }
     @Test
     public void testInit(){
-        AddTeamToSport instance = new AddTeamToSport("", 1L);
+        AddTeamToSportService instance = new AddTeamToSportService("", 1L);
         try {
             instance.init(null);
             fail();
@@ -73,8 +73,8 @@ public class AddTeamToSportTest {
     }
     @Test
     public void testExcecute(){
-        AddTeamToSport instance = new AddTeamToSport("", 1L);
-        AddTeamToSport instance2 = new AddTeamToSport("", 2L);
+        AddTeamToSportService instance = new AddTeamToSportService("", 1L);
+        AddTeamToSportService instance2 = new AddTeamToSportService("", 2L);
         instance.init(brokerFactory);
         instance2.init(brokerFactory);
         
