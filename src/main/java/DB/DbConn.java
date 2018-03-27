@@ -13,13 +13,13 @@ import org.javalite.activejdbc.Base;
  */
 public class DbConn {
     public static void staticOpen() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mydb", "veiret_sql", "paronplommon378");
+        Base.open("", "", "", "");
     }
     public static void staticClose() {
         Base.close();
     }
     public void open() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mydb", "veiret_sql", "paronplommon378");
+        Base.open("", "", "", "");
     }
     public void close() {
         Base.close();
