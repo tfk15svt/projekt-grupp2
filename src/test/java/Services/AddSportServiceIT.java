@@ -6,6 +6,7 @@
 package Services;
 
 import Broker.BrokerFactory;
+import DAO.SportDao;
 import DB.DbConn;
 import com.mycompany.sportstatsveiret.Sport;
 import org.junit.After;
@@ -20,7 +21,15 @@ import static org.junit.Assert.*;
  * @author Veiret
  */
 public class AddSportServiceIT {
-
+    @BeforeClass
+    public static void setUp() {
+        DbConn.staticOpen();
+    }
+    @AfterClass
+    public static void TearDown () {
+        SportDao.find("name=?", "testAddSport").get(0).delete();
+        DbConn.staticClose();
+    }
     @Test
     public void testExecute() {
         /**AddSportService instance = new AddSportService("TestAddSportService");
@@ -31,8 +40,9 @@ public class AddSportServiceIT {
         sport.getDao().delete();
         DbConn.staticClose();*/
         try{
-           ServiceRunner runner = new ServiceRunner(new AddSportService(null));
-            System.out.println("ADD SPORT: " + runner.execute());
+           AddSportService service = new AddSportService("testAddSport");
+           service.init(new BrokerFactory());
+           service.execute();
         }catch(Exception e){
             e.getMessage();
         }
