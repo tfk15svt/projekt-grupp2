@@ -27,9 +27,12 @@ public class AddLeagueToSportServiceIT {
     public static Sport sport;
     public static League league;
     public static Long sportId;
+    public static DbConn dbconn;
     @BeforeClass
     public static void setUp(){
-        DbConn.staticOpen();
+        dbconn = new DbConn();
+        dbconn.open();
+        
         sport = new Sport();
         sport.setName("addLeagueToSportServiceTest");
         sport.getDao().save();
