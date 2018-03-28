@@ -45,54 +45,51 @@ public class AddSeasonToLeagueServiceIT {
         league.setName("leagueSeasonLeagueIT");
         league.setSport(sport);
         
-        season1 = new Season();
+        
         league.getDao().save();
         leagueId = league.getDao().getLongId();
         list1 = league.getDao().getAll(SeasonDao.class).stream()
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
-        DbConn.staticClose();
+        
     }
     @AfterClass
     public static void tearDown(){
         // Delete test object
-        DbConn.staticOpen();
-        season1.getDao().delete();
-        season2.getDao().delete();
-        season3.getDao().delete();
+        league.getDao().getAll(SeasonDao.class).get(2).delete();
+        league.getDao().getAll(SeasonDao.class).get(1).delete();
+        league.getDao().getAll(SeasonDao.class).get(0).delete();
         league.getDao().delete();
         sport.getDao().delete();
         DbConn.staticClose();
     }
     @Test
     public void testExecute() {
-         DbConn.staticOpen();
         
-        AddSeasonToLeagueService instance1 = new AddSeasonToLeagueService(0, leagueId);
+        AddSeasonToLeagueService instance1 = new AddSeasonToLeagueService(1, leagueId);
         instance1.init(new BrokerFactory());
         instance1.execute();
         
-        season2 = new Season();
+        
         league.getDao().save();
         list2 = league.getDao().getAll(SeasonDao.class).stream()
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
     
-        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(0, leagueId);
+        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(2, leagueId);
         instance2.init(new BrokerFactory());
         instance2.execute();
         
-        season3 = new Season();
+       
         league.getDao().save();
         list3 = league.getDao().getAll(SeasonDao.class).stream()
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
     
-        AddSeasonToLeagueService instance3 = new AddSeasonToLeagueService(0, leagueId);
+        AddSeasonToLeagueService instance3 = new AddSeasonToLeagueService(3, leagueId);
         instance3.init(new BrokerFactory());
         instance3.execute();
         
-        DbConn.staticClose();
         
         
     }
