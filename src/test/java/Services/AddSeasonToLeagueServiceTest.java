@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Veiret
  */
-/**public class AddSeasonToLeagueServiceTest {
+public class AddSeasonToLeagueServiceTest {
     private DbConn dbConn;
     private BrokerFactory brokerFactory;
     private Season season;
@@ -43,12 +43,13 @@ import static org.mockito.Mockito.when;
         
         when(brokerFactory.getLeagueBroker()).thenReturn(leagueBroker);
         when(brokerFactory.getSeasonBroker()).thenReturn(seasonBroker);
+        when(seasonBroker.create()).thenReturn(season);
         when(leagueBroker.findLeagueById(1L)).thenReturn(league);
     }
     /**
      * Test constructor
      */
-    /**@Test
+    @Test
     public void testConstructor() {
         Season nullSeason = null;
         Long nullLeagueId = null;
@@ -59,22 +60,22 @@ import static org.mockito.Mockito.when;
             
         }
         try {
-            new AddSeasonToLeagueService(0, nullLeagueId);
+            new AddSeasonToLeagueService(1, nullLeagueId);
             fail();
         } catch (ServiceException e) {
             
         }
-        new AddSeasonToLeagueService(0, 1L);
+        new AddSeasonToLeagueService(1, 1L);
     }
     /**
      * Test of init method, of class AddSeasonToLeagueService.
      */
-    /**@Test
+    @Test
     public void testInit() {
         System.out.println("init");
         DbConn nullDbConn = null;
         BrokerFactory nullBrokerFactory = null;
-        AddSeasonToLeagueService instance = new AddSeasonToLeagueService(0, 1L);
+        AddSeasonToLeagueService instance = new AddSeasonToLeagueService(1, 1L);
 
         try {
             instance.init(nullBrokerFactory);
@@ -88,11 +89,11 @@ import static org.mockito.Mockito.when;
     /**
      * Test of execute method, of class AddSeasonToLeagueService.
      */
-    /**@Test
+    @Test
     public void testExecute() {
         System.out.println("execute");
-        AddSeasonToLeagueService instance = new AddSeasonToLeagueService(0, 1L);
-        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(0, 2L);
+        AddSeasonToLeagueService instance = new AddSeasonToLeagueService(1, 1L);
+        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(1, 2L);
         instance.init(brokerFactory);
         instance2.init(brokerFactory);
         try {
@@ -104,4 +105,4 @@ import static org.mockito.Mockito.when;
         instance.execute();
     }
     
-}*/
+}
