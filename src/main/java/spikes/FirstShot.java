@@ -1,5 +1,7 @@
 package spikes;
 
+import Services.GetAllSportService;
+import Services.ServiceRunner;
 import com.mycompany.sportstatsveiret.Sport;
 import java.util.List;
 import org.javalite.activejdbc.Base;
@@ -11,7 +13,7 @@ import org.javalite.activejdbc.Base;
 public class FirstShot {
 
     public static void main(String[] args) {
-        open();
+        //open();
         /*
         List<Sport> sports = Sport.findAll();
         System.out.println("Antal tillgängliga sporter: " + sports.size());
@@ -27,12 +29,17 @@ public class FirstShot {
         System.out.println("Antal tillgängliga sporter: " + sports.size());
         */        
 
-        System.out.println("hej");
-        close();
+        //System.out.println("hej");
+        //close();
+        System.out.println("HEJ");
+        
+            ServiceRunner runner = new ServiceRunner(new GetAllSportService());
+            System.out.println("sSPORTEEEEER: " + runner.execute());
+        
     }
 
     public static void open() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mydb", "veiret_sql", "paronplommon378");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://node71227-grupp2.jls-sto1.elastx.net:11068/mydb", "grupp2", "Nilgo4QTZeNT702L");
     }
     
     public static void close() {

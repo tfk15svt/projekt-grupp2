@@ -15,14 +15,14 @@ import com.mycompany.sportstatsveiret.Team;
  * @author Veiret
  */
 public class AddTeamToSportService extends Service{
-    private String name;
+    private final String teamName;
     private final Long sportId;
-    public AddTeamToSportService(String name, Long sportId){
-        this.name = name;
+    public AddTeamToSportService(String teamName, Long sportId){
+        this.teamName = teamName;
         
         
         this.sportId = sportId;
-        if (this.name == null){
+        if (this.teamName == null){
             throw new ServiceException("Team is null");
         }
         if (this.sportId == null){
@@ -30,9 +30,9 @@ public class AddTeamToSportService extends Service{
         }
     }
     @Override
-    public Boolean execute(){
+    public Team execute(){
         Team team = getBrokerFactory().getTeamBroker().create();
-        team.setName(name);
+        team.setName(teamName);
         BrokerFactory brokerFactory = getBrokerFactory();
         Sport sport = brokerFactory.getSportBroker().findById(sportId);
         if (sport == null) {
@@ -40,7 +40,7 @@ public class AddTeamToSportService extends Service{
         }
         team.setSport(sport);
         brokerFactory.getTeamBroker().saveTeam(team);
-        return true;
+        return team;
     }
     
 }

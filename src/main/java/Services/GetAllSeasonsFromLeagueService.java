@@ -20,13 +20,19 @@ import java.util.stream.Collectors;
  * @author Veiret
  */
 public class GetAllSeasonsFromLeagueService extends Service{
-    private Long leagueId;
+    private final Long leagueId;
     public GetAllSeasonsFromLeagueService(Long leagueId) {
         this.leagueId = leagueId;
         if (leagueId == null) {
             throw new ServiceException("league id is null");
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public List<Season> execute() {
         LeagueBroker leagueBroker = getBrokerFactory().getLeagueBroker();
         if(leagueBroker.findLeagueById(leagueId) == null){

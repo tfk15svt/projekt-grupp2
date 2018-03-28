@@ -17,6 +17,12 @@ import java.util.stream.Collectors;
  * @author Veiret
  */
 public class GetAllSportService extends Service{
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public List<Sport> execute(){
         List<Sport> result = getBrokerFactory().getSportBroker().getAll();
         return result;

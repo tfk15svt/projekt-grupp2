@@ -14,7 +14,8 @@ import DB.DbConn;
  */
 public class ServiceRunner<T> {
     private final Service<T> service;
-    private DbConn dbConn= new DbConn();
+    private final DbConn dbConn= new DbConn();
+    
     public ServiceRunner(Service service){
         this.service = service;
     }

@@ -20,13 +20,14 @@ import java.util.stream.Collectors;
  * @author Veiret
  */
 public class GetAllLeagueFromSportService extends Service{
-    private Long sportId;
+    private final Long sportId;
     public GetAllLeagueFromSportService (Long sportId) {
         this.sportId = sportId;
         if(this.sportId == null){
             throw new ServiceException("Sport id is null");
         }
     }
+    @Override
     public List<League> execute() {
         SportBroker sportBroker = getBrokerFactory().getSportBroker();
         if (sportBroker.findById(sportId) == null) {

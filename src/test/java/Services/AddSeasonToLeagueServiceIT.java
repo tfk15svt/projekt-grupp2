@@ -68,7 +68,7 @@ public class AddSeasonToLeagueServiceIT {
     public void testExecute() {
          DbConn.staticOpen();
         
-        AddSeasonToLeagueService instance1 = new AddSeasonToLeagueService(season1, leagueId);
+        AddSeasonToLeagueService instance1 = new AddSeasonToLeagueService(0, leagueId);
         instance1.init(new BrokerFactory());
         instance1.execute();
         
@@ -78,7 +78,7 @@ public class AddSeasonToLeagueServiceIT {
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
     
-        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(season2, leagueId);
+        AddSeasonToLeagueService instance2 = new AddSeasonToLeagueService(0, leagueId);
         instance2.init(new BrokerFactory());
         instance2.execute();
         
@@ -88,7 +88,7 @@ public class AddSeasonToLeagueServiceIT {
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
     
-        AddSeasonToLeagueService instance3 = new AddSeasonToLeagueService(season3, leagueId);
+        AddSeasonToLeagueService instance3 = new AddSeasonToLeagueService(0, leagueId);
         instance3.init(new BrokerFactory());
         instance3.execute();
         

@@ -13,8 +13,10 @@ import Broker.BrokerFactory;
  */
 public abstract class Service<T> implements ServiceInterface<T>{
     private BrokerFactory brokerFactory;
+    
     @Override
     public final void init(BrokerFactory brokerFactory){
+        
         this.brokerFactory = brokerFactory;
         if(brokerFactory == null){
             throw new ServiceException("BrokerFactory is null");

@@ -20,6 +20,7 @@ import com.mycompany.sportstatsveiret.Sport;
 public class AddLeagueToSportService extends Service{
     private final Long sportId;
     private final String leagueName;
+    
     public AddLeagueToSportService(Long sportId, String leagueName){
         this.sportId = sportId;
         if (sportId == null){

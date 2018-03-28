@@ -15,11 +15,12 @@ import com.mycompany.sportstatsveiret.Season;
  * @author Veiret
  */
 public class AddSeasonToLeagueService extends Service{
-    private final Season season;
+    private final int seasonYear;
     private final Long leagueId;
-    public AddSeasonToLeagueService(Season season, Long leagueId){
-        this.season = season;
-        if (season == null){
+    
+    public AddSeasonToLeagueService(int seasonYear, Long leagueId){
+        this.seasonYear = seasonYear;
+        if (seasonYear < 1){
             throw new ServiceException("Season is null");
         }
         this.leagueId = leagueId;
@@ -27,15 +28,23 @@ public class AddSeasonToLeagueService extends Service{
             throw new ServiceException("League id is null");
         }
     }
-    public Boolean execute() {
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Season execute() {
         BrokerFactory brokerFactory = getBrokerFactory();
+        Season season = brokerFactory.getSeasonBroker().create();
+        season.setYear(seasonYear);
         League league = brokerFactory.getLeagueBroker().findLeagueById(leagueId);
         if (league == null) {
             throw new ServiceException("No league with that ID");
         }
         league.addSeason(season);
         brokerFactory.getSeasonBroker().saveSeaon(season);
-        return true;
+        return season;
     }
     
 }

@@ -23,13 +23,19 @@ public class AddSportServiceIT {
 
     @Test
     public void testExecute() {
-        AddSportService instance = new AddSportService("TestAddSportService");
+        /**AddSportService instance = new AddSportService("TestAddSportService");
         instance.init(new BrokerFactory());
         Sport sport = instance.execute();
         assertNotNull(sport);
         DbConn.staticOpen();
         sport.getDao().delete();
-        DbConn.staticClose();
+        DbConn.staticClose();*/
+        try{
+           ServiceRunner runner = new ServiceRunner(new AddSportService(null));
+            System.out.println("ADD SPORT: " + runner.execute());
+        }catch(Exception e){
+            e.getMessage();
+        }
     }
     
 }

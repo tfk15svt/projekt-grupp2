@@ -30,6 +30,12 @@ public class ConnectTeamToSeasonService extends Service {
             throw new ServiceException("Season Id is null");
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public Boolean execute(){
         BrokerFactory brokerFactory = getBrokerFactory();
         TeamsSeasonsDao teamSeason = brokerFactory.getTeamSeasonBroker().create();
