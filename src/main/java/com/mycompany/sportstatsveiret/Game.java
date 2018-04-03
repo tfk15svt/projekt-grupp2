@@ -9,6 +9,7 @@ import DAO.ArenaDao;
 import DAO.GameDao;
 import DAO.ResultDao;
 import DAO.TeamDao;
+import java.util.Date;
 import org.javalite.activejdbc.Model;
 
 /**
@@ -55,5 +56,12 @@ public class Game {
     public Arena getArena(){
         return new Arena (dao.parent(ArenaDao.class));
     }
-    
+    public void setDate(Date date) {
+        dao.set("date", date.getTime());
+    }
+    public Date getDate() {
+        Date date = new Date();
+        date.setTime((long) dao.get("date"));
+        return date;
+    }
 }
