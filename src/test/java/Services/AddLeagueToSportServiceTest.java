@@ -26,7 +26,6 @@ import static org.mockito.Mockito.when;
  */
 public class AddLeagueToSportServiceTest {
     private League league;
-    private DbConn dbConn;
     private BrokerFactory brokerFactory;
     private SportBroker sportBroker;
     private LeagueBroker leagueBroker;
@@ -34,7 +33,6 @@ public class AddLeagueToSportServiceTest {
     @Before
     public void setUpMockClasses(){
         league = mock(League.class);
-        dbConn = mock(DbConn.class);
         brokerFactory = mock(BrokerFactory.class);
         sportBroker = mock(SportBroker.class);
         leagueBroker = mock(LeagueBroker.class);

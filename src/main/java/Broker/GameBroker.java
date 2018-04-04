@@ -15,7 +15,10 @@ import Domain.Game;
  * @author Simon
  */
 public class GameBroker {
-    
+    public void saveGame(Game game){
+        GameDao gameDao = game.getDao();
+        gameDao.save();
+    }
     /**
      *
      * @return
