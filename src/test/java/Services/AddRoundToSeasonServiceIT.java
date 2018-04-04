@@ -37,11 +37,11 @@ public class AddRoundToSeasonServiceIT {
     public static void setUpClass() {
         DbConn.staticOpen();
         sport = new Sport();
-        sport.setName("testAddRoundSport6");
+        sport.setName("testAddRoundSport7");
         sport.getDao().save();
         
         league = new League();
-        league.setName("testAddRoundLeague6");
+        league.setName("testAddRoundLeague7");
         league.setSport(sport);
         league.getDao().save();
         
