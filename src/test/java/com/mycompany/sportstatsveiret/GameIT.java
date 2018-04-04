@@ -32,14 +32,14 @@ public class GameIT {
         System.out.println("setName");
         String name = "";
         Game instance = new Game();
-        instance.setNumber(name);
+        //instance.setNumber(name);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
      * Test of getName method, of class Game.
-     */
+     
     @Test
     public void testGetName() {
         System.out.println("getName");
@@ -50,7 +50,7 @@ public class GameIT {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+*/
     /**
      * Test of setResult method, of class Game.
      */
