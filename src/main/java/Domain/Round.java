@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.GameDao;
 import DAO.RoundDao;
+import DAO.SeasonDao;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,5 +27,28 @@ public class Round {
         return dao.getAll(GameDao.class).stream()
                 .map(dao -> new Game(dao))
                 .collect(Collectors.toList());
+    }
+    
+    public Long getId(){
+        return dao.getLongId();
+    }
+    
+    public RoundDao getDao(){
+        return dao;
+    }
+    
+    public void setRoundNumber(int roundNumber){
+        dao.setInteger("number", roundNumber);
+    }
+    
+    public int getRoundNumber(){
+        return dao.getInteger("number");
+    }
+    
+    public void setSeason(Season season){
+        dao.setParent(season.getDao());
+    }
+    public Season getSeason(){
+        return new Season(dao.parent(SeasonDao.class));
     }
 }

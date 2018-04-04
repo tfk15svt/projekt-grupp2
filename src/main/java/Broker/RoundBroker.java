@@ -5,7 +5,10 @@
  */
 package Broker;
 
-import com.mycompany.sportstatsveiret.Round;
+import DAO.ArenaDao;
+import DAO.RoundDao;
+import Domain.Arena;
+import Domain.Round;
 
 /**
  *
@@ -19,5 +22,9 @@ public class RoundBroker {
      */
     public Round create(){
         return new Round();
+    }
+    
+    public Round findById(Long roundId){
+        return new Round(RoundDao.findById(roundId));
     }
 }

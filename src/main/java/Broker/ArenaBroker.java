@@ -6,7 +6,7 @@
 package Broker;
 
 import DAO.ArenaDao;
-import com.mycompany.sportstatsveiret.Arena;
+import Domain.Arena;
 
 /**
  *

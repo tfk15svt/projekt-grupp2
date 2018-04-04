@@ -10,8 +10,8 @@ import Broker.LeagueBroker;
 import DAO.LeagueDao;
 import DAO.SeasonDao;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Season;
+import Domain.League;
+import Domain.Season;
 import java.util.List;
 import java.util.stream.Collectors;
 

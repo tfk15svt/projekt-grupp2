@@ -5,7 +5,9 @@
  */
 package Broker;
 
-import com.mycompany.sportstatsveiret.Game;
+import DAO.GameDao;
+import Domain.Game;
+
 
 
 /**
@@ -20,5 +22,9 @@ public class GameBroker {
      */
     public Game create(){
         return new Game();
+    }
+    
+    public Game findById(Long id){
+        return new Game(GameDao.findById(id));
     }
 }

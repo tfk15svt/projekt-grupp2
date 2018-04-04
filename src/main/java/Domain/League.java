@@ -1,4 +1,4 @@
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.LeagueDao;
 import DAO.SeasonDao;

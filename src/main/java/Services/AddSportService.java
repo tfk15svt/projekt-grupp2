@@ -8,7 +8,7 @@ package Services;
 import Broker.BrokerFactory;
 import Broker.SportBroker;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.Sport;
 
 /**
  *

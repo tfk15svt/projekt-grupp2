@@ -5,6 +5,7 @@
  */
 package com.mycompany.sportstatsveiret;
 
+import Domain.Season;
 import DAO.SeasonDao;
 import org.junit.After;
 import org.junit.AfterClass;

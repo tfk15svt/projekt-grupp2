@@ -8,8 +8,8 @@ package oldServices;
 import Broker.BrokerFactory;
 import DAO.SportDao;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.Sport;
-import com.mycompany.sportstatsveiret.Team;
+import Domain.Sport;
+import Domain.Team;
 
 /**
  *

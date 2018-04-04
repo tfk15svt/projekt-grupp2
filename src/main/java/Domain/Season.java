@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.SeasonDao;
 import com.fasterxml.jackson.annotation.JsonIgnore;

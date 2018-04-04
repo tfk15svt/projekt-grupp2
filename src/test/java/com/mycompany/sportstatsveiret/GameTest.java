@@ -5,6 +5,10 @@
  */
 package com.mycompany.sportstatsveiret;
 
+import Domain.Team;
+import Domain.Arena;
+import Domain.Game;
+import Domain.Result;
 import DAO.ArenaDao;
 import DAO.GameDao;
 import DAO.ResultDao;

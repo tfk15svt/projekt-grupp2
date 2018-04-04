@@ -7,8 +7,8 @@ package Services;
 
 import Broker.BrokerFactory;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Season;
+import Domain.League;
+import Domain.Season;
 
 /**
  *

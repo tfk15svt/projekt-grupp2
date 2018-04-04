@@ -1,7 +1,7 @@
 package Broker;
 
 import DAO.SeasonDao;
-import com.mycompany.sportstatsveiret.Season;
+import Domain.Season;
 
 /**
  *

@@ -11,10 +11,10 @@ import DAO.TeamDao;
 import DAO.TeamsSeasonsDao;
 import DB.DbConn;
 import Services.ConnectTeamToSeasonService;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Season;
-import com.mycompany.sportstatsveiret.Sport;
-import com.mycompany.sportstatsveiret.Team;
+import Domain.League;
+import Domain.Season;
+import Domain.Sport;
+import Domain.Team;
 
 /**
  *

@@ -7,8 +7,8 @@ package Broker;
 
 import DAO.LeagueDao;
 import DAO.SportDao;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.League;
+import Domain.Sport;
 import java.util.List;
 import java.util.stream.Collectors;
 
