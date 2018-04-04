@@ -9,9 +9,9 @@ import Broker.BrokerFactory;
 import DAO.GameDao;
 import DAO.RoundDao;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Season;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.League;
+import Domain.Season;
+import Domain.Sport;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,11 +37,11 @@ public class AddRoundToSeasonServiceIT {
     public static void setUpClass() {
         DbConn.staticOpen();
         sport = new Sport();
-        sport.setName("testAddRoundSport3");
+        sport.setName("testAddRoundSport6");
         sport.getDao().save();
         
         league = new League();
-        league.setName("testAddRoundLeague3");
+        league.setName("testAddRoundLeague6");
         league.setSport(sport);
         league.getDao().save();
         
@@ -54,15 +54,7 @@ public class AddRoundToSeasonServiceIT {
     
     @AfterClass
     public static void tearDownClass() {
-        for (GameDao game :theTwoGames){
-            game.delete();
-        }
-        for (GameDao game :theFourGames){
-            game.delete();
-        }
-        for (RoundDao round :allRounds){
-            round.delete();
-        }
+        
         season.getDao().delete();
         league.getDao().delete();
         sport.getDao().delete();
@@ -88,7 +80,15 @@ public class AddRoundToSeasonServiceIT {
         assertEquals(allRounds.size(), 2);
         assertEquals(theTwoGames.size(), 2);
         assertEquals(theFourGames.size(), 4);
-        
+     for (GameDao game :theTwoGames){
+            game.delete();
+        }
+        for (GameDao game :theFourGames){
+            game.delete();
+        }
+        for (RoundDao round :allRounds){
+            round.delete();
+        }   
     }
     
 }

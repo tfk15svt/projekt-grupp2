@@ -7,9 +7,9 @@ package Services;
 
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
-import com.mycompany.sportstatsveiret.Game;
-import com.mycompany.sportstatsveiret.Round;
-import com.mycompany.sportstatsveiret.Season;
+import Domain.Game;
+import Domain.Round;
+import Domain.Season;
 
 /**
  *
@@ -50,7 +50,7 @@ public class AddRoundToSeasonService extends Service{
             throw new ServiceException("All rounds created");
         }
         round.setSeason(season);
-        round.setNumber(numberOfRoundsInSeason + 1);
+        round.setRoundNumber(numberOfRoundsInSeason + 1);
         round.getDao().save();
         for(int i = 0; i < numberOfGames; i++){
             Game game = getBrokerFactory().getGameBroker().create();

@@ -51,4 +51,9 @@ public class Round {
     public Season getSeason(){
         return new Season(dao.parent(SeasonDao.class));
     }
+
+    public void addGame(Game game) {
+        game.getDao().setParent(dao);
+    }
+    
 }
