@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.ResultDao;
 import org.javalite.activejdbc.Model;
@@ -44,4 +44,7 @@ public class Result {
     public Integer getAwayScore(){
         return dao.getInteger("awayScore");
     }
+//    public void setGame(Game game){
+//        dao.add(game.getDao());
+//    }
 }

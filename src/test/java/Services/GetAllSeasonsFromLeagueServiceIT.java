@@ -7,9 +7,9 @@ package Services;
 
 import Broker.BrokerFactory;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.League;
-import com.mycompany.sportstatsveiret.Season;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.League;
+import Domain.Season;
+import Domain.Sport;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;

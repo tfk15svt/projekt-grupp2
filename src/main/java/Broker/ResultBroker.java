@@ -5,7 +5,7 @@
  */
 package Broker;
 
-import com.mycompany.sportstatsveiret.Result;
+import Domain.Result;
 
 /**
  *

@@ -8,7 +8,7 @@ package Services;
 import Broker.BrokerFactory;
 import DAO.SportDao;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.Sport;
 import java.util.List;
 import java.util.stream.Collectors;
 

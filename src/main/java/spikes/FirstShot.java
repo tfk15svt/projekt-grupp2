@@ -2,7 +2,7 @@ package spikes;
 
 import Services.GetAllSportService;
 import Services.ServiceRunner;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.Sport;
 import java.util.List;
 import org.javalite.activejdbc.Base;
 

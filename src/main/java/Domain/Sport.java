@@ -1,4 +1,4 @@
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.SportDao;
 import com.fasterxml.jackson.annotation.JsonIgnore;

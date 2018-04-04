@@ -9,8 +9,8 @@ import Broker.BrokerFactory;
 import DAO.TeamDao;
 import DAO.TeamsSeasonsDao;
 import DB.DbConn;
-import com.mycompany.sportstatsveiret.Season;
-import com.mycompany.sportstatsveiret.Team;
+import Domain.Season;
+import Domain.Team;
 
 /**
  *

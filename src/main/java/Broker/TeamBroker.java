@@ -6,7 +6,7 @@
 package Broker;
 
 import DAO.TeamDao;
-import com.mycompany.sportstatsveiret.Team;
+import Domain.Team;
 
 /**
  *

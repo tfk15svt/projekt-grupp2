@@ -2,11 +2,12 @@ package Broker;
 
 import DAO.RoundDao;
 import DAO.SeasonDao;
+
 import com.mycompany.sportstatsveiret.Round;
-import com.mycompany.sportstatsveiret.Season;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import Domain.Season;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author Veiret
@@ -26,4 +27,5 @@ public class SeasonBroker {
     public Season create(){
         return new Season();
     }
+    
 }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.sportstatsveiret;
 
+import Domain.Arena;
 import DAO.ArenaDao;
 import org.junit.After;
 import org.junit.AfterClass;

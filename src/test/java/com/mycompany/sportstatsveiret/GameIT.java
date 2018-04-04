@@ -5,6 +5,10 @@
  */
 package com.mycompany.sportstatsveiret;
 
+import Domain.Team;
+import Domain.Arena;
+import Domain.Game;
+import Domain.Result;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;

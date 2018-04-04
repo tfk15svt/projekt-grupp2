@@ -5,6 +5,7 @@
  */
 package com.mycompany.sportstatsveiret;
 
+import Domain.League;
 import DAO.LeagueDao;
 import DAO.SeasonDao;
 import java.util.List;

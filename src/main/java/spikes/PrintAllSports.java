@@ -8,7 +8,7 @@ package spikes;
 import DAO.SportDao;
 import DB.DbConn;
 import Services.GetAllSportService;
-import com.mycompany.sportstatsveiret.Sport;
+import Domain.Sport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

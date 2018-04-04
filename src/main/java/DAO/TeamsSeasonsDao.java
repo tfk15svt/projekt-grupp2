@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import com.mycompany.sportstatsveiret.Season;
-import com.mycompany.sportstatsveiret.Team;
+import Domain.Season;
+import Domain.Team;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 

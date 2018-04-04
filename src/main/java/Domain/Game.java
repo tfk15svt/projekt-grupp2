@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
 import DAO.ArenaDao;
 import DAO.GameDao;
 import DAO.ResultDao;
+import DAO.RoundDao;
 import DAO.TeamDao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
@@ -25,8 +26,15 @@ public class Game {
     public Game(GameDao dao){
         this.dao = dao;
     }
+    public void setName(String name){
+        dao.setString("name", name);
+    }
+    public String getName(){
+        return dao.getString("name");
+    }
     public void setResult(Result result){
-        dao.setParent(result.getDao());
+        ResultDao resultDao = result.getDao();
+        resultDao.setParent(dao);
     }
     public Result getResult(){
         return new Result(dao.parent(ResultDao.class));
@@ -58,6 +66,13 @@ public class Game {
         Date date = new Date();
         date.setTime((long) dao.get("date"));
         return date;
+    }
+    public void setRound(Round round){
+        dao.setParent(round.getDao());
+    }
+    
+    public Round getRound(){
+        return new Round(dao.parent(RoundDao.class));
     }
     @JsonIgnore
     public GameDao getDao(){
