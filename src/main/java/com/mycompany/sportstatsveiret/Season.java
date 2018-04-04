@@ -48,4 +48,12 @@ public class Season {
     public Long getId() {
         return dao.getLongId();
     }
+    @JsonIgnore
+    public void setMaxRounds (long rounds) {
+        dao.set("maxround", rounds);
+    }
+    @JsonIgnore
+    public Long getMaxRounds() {
+        return dao.getLong("maxround");
+    }
 }

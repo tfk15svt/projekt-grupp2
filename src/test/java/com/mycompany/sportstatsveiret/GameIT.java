@@ -32,7 +32,7 @@ public class GameIT {
         System.out.println("setName");
         String name = "";
         Game instance = new Game();
-        instance.setName(name);
+        instance.setNumber(name);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -45,7 +45,7 @@ public class GameIT {
         System.out.println("getName");
         Game instance = new Game();
         String expResult = "";
-        String result = instance.getName();
+        String result = instance.getNumber();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

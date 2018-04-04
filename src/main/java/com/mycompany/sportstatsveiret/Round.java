@@ -22,9 +22,24 @@ public class Round {
     public Round(RoundDao dao){
         this.dao = dao;
     }
+    public void setSeason (Season season) {
+        dao.setParent(season.getDao());
+    }
+    public void addGame(Game game) {
+        game.getDao().setParent(dao);
+    }
     public List<Game> getGames() {
         return dao.getAll(GameDao.class).stream()
                 .map(dao -> new Game(dao))
                 .collect(Collectors.toList());
+    }
+    public void setNumber(int i){
+        dao.set("number", i);
+    }
+    public int getNumber(){
+        return dao.getInteger("number");
+    }
+    public RoundDao getDao() {
+        return dao;
     }
 }

@@ -9,6 +9,7 @@ import DAO.ArenaDao;
 import DAO.GameDao;
 import DAO.ResultDao;
 import DAO.TeamDao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import org.javalite.activejdbc.Model;
 
@@ -23,12 +24,6 @@ public class Game {
     }
     public Game(GameDao dao){
         this.dao = dao;
-    }
-    public void setName(String name){
-        dao.setString("name", name);
-    }
-    public String getName(){
-        return dao.getString("name");
     }
     public void setResult(Result result){
         dao.setParent(result.getDao());
@@ -63,5 +58,9 @@ public class Game {
         Date date = new Date();
         date.setTime((long) dao.get("date"));
         return date;
+    }
+    @JsonIgnore
+    public GameDao getDao(){
+        return dao;
     }
 }
