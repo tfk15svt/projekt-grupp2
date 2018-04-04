@@ -3,7 +3,7 @@ package Broker;
 import DAO.RoundDao;
 import DAO.SeasonDao;
 
-import com.mycompany.sportstatsveiret.Round;
+import Domain.Round;
 import java.util.List;
 import java.util.stream.Collectors;
 import Domain.Season;
