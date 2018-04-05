@@ -79,4 +79,16 @@ public class Game {
         return dao;
     }
     
+    public void setSpectators(int spectators) throws IllegalArgumentException{
+       if(spectators < 0 || spectators > 100000){
+           throw new IllegalArgumentException("Negative number entered or to high number entered.");
+        }
+        else
+            dao.setInteger("spectators" , spectators);
+    }
+    
+    public int getSpectators(){
+       return dao.getInteger("spectators");
+    }
+    
 }

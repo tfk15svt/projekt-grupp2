@@ -33,7 +33,7 @@ public class ArenaTest {
         System.out.println("getName");
         Arena instance = new Arena(dao);
         String expResult = "Testnamn";
-        String result = instance.getName();
+        String result = instance.getArenaName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         
