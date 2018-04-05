@@ -25,7 +25,10 @@ public class Arena {
     public ArenaDao getDao() {
         return dao;
     }
-    public String getName(){
+    public void setArenaName(String arenaName){
+        dao.setString("name", arenaName);
+    }
+    public String getArenaName(){
         return dao.getString("name");
     }
     public Team getTeam(){
