@@ -5,8 +5,12 @@
  */
 package Broker;
 
+import DAO.GameDao;
 import DAO.TeamDao;
+import Domain.Game;
 import Domain.Team;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -21,5 +25,13 @@ public class TeamBroker {
     }
     public Team create(){
         return new Team();
+    }
+    
+    public List<Game> getAllGamesForOneTeam(Long teamId){
+        TeamDao teamDao = TeamDao.findById(teamId);
+        List<Game> listOfGames = teamDao.getAll(GameDao.class).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+        return listOfGames;
     }
 }

@@ -6,7 +6,10 @@
 package Broker;
 
 import DAO.GameDao;
+import DAO.TeamDao;
 import Domain.Game;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 
@@ -30,4 +33,6 @@ public class GameBroker {
     public Game findById(Long id){
         return new Game(GameDao.findById(id));
     }
+    
+
 }
