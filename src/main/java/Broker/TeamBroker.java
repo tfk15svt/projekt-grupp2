@@ -42,4 +42,19 @@ public class TeamBroker {
         
         return listOfGames;
     }
+    
+     public List<Game> getAllGamesForHomeTeam(Long teamId){
+        List<Game> logH = GameDao.find("home_team_id=?", teamId).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+        return logH;
+    }
+     
+      public List<Game> getAllGamesForAwayTeam(Long teamId){
+        List<Game> logA = GameDao.find("away_team_id=?", teamId).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+    
+        return logA;
+    }
 }
