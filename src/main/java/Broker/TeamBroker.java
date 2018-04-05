@@ -11,6 +11,7 @@ import Domain.Game;
 import Domain.Team;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -28,10 +29,17 @@ public class TeamBroker {
     }
     
     public List<Game> getAllGamesForOneTeam(Long teamId){
-        TeamDao teamDao = TeamDao.findById(teamId);
-        List<Game> listOfGames = teamDao.getAll(GameDao.class).stream()
+        
+        List<Game> logH = GameDao.find("home_team_id=?", teamId).stream()
                 .map(gameDao -> new Game((GameDao) gameDao))
                 .collect(Collectors.toList());
+        
+        List<Game> logA = GameDao.find("away_team_id=?", teamId).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+        
+        List<Game> listOfGames = Stream.concat(logH.stream(), logA.stream()).collect(Collectors.toList());
+        
         return listOfGames;
     }
 }
