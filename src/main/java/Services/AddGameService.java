@@ -44,16 +44,20 @@ public class AddGameService extends Service{
         Round round = getBrokerFactory().getRoundBroker().findById(roundId);
         if (round == null)
             throw new ServiceException("No round with that Id");
-        game.setRound(round);
+        else
+            game.setRound(round);
         Team homeTeam;
         Team awayTeam;
-        if (homeTeamId == null || awayTeamId == null){
+        if (homeTeamId != null || awayTeamId != null){
             homeTeam = getBrokerFactory().getTeamBroker().findTeamById(homeTeamId);
             awayTeam = getBrokerFactory().getTeamBroker().findTeamById(awayTeamId);
             if (homeTeam == null || awayTeam == null)
                 throw new ServiceException("No team with that Id");
-            game.setHomeTeam(homeTeam);
-            game.setAwayTeam(awayTeam);
+            else
+            {
+                game.setHomeTeam(homeTeam);
+                game.setAwayTeam(awayTeam);
+            }
         }
         getBrokerFactory().getGameBroker().saveGame(game);
         return true;

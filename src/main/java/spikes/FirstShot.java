@@ -1,11 +1,18 @@
 package spikes;
 
+import Broker.BrokerFactory;
 import Domain.Game;
+import Domain.Result;
 import Services.GetAllSportService;
 import Services.ServiceRunner;
 import Domain.Sport;
+import Services.AddGameService;
+import Services.AddResultToGameService;
 import Services.GetTeamsMatchHistoryService;
+import Services.Service;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.javalite.activejdbc.Base;
 
 /**
@@ -38,8 +45,19 @@ public class FirstShot {
 //            ServiceRunner runner = new ServiceRunner(new GetAllSportService());
 //            System.out.println("sSPORTEEEEER: " + runner.execute());
 //        
+//        Result result = new Result();
+//        try {
+//            result.setAwayScore(1);
+//            result.setHomeScore(1);
+//        } catch (Exception ex) {
+//            Logger.getLogger(FirstShot.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        ResultBroker rb = new ResultBroker();
+//        rb.saveResult(result);
         
+        new ServiceRunner<>(new AddResultToGameService(1, 1, 22L)).execute();
         
+//        new ServiceRunner<>(new AddGameService(3L, 1L, 2L)).execute();
         List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
     }
 

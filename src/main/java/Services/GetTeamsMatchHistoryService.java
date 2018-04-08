@@ -47,8 +47,8 @@ public class GetTeamsMatchHistoryService extends Service{
         for (int x = 0; x < listOfGames.size(); x++)
         {
             String outString = "Game " + x + " - " + ", Round: " + listOfGames.get(x).getRound().getId();
+            //            if (rb.findByGame(listOfGames.get(x).getId()) != null)
             if (listOfGames.get(x).getResult() != null)
-//            if (rb.findByGame(listOfGames.get(x).getId()) != null)
                 outString += "Home team: " + listOfGames.get(x).getResult().getHomeScore() + " " + listOfGames.get(x).getHomeTeam().getName() + ", Away team: " +  listOfGames.get(x).getAwayTeam().getName() + " " + listOfGames.get(x).getResult().getHomeScore();
             if (listOfGames.get(x).getArena().getArenaName() != null)
                 outString += ", Arena: " + listOfGames.get(x).getArena().getArenaName();

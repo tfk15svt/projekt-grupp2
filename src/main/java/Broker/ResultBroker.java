@@ -5,6 +5,7 @@
  */
 package Broker;
 
+import DAO.ResultDao;
 import Domain.Result;
 
 /**
@@ -13,6 +14,10 @@ import Domain.Result;
  */
 public class ResultBroker {
     
+    public void saveResult(Result result){
+        ResultDao resultDao = result.getDao();
+        resultDao.save();
+    }
     /**
      *
      * @return

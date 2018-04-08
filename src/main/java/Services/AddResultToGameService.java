@@ -18,8 +18,10 @@ import java.util.logging.Logger;
  */
 public class AddResultToGameService extends Service {
 
-    private final Result result;
+    private Result result;
     private final Long gameId;
+    private int homeScore;
+    private int awayScore;
     
     public AddResultToGameService(Result result, Long gameId) {
         this.result = result;
@@ -28,6 +30,15 @@ public class AddResultToGameService extends Service {
             throw new ServiceException("Result is null");
         if (gameId == null)
             throw new ServiceException("GameId is null");
+    }
+    public AddResultToGameService(int homeScore, int awayScore, Long gameId){
+        if (gameId == null)
+            throw new ServiceException("GameId is null");
+        else{
+            this.gameId = gameId;
+        }
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
     }
 
     
@@ -38,6 +49,17 @@ public class AddResultToGameService extends Service {
         Game game = brokerFactory.getGameBroker().findById(gameId);
         if (game == null)
             throw new ServiceException("There is no game with that Id");
+        if (result == null){
+            result = brokerFactory.getResultBroker().create();
+            try {
+                result.setAwayScore(awayScore);
+                result.setHomeScore(homeScore);
+            } catch (Exception ex) {
+                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            brokerFactory.getResultBroker().saveResult(result);
+        }
+        
         game.setResult(result);
         brokerFactory.getGameBroker().saveGame(game);
         return result;
