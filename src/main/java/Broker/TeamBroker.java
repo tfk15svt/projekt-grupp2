@@ -27,6 +27,15 @@ public class TeamBroker {
     public Team create(){
         return new Team();
     }
+    public List<Game> getAllGamesForTwoTeams(Long team1Id, Long team2Id)
+    {
+        String SQLString = "SELECT * FROM games WHERE home_team_id = " + team1Id.toString() + " AND away_team_id = " + team2Id.toString() + " OR home_team_id = " + team2Id.toString() + " AND away_team_id = " + team1Id.toString();
+        List<Game> listOfGames = GameDao.findBySQL(SQLString).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+        
+        return listOfGames;
+    }
     
     public List<Game> getAllGamesForOneTeam(Long teamId){
         

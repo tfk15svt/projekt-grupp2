@@ -38,6 +38,7 @@ public class Game {
     }
     public Result getResult(){
         return new Result(dao.parent(ResultDao.class));
+//        return new Result(ResultDao.find("game_id=?", dao.getLongId()));
     }
     public void setHomeTeam(Team team){
         TeamDao teamDao = team.getDao();
@@ -66,6 +67,9 @@ public class Game {
         Date date = new Date();
         date.setTime((long) dao.get("date"));
         return date;
+    }
+    public Long getId(){
+        return dao.getLongId();
     }
     public void setRound(Round round){
         dao.setParent(round.getDao());

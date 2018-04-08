@@ -1,8 +1,10 @@
 package spikes;
 
+import Domain.Game;
 import Services.GetAllSportService;
 import Services.ServiceRunner;
 import Domain.Sport;
+import Services.GetTeamsMatchHistoryService;
 import java.util.List;
 import org.javalite.activejdbc.Base;
 
@@ -31,11 +33,14 @@ public class FirstShot {
 
         //System.out.println("hej");
         //close();
-        System.out.println("HEJ");
+//        System.out.println("HEJ");
+//        
+//            ServiceRunner runner = new ServiceRunner(new GetAllSportService());
+//            System.out.println("sSPORTEEEEER: " + runner.execute());
+//        
         
-            ServiceRunner runner = new ServiceRunner(new GetAllSportService());
-            System.out.println("sSPORTEEEEER: " + runner.execute());
         
+        List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
     }
 
     public static void open() {
