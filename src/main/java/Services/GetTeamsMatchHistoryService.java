@@ -12,6 +12,8 @@ import Broker.ResultBroker;
 import Domain.Game;
 import Domain.Team;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,16 +44,33 @@ public class GetTeamsMatchHistoryService extends Service{
             throw new ServiceException("id not found.");
         }
         List<Game> listOfGames = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(team1Id, team2Id);
-        BrokerFactory brokerFactory = getBrokerFactory();
-        ResultBroker rb = brokerFactory.getResultBroker();
+        System.out.println(listOfGames.get(0).getId());
+//        BrokerFactory brokerFactory = getBrokerFactory();
+//        ResultBroker rb = brokerFactory.getResultBroker();
         for (int x = 0; x < listOfGames.size(); x++)
         {
-            String outString = "Game " + x + " - " + ", Round: " + listOfGames.get(x).getRound().getId();
-            //            if (rb.findByGame(listOfGames.get(x).getId()) != null)
-            if (listOfGames.get(x).getResult() != null)
+            String outString = "Game " + x + " - " + ", Round: " + listOfGames.get(x).getRound().getId() + ", ";
+            try{
                 outString += "Home team: " + listOfGames.get(x).getResult().getHomeScore() + " " + listOfGames.get(x).getHomeTeam().getName() + ", Away team: " +  listOfGames.get(x).getAwayTeam().getName() + " " + listOfGames.get(x).getResult().getHomeScore();
-            if (listOfGames.get(x).getArena().getArenaName() != null)
+            } catch(Exception ex) {
+                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try{
                 outString += ", Arena: " + listOfGames.get(x).getArena().getArenaName();
+            } catch(Exception ex) {
+                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try{
+                outString += ", Date: " + listOfGames.get(x).getDate().toString();
+            } catch(Exception ex) {
+                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try{
+                outString += ", Spectators: " + (listOfGames.get(x).getSpectators().toString());
+            } catch(Exception ex) {
+                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             
             System.out.println(outString);
         }
