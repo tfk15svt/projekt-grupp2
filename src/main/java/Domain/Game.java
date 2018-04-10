@@ -37,9 +37,11 @@ public class Game {
     public void setResult(Result result){
         ResultDao resultDao = result.getDao();
         resultDao.setParent(dao);
+        resultDao.save();
     }
     public Result getResult(){
-        return new Result(dao.parent(ResultDao.class));
+//        return new Result(dao.parent(ResultDao.class));
+        return new Result(dao.getAll(ResultDao.class).get(0));
     }
     public void setHomeTeam(Team team){
         TeamDao teamDao = team.getDao();
@@ -67,6 +69,9 @@ public class Game {
     public Long getDate() {
         return dao.getLong("date");
     }
+    public Long getId(){
+        return dao.getLongId();
+    }
     public void setRound(Round round){
         dao.setParent(round.getDao());
     }
@@ -87,7 +92,7 @@ public class Game {
             dao.setInteger("spectators" , spectators);
     }
     
-    public int getSpectators(){
+    public Integer getSpectators(){
        return dao.getInteger("spectators");
     }
 }

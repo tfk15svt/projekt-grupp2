@@ -44,6 +44,9 @@ public class Result {
     public Integer getAwayScore(){
         return dao.getInteger("awayScore");
     }
+    public Long getGameId(){
+        return dao.getLong("game_id");
+    }
 //    public void setGame(Game game){
 //        dao.add(game.getDao());
 //    }

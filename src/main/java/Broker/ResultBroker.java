@@ -7,7 +7,6 @@ package Broker;
 
 import DAO.GameDao;
 import DAO.ResultDao;
-import Domain.Game;
 import Domain.Result;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +17,11 @@ import java.util.stream.Stream;
  * @author Simon
  */
 public class ResultBroker {
-
+    
+    public void saveResult(Result result){
+        ResultDao resultDao = result.getDao();
+        resultDao.save();
+    }
     /**
      *
      * @return

@@ -5,12 +5,9 @@
  */
 package Services;
 
-import Broker.BrokerFactory;
-import DAO.GameDao;
+
 import Domain.Game;
 import Domain.Result;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
