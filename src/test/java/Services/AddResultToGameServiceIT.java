@@ -17,6 +17,8 @@ import Domain.Season;
 import Domain.Sport;
 import Domain.Team;
 import Services.ServiceRunner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -56,13 +58,14 @@ public class AddResultToGameServiceIT {
         season = new Season();
         round = new Round();
         league = new League();
+        
             
-            sport.setName("sporttest");
+            sport.setName("sporttest551221");
             sport.getDao().save();
             
             
             league.setSport(sport);
-            league.setName("leaguetest");
+            league.setName("leaguetest551221");
             league.getDao().save();
 
             season.setSummer(Boolean.TRUE);
@@ -71,7 +74,7 @@ public class AddResultToGameServiceIT {
             league.addSeason(season);
             season.getDao().save();
             
-            team.setName("teamtest");
+            team.setName("teamtest551221");
             team.setSport(sport);
             team.getDao().save();
 
@@ -86,6 +89,7 @@ public class AddResultToGameServiceIT {
             game.setAwayTeam(team);
             game.setHomeTeam(team);
             game.setRound(round);
+            game.setDate(20180410L);
             game.getDao().save();
             gameId = game.getDao().getLongId();
 
