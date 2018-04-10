@@ -36,7 +36,7 @@ public class GetTeamsMatchHistoryService extends Service{
      */
     @Override
     public List<Game> execute(){
-        if(getBrokerFactory().getTeamBroker().findTeamById(team1Id) == null || getBrokerFactory().getTeamBroker().findTeamById(team2Id) == null){
+        if(getBrokerFactory().getTeamBroker().findTeamById(team1Id) == null && getBrokerFactory().getTeamBroker().findTeamById(team2Id) == null){
             throw new ServiceException("id not found.");
         }
         List<Game> listOfGames = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(team1Id, team2Id);
