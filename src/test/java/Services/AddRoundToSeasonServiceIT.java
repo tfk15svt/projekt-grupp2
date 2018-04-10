@@ -67,9 +67,9 @@ public class AddRoundToSeasonServiceIT {
     @Test
     public void testExecute() {
         System.out.println("execute");
-        AddRoundToSeasonService serviceTwoRounds = new AddRoundToSeasonService(seasonId, 2L);
+        AddRoundToSeasonService serviceTwoRounds = new AddRoundToSeasonService(seasonId, 2);
         serviceTwoRounds.init(new BrokerFactory());
-        AddRoundToSeasonService serviceFourRounds = new AddRoundToSeasonService(seasonId, 4L);
+        AddRoundToSeasonService serviceFourRounds = new AddRoundToSeasonService(seasonId, 4);
         serviceFourRounds.init(new BrokerFactory());
         serviceTwoRounds.execute();
         serviceFourRounds.execute();
