@@ -5,6 +5,8 @@
  */
 package Services;
 
+import DAO.GameDao;
+import Domain.Game;
 import Domain.Result;
 import Domain.Team;
 
@@ -13,26 +15,28 @@ import Domain.Team;
  * @author Simon
  */
 public class GetBiggestWinLoseForTwoTeamsService extends Service{
-    private Team team1;
-    private Team team2;
+    private final Long teamId1;
+    private final Long teamId2;
 
-    public GetBiggestWinLoseForTwoTeamsService(Team team1, Team team2) {
-        this.team1 = team1;
-        this.team2 = team2;
+    public GetBiggestWinLoseForTwoTeamsService(Long teamId1, Long teamId2) {
+        this.teamId1 = teamId1;
+        this.teamId2 = teamId2;
         
-        if(team1 == null){
+        if(teamId1 == null){
             throw new ServiceException("team can not be null");
         }
-        if(team2 == null){
+        if(teamId2 == null){
             throw new ServiceException("team can not be null");
         }
     }
 
     @Override
-    public Result execute() {
+    public String execute() {
+        Result result = getBrokerFactory().getResultBroker().getBiggestDifferensBetweenTwoTeams(teamId1, teamId2);
+        GameDao gameDao = result.getDao().parent(GameDao.class);
+        Game game = getBrokerFactory().getGameBroker().create(gameDao);
         
-        //return result;
-        return null;
+        return "" + game.getHomeTeam().getName() + " " + result.getHomeScore() + " - " + result.getAwayScore() + " " + game.getAwayTeam().getName() ;
     }
     
     
