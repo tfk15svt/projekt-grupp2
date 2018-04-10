@@ -8,6 +8,8 @@ package Broker;
 import DAO.GameDao;
 import DAO.TeamDao;
 import Domain.Game;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,5 +36,11 @@ public class GameBroker {
         return new Game(GameDao.findById(id));
     }
     
-
+    public List<Game> findGamesByDate(Long date){
+        List<Game> listOfGames = GameDao.find("date=?", date).stream()
+                .map(gameDao -> new Game((GameDao) gameDao))
+                .collect(Collectors.toList());
+                
+        return listOfGames;
+    }
 }

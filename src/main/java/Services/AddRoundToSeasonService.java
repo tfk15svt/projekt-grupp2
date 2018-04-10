@@ -17,10 +17,10 @@ import Domain.Season;
  */
 public class AddRoundToSeasonService extends Service{
     private final Long seasonId;
-    private final Long numberOfGames;
+    private final Integer numberOfGames;
     private Long maxRoundsInSeason;
     private int numberOfRoundsInSeason;
-    public AddRoundToSeasonService (Long seasonId, Long numberOfGames) {
+    public AddRoundToSeasonService (Long seasonId, Integer numberOfGames) {
         this.seasonId = seasonId;
         if (seasonId == null) {
             throw new ServiceException("Season id is null");

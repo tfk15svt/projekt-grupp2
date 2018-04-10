@@ -18,50 +18,47 @@ import java.util.logging.Logger;
  */
 public class AddResultToGameService extends Service {
 
-    private Result result;
+    private final Integer homeScore;
+    private final Integer awayScore;
     private final Long gameId;
-    private int homeScore;
-    private int awayScore;
     
-    public AddResultToGameService(Result result, Long gameId) {
-        this.result = result;
-        this.gameId = gameId;
-        if (result == null)
-            throw new ServiceException("Result is null");
-        if (gameId == null)
-            throw new ServiceException("GameId is null");
-    }
-    public AddResultToGameService(int homeScore, int awayScore, Long gameId){
-        if (gameId == null)
-            throw new ServiceException("GameId is null");
-        else{
-            this.gameId = gameId;
-        }
+    public AddResultToGameService(Integer homeScore, Integer awayScore, Long gameId) {
         this.homeScore = homeScore;
         this.awayScore = awayScore;
+        this.gameId = gameId;
+        
+        if (homeScore < 0)
+            throw new ServiceException("Result is null");
+        
+        if (awayScore < 0)
+            throw new ServiceException("Result is null");
+        
+        if (gameId == null)
+            throw new ServiceException("GameId is null");
     }
 
     
     
     @Override
     public Result execute() {
-        BrokerFactory brokerFactory = getBrokerFactory();
-        Game game = brokerFactory.getGameBroker().findById(gameId);
-        if (game == null)
-            throw new ServiceException("There is no game with that Id");
-        if (result == null){
-            result = brokerFactory.getResultBroker().create();
+        Result result = getBrokerFactory().getResultBroker().create();
+        Game game = getBrokerFactory().getGameBroker().findById(gameId);
+        if(getBrokerFactory().getGameBroker().findById(gameId)==null){
+            throw new ServiceException("game does not exist.");
+        }
             try {
-                result.setAwayScore(awayScore);
                 result.setHomeScore(homeScore);
             } catch (Exception ex) {
-                Logger.getLogger(AddResultToGameService.class.getName()).log(Level.SEVERE, null, ex);
+                ex.getMessage();
             }
-            brokerFactory.getResultBroker().saveResult(result);
-        }
-        
-        game.setResult(result);
-        brokerFactory.getGameBroker().saveGame(game);
+            try{
+                result.setAwayScore(awayScore);
+            }catch(Exception e){
+                e.getMessage();
+            }
+            game.setResult(result);
+            getBrokerFactory().getGameBroker().saveGame(game);
+            result.getDao().save();
         return result;
     }
     

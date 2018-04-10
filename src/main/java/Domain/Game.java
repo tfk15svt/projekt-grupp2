@@ -11,6 +11,8 @@ import DAO.ResultDao;
 import DAO.RoundDao;
 import DAO.TeamDao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.javalite.activejdbc.Model;
 
@@ -61,13 +63,11 @@ public class Game {
     public Arena getArena(){
         return new Arena (dao.parent(ArenaDao.class));
     }
-    public void setDate(Date date) {
-        dao.set("date", date.getTime());
+    public void setDate(Long date) {
+        dao.set("date", date);
     }
-    public Date getDate() {
-        Date date = new Date();
-        date.setTime((long) dao.get("date"));
-        return date;
+    public Long getDate() {
+        return dao.getLong("date");
     }
     public Long getId(){
         return dao.getLongId();
@@ -95,5 +95,4 @@ public class Game {
     public Integer getSpectators(){
        return dao.getInteger("spectators");
     }
-    
 }

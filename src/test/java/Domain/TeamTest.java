@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
-import Domain.League;
-import DAO.LeagueDao;
-import DAO.SeasonDao;
-import java.util.List;
+import Domain.Team;
+import DAO.TeamDao;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,28 +20,36 @@ import static org.mockito.Mockito.when;
  *
  * @author Veiret
  */
-public class LeagueTest {
+public class TeamTest {
     
-    
-
     /**
-     * Test of getName method, of class League.
+     * Test of getName method, of class Team.
      */
     @Test
     public void testGetName() {
-        LeagueDao dao = mock(LeagueDao.class);
-        when(dao.getString("name")).thenReturn("hej");
-        
+        TeamDao dao = mock(TeamDao.class);
+        when(dao.getString("name")).thenReturn("testName");
         
         System.out.println("getName");
-        League instance = new League(dao);
-        String expResult = "hej";
+        Team instance = new Team(dao);
+        String expResult = "testName";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-
+        
     }
 
-   
+    /**
+     * Test of setString method, of class Team.
+     */
+    @Test
+    public void testSetString() {
+        TeamDao dao = mock(TeamDao.class);
+        
+        System.out.println("setString");
+        String name = "";
+        Team instance = new Team(dao);
+        instance.setName(name);
+        
+    }
     
 }

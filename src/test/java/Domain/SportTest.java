@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.sportstatsveiret;
+package Domain;
 
-import Domain.Team;
-import DAO.TeamDao;
+import Domain.Sport;
+import DAO.SportDao;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,35 +20,38 @@ import static org.mockito.Mockito.when;
  *
  * @author Veiret
  */
-public class TeamTest {
+public class SportTest {
     
     /**
-     * Test of getName method, of class Team.
+     * Test of getName method, of class Sport.
      */
     @Test
     public void testGetName() {
-        TeamDao dao = mock(TeamDao.class);
-        when(dao.getString("name")).thenReturn("testName");
+        SportDao dao = mock(SportDao.class);
+        when(dao.getString("name")).thenReturn("TestName");
         
         System.out.println("getName");
-        Team instance = new Team(dao);
-        String expResult = "testName";
+        Sport instance = new Sport(dao);
+        String expResult = "TestName";
         String result = instance.getName();
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
         
     }
 
     /**
-     * Test of setString method, of class Team.
+     * Test of setName method, of class Sport.
      */
     @Test
-    public void testSetString() {
-        TeamDao dao = mock(TeamDao.class);
+    public void testSetName() {
+        SportDao dao = mock(SportDao.class);
         
-        System.out.println("setString");
+        
+        System.out.println("setName");
         String name = "";
-        Team instance = new Team(dao);
+        Sport instance = new Sport(dao);
         instance.setName(name);
+        // TODO review the generated test code and remove the default call to fail.
         
     }
     
