@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
  * @author Veiret
  */
 public class AddRoundToSeasonServiceTest {
-    private Long nullInteger;
+    private Integer nullInteger;
     private static BrokerFactory brokerFactory;
     private static GameBroker gameBroker;
     private static RoundBroker roundBroker;
@@ -69,7 +69,7 @@ public class AddRoundToSeasonServiceTest {
     @Test
     public void testConstructor() {
         try {
-            new AddRoundToSeasonService(null, 3L);
+            new AddRoundToSeasonService(null, 3);
             fail();
         } catch (ServiceException e){
         }
@@ -77,11 +77,11 @@ public class AddRoundToSeasonServiceTest {
             new AddRoundToSeasonService(1L, nullInteger);
         } catch (ServiceException e){
         }
-        new AddRoundToSeasonService(1L, 3L);
+        new AddRoundToSeasonService(1L, 3);
     }
     @Test
     public void testInit() {
-        AddRoundToSeasonService service = new AddRoundToSeasonService(1L, 1L);
+        AddRoundToSeasonService service = new AddRoundToSeasonService(1L, 1);
         try {
             service.init(null);
             fail();
@@ -94,15 +94,9 @@ public class AddRoundToSeasonServiceTest {
      */
     @Test
     public void testExecute() {
-        AddRoundToSeasonService service = new AddRoundToSeasonService(1L, 4L);
+        AddRoundToSeasonService service = new AddRoundToSeasonService(1L, 4);
         service.init(brokerFactory);
-       // AddRoundToSeasonService service2 = new AddRoundToSeasonService(2L, 4L);
-       // service2.init(brokerFactory);
-        try {
-          //  service2.execute();
-           // fail();
-        } catch (ServiceException e) {
-        }
+       
         service.execute();
         
     }
