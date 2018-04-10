@@ -9,6 +9,7 @@ package Services;
 import Broker.BrokerFactory;
 import Broker.GameBroker;
 import Broker.ResultBroker;
+import DAO.ResultDao;
 import DB.DbConn;
 import Domain.Arena;
 import Domain.Game;
@@ -33,16 +34,26 @@ public class AddResultToGameServiceTest {
     private BrokerFactory brokerFactory;
     private GameBroker gameBroker;
     private ResultBroker resultBroker;
+    private ResultDao resultDao;
     
     @Before
     public void setUpMockClasses(){
         game = mock(Game.class);
         result = mock(Result.class);
+        try{
+            result.setAwayScore(5);
+            result.setHomeScore(7);
+        }catch(Exception e){
+            e.getMessage();
+        }
         brokerFactory = mock(BrokerFactory.class);
         gameBroker = mock(GameBroker.class);
         resultBroker = mock(ResultBroker.class);
+        resultDao = mock(ResultDao.class);
         when(brokerFactory.getGameBroker()).thenReturn(gameBroker);
         when(brokerFactory.getResultBroker()).thenReturn(resultBroker);
+        when(resultBroker.create()).thenReturn(result);
+        when(result.getDao()).thenReturn(resultDao);
         when(gameBroker.findById(1L)).thenReturn(game);
         when(gameBroker.findById(2L)).thenReturn(null);
         
@@ -54,18 +65,18 @@ public class AddResultToGameServiceTest {
     public void testConstrusctor(){
         
         try {
-            new AddResultToGameService(result, null);
+            new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), null);
             fail();
         } catch (ServiceException e){
      
         }
         try {
-            new AddResultToGameService(null, 1L);
+            new AddResultToGameService(-4, -2, 1L);
             fail();
         } catch (ServiceException e){
             
         }
-        new AddResultToGameService(result, 1L);
+        new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 1L);
     }
      /**
      * Test of init method, of class AddResultToGameService
@@ -74,7 +85,7 @@ public class AddResultToGameServiceTest {
     public void testInit() {
         System.out.println("init");
         BrokerFactory nullBrokerFactory = null;
-        AddResultToGameService instance = new AddResultToGameService(result, 1L);
+        AddResultToGameService instance = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 1L);
        
         try {
             instance.init(nullBrokerFactory);
@@ -90,8 +101,8 @@ public class AddResultToGameServiceTest {
     @Test
     public void testExecute() {
         System.out.println("execute");
-        AddResultToGameService instance = new AddResultToGameService(result, 1L);
-        AddResultToGameService instance2 = new AddResultToGameService(result, 2L);
+        AddResultToGameService instance = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 1L);
+        AddResultToGameService instance2 = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 2L);
         instance.init(brokerFactory);
         instance2.init(brokerFactory);
         try {

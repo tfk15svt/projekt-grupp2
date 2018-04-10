@@ -14,9 +14,9 @@ import java.util.List;
  *
  * @author Simon
  */
-public class GetAllGamesFromDate extends Service{
+public class GetAllGamesFromDateService extends Service{
     Long date;
-    public GetAllGamesFromDate(Long date) {
+    public GetAllGamesFromDateService(Long date) {
         this.date = date;
         if(date == null){
             throw new ServiceException("date can not be null.");

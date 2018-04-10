@@ -22,14 +22,14 @@ import static org.mockito.Mockito.*;
  *
  * @author Simon
  */
-public class GetAllGamesFromDateTest {
+public class GetAllGamesFromDateServiceTest {
     private static Game game;
     private static Long date;
     private static BrokerFactory brokerFactory;
     private static GameBroker gameBroker;
     private static List<Game> listOfGames;
     
-    public GetAllGamesFromDateTest() {
+    public GetAllGamesFromDateServiceTest() {
     }
     
     @BeforeClass
@@ -48,13 +48,13 @@ public class GetAllGamesFromDateTest {
     @Test
     public void testConstructor(){
         try{
-            new GetAllGamesFromDate(null);
+            new GetAllGamesFromDateService(null);
             fail("borde faila");
         }catch(ServiceException e){
             e.getMessage();
         }
         try{
-            new GetAllGamesFromDate(49234L);
+            new GetAllGamesFromDateService(49234L);
             fail("tar emot ogiltigt datum");
         }catch(ServiceException e){
             e.getMessage();
@@ -63,7 +63,7 @@ public class GetAllGamesFromDateTest {
     
     @Test
     public void testInit(){
-        GetAllGamesFromDate instance = new GetAllGamesFromDate(date);
+        GetAllGamesFromDateService instance = new GetAllGamesFromDateService(date);
         try{
             
             instance.init(null);
@@ -75,12 +75,12 @@ public class GetAllGamesFromDateTest {
     }
 
     /**
-     * Test of execute method, of class GetAllGamesFromDate.
+     * Test of execute method, of class GetAllGamesFromDateService.
      */
     @Test
     public void testExecute() {
         System.out.println("execute");
-        GetAllGamesFromDate instance = new GetAllGamesFromDate(date);
+        GetAllGamesFromDateService instance = new GetAllGamesFromDateService(date);
         instance.init(brokerFactory);  
         List<Game> result = instance.execute();
         assertEquals(1, result.size());

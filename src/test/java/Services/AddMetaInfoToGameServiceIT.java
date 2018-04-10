@@ -21,11 +21,11 @@ import static Services.AddResultToGameServiceIT.conn;
 import static Services.AddResultToGameServiceIT.game;
 import static Services.AddResultToGameServiceIT.gameId;
 import static Services.AddResultToGameServiceIT.league;
-import static Services.AddResultToGameServiceIT.result;
 import static Services.AddResultToGameServiceIT.round;
 import static Services.AddResultToGameServiceIT.season;
 import static Services.AddResultToGameServiceIT.sport;
-import static Services.AddResultToGameServiceIT.team;
+import static Services.AddResultToGameServiceIT.team1;
+import static Services.AddResultToGameServiceIT.team2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -76,12 +76,12 @@ public class AddMetaInfoToGameServiceIT {
         league = new League();
         
         
-        sport.setName("SportTest12");
+        sport.setName("SportTest123");
         sport.getDao().save();
             
             
         league.setSport(sport);
-        league.setName("LeagueTest12");
+        league.setName("LeagueTest123");
         league.getDao().save();
 
         season.setSummer(Boolean.TRUE);
@@ -89,7 +89,7 @@ public class AddMetaInfoToGameServiceIT {
         league.addSeason(season);
         season.getDao().save();
             
-        team.setName("TeamTest12");
+        team.setName("TeamTest122");
         team.setSport(sport);
         team.getDao().save();
 

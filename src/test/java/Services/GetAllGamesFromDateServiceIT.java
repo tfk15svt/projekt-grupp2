@@ -21,11 +21,11 @@ import static org.junit.Assert.*;
  *
  * @author Simon
  */
-public class GetAllGamesFromDateIT {
+public class GetAllGamesFromDateServiceIT {
     private static DbConn conn;
     private static Long date;
     
-    public GetAllGamesFromDateIT() {
+    public GetAllGamesFromDateServiceIT() {
     }
     
     @BeforeClass
@@ -48,7 +48,7 @@ public class GetAllGamesFromDateIT {
     }
 
     /**
-     * Test of execute method, of class GetAllGamesFromDate.
+     * Test of execute method, of class GetAllGamesFromDateService.
      */
     @Test
     public void testExecute() {
@@ -57,7 +57,7 @@ public class GetAllGamesFromDateIT {
         Game game = new Game(gd);
         game.setDate(date);
         gd.save();
-        GetAllGamesFromDate service = new GetAllGamesFromDate(date);
+        GetAllGamesFromDateService service = new GetAllGamesFromDateService(date);
         service.init(new BrokerFactory());
         List<Game> log = service.execute();
         System.out.println("LISTA OF GAMES: " + log + " - " + log.size());

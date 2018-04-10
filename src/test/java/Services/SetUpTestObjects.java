@@ -14,17 +14,7 @@ import Domain.Round;
 import Domain.Season;
 import Domain.Sport;
 import Domain.Team;
-import static Services.AddResultToGameServiceIT.arena;
-import static Services.AddResultToGameServiceIT.conn;
-import static Services.AddResultToGameServiceIT.game;
-import static Services.AddResultToGameServiceIT.gameId;
-import static Services.AddResultToGameServiceIT.league;
-import static Services.AddResultToGameServiceIT.result;
-import static Services.AddResultToGameServiceIT.round;
-import static Services.AddResultToGameServiceIT.season;
-import static Services.AddResultToGameServiceIT.sport;
-import static Services.AddResultToGameServiceIT.team;
-import java.util.Date;
+
 
 /**
  *
@@ -36,7 +26,8 @@ public class SetUpTestObjects {
     private static Game game;
     private static Sport sport;
     private static Arena arena;
-    private static Team team;
+    private static Team team1;
+    private static Team team2;
     private static Season season;
     private static Round round;
     private static League league;
@@ -47,7 +38,8 @@ public class SetUpTestObjects {
         result = new Result();
         game = new Game();
         arena = new Arena();
-        team = new Team();
+        team1 = new Team();
+        team2 = new Team();
         sport = new Sport();
         season = new Season();
         round = new Round();
@@ -66,9 +58,13 @@ public class SetUpTestObjects {
         league.addSeason(season);
         season.getDao().save();
 
-        team.setName("teamtest5512213");
-        team.setSport(sport);
-        team.getDao().save();
+        team1.setName("teamtest5512213");
+        team1.setSport(sport);
+        team1.getDao().save();
+        
+        team2.setName("teamtest55122134");
+        team2.setSport(sport);
+        team2.getDao().save();
 
         arena.getDao().save();
 
@@ -77,8 +73,8 @@ public class SetUpTestObjects {
         round.getDao().save();
 
         game.setArena(arena);
-        game.setAwayTeam(team);
-        game.setHomeTeam(team);
+        game.setAwayTeam(team1);
+        game.setHomeTeam(team2);
         game.setRound(round);
         
         game.getDao().save();
@@ -102,7 +98,8 @@ public class SetUpTestObjects {
         season.getDao().delete();
         league.getDao().delete();
         arena.getDao().delete();
-        team.getDao().delete();
+        team1.getDao().delete();
+        team2.getDao().delete();
         sport.getDao().delete();
         DbConn.staticClose();
     }

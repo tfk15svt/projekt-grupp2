@@ -7,6 +7,7 @@ package Services;
  */
 
 import Broker.BrokerFactory;
+import DAO.ResultDao;
 import DB.DbConn;
 import Domain.Arena;
 import Domain.Game;
@@ -34,11 +35,11 @@ import static org.junit.Assert.*;
  */
 public class AddResultToGameServiceIT {
     public static DbConn conn;
-    public static Result result;
     public static Game game;
     public static Round round;
     public static Arena arena;
-    public static Team team;
+    public static Team team1;
+    public static Team team2;
     public static Sport sport;
     public static Season season;
     public static League league;
@@ -50,22 +51,22 @@ public class AddResultToGameServiceIT {
     public static void setUpClass() {
         conn = new DbConn();
         conn.open();
-        result = new Result();
         game = new Game();
         arena = new Arena();
-        team = new Team();
+        team1 = new Team();
+        team2 = new Team();
         sport = new Sport();
         season = new Season();
         round = new Round();
         league = new League();
         
             
-            sport.setName("sporttest551221");
+            sport.setName("Ishockey21");
             sport.getDao().save();
             
             
             league.setSport(sport);
-            league.setName("leaguetest551221");
+            league.setName("SHL12");
             league.getDao().save();
 
             season.setSummer(Boolean.TRUE);
@@ -74,9 +75,13 @@ public class AddResultToGameServiceIT {
             league.addSeason(season);
             season.getDao().save();
             
-            team.setName("teamtest551221");
-            team.setSport(sport);
-            team.getDao().save();
+            team1.setName("AIK12");
+            team1.setSport(sport);
+            team1.getDao().save();
+            
+            team2.setName("DIF12");
+            team2.setSport(sport);
+            team2.getDao().save();
 
             arena.getDao().save();
             
@@ -84,53 +89,35 @@ public class AddResultToGameServiceIT {
             round.setSeason(season);
             round.getDao().save();
             
-           
             game.setArena(arena);
-            game.setAwayTeam(team);
-            game.setHomeTeam(team);
+            game.setAwayTeam(team1);
+            game.setHomeTeam(team2);
             game.setRound(round);
             game.setDate(20180410L);
             game.getDao().save();
             gameId = game.getDao().getLongId();
-
-            
-        try {
-            result.setHomeScore(43);
-            result.setAwayScore(3);
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-            
-            result.getDao().save();
             
     }
     
     @AfterClass
     public static void tearDownClass() {
-        result.getDao().delete();
+        game.getDao().getAll(ResultDao.class).get(0).delete();
         game.getDao().delete();
         round.getDao().delete();
         season.getDao().delete();
         league.getDao().delete();
         arena.getDao().delete();
-        team.getDao().delete();
+        team1.getDao().delete();
+        team2.getDao().delete();
         sport.getDao().delete();
         
         conn.close();
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     @Test
     public void testExecute() {
         
-         AddResultToGameService add = new AddResultToGameService(result,gameId );
+         AddResultToGameService add = new AddResultToGameService(5, 2,gameId );
          add.init(new BrokerFactory());
             System.out.println("ADD RESULT: " + add.execute());
         

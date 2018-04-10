@@ -90,5 +90,4 @@ public class Game {
     public int getSpectators(){
        return dao.getInteger("spectators");
     }
-    
 }

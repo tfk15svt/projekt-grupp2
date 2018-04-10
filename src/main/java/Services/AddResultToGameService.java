@@ -18,14 +18,21 @@ import java.util.logging.Logger;
  */
 public class AddResultToGameService extends Service {
 
-    private final Result result;
+    private final Integer homeScore;
+    private final Integer awayScore;
     private final Long gameId;
     
-    public AddResultToGameService(Result result, Long gameId) {
-        this.result = result;
+    public AddResultToGameService(Integer homeScore, Integer awayScore, Long gameId) {
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
         this.gameId = gameId;
-        if (result == null)
+        
+        if (homeScore < 0)
             throw new ServiceException("Result is null");
+        
+        if (awayScore < 0)
+            throw new ServiceException("Result is null");
+        
         if (gameId == null)
             throw new ServiceException("GameId is null");
     }
@@ -34,12 +41,24 @@ public class AddResultToGameService extends Service {
     
     @Override
     public Result execute() {
-        BrokerFactory brokerFactory = getBrokerFactory();
-        Game game = brokerFactory.getGameBroker().findById(gameId);
-        if (game == null)
-            throw new ServiceException("There is no game with that Id");
-        game.setResult(result);
-        brokerFactory.getGameBroker().saveGame(game);
+        Result result = getBrokerFactory().getResultBroker().create();
+        Game game = getBrokerFactory().getGameBroker().findById(gameId);
+        if(getBrokerFactory().getGameBroker().findById(gameId)==null){
+            throw new ServiceException("game does not exist.");
+        }
+            try {
+                result.setHomeScore(homeScore);
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+            try{
+                result.setAwayScore(awayScore);
+            }catch(Exception e){
+                e.getMessage();
+            }
+            game.setResult(result);
+            getBrokerFactory().getGameBroker().saveGame(game);
+            result.getDao().save();
         return result;
     }
     
