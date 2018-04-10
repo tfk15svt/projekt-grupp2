@@ -5,6 +5,7 @@
  */
 package Domain;
 
+import DAO.LeagueDao;
 import DAO.SeasonDao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -55,5 +56,9 @@ public class Season {
     @JsonIgnore
     public Long getMaxRounds() {
         return dao.getLong("maxround");
+    }
+    @JsonIgnore
+    public League getLeague(){
+        return new League (dao.parent(LeagueDao.class));
     }
 }
