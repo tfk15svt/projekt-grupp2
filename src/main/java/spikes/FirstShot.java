@@ -9,6 +9,7 @@ import Domain.Sport;
 import Services.AddGameService;
 import Services.AddResultToGameService;
 import Services.AddSeasonToLeagueService;
+import Services.GetAllLossesForTeamService;
 import Services.GetTeamsMatchHistoryService;
 import Services.Service;
 import java.util.List;
@@ -23,35 +24,16 @@ import org.javalite.activejdbc.Base;
 public class FirstShot {
 
     public static void main(String[] args) {
-        //open();
-        /*
-        List<Sport> sports = Sport.findAll();
-        System.out.println("Antal tillgängliga sporter: " + sports.size());
-        Sport newSport = new Sport();
-        newSport.setName("Quidditch");
-        newSport.save();
-        sports = Sport.findAll();
-        System.out.println("Antal tillgängliga sporter: " + sports.size());
-        System.out.println("Den första heter: " + sports.get(0).getName());
-        System.out.println("Den sista heter: " + sports.get(sports.size() - 1).getName());
-        newSport.delete();
-        sports = Sport.findAll();
-        System.out.println("Antal tillgängliga sporter: " + sports.size());
-        */        
-
-        //System.out.println("hej");
-        //close();
-//        System.out.println("HEJ");
-//        
-//            ServiceRunner runner = new ServiceRunner(new GetAllSportService());
-//            System.out.println("sSPORTEEEEER: " + runner.execute());
-//        
         
 //        new ServiceRunner<>(new AddResultToGameService(1, 1, 22L)).execute();
         
 //        new ServiceRunner<>(new AddGameService(3L, 1L, 2L)).execute();
-        List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
+//        List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
 //          new ServiceRunner<>(new AddSeasonToLeagueService(1, 2L)).execute();
+          List<Game> listOfLostGames;
+          listOfLostGames = (List<Game>) new ServiceRunner<>(new GetAllLossesForTeamService(1L)).execute();
+
+          
     }
 
     public static void open() {
