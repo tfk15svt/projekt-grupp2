@@ -52,8 +52,8 @@ public class GetAllGamesFromDateServiceIT {
      */
     @Test
     public void testExecute() {
-        Long date = 1234567L;
-        GameDao gd = GameDao.findById(SetUpTestObjects.getGameId());
+        Long date = 12345678L;
+        GameDao gd = GameDao.findById(SetUpTestObjects.getGameId1());
         Game game = new Game(gd);
         game.setDate(date);
         gd.save();

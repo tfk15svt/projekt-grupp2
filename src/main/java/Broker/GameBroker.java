@@ -32,6 +32,10 @@ public class GameBroker {
         return new Game();
     }
     
+    public Game create(GameDao gameDao){
+        return new Game(gameDao);
+    }
+    
     public Game findById(Long id){
         return new Game(GameDao.findById(id));
     }
@@ -42,5 +46,8 @@ public class GameBroker {
                 .collect(Collectors.toList());
                 
         return listOfGames;
+    }
+    public boolean gameExists (Long id){
+        return GameDao.findById(id) != null;
     }
 }
