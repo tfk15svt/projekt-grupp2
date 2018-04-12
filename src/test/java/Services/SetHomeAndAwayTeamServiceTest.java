@@ -81,6 +81,7 @@ public class SetHomeAndAwayTeamServiceTest {
             s2.execute();
         }catch(ServiceException e){
             e.getMessage();
+            
         }
     }
 }
