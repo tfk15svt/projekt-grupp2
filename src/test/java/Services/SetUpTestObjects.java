@@ -51,11 +51,11 @@ public class SetUpTestObjects {
         round = new Round();
         league = new League();
 
-        sport.setName("sporttest5512213");
+        sport.setName("sporttest551221433");
         sport.getDao().save();
 
         league.setSport(sport);
-        league.setName("leaguetest5512213");
+        league.setName("leaguetest55125213");
         league.getDao().save();
 
         season.setSummer(Boolean.TRUE);
@@ -64,11 +64,11 @@ public class SetUpTestObjects {
         league.addSeason(season);
         season.getDao().save();
 
-        team1.setName("teamtest5512213");
+        team1.setName("teamtest55152213");
         team1.setSport(sport);
         team1.getDao().save();
 
-        team2.setName("teamtest55122134");
+        team2.setName("teamtest551252134");
         team2.setSport(sport);
         team2.getDao().save();
 
