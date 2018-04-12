@@ -13,11 +13,11 @@ import java.util.List;
  *
  * @author slett
  */
-public class GetAllLossesForTeam extends Service {
+public class GetAllLossesForTeamService extends Service {
     
     private final Long teamId;
     
-    public GetAllLossesForTeam(Long teamId) {
+    public GetAllLossesForTeamService(Long teamId) {
         
         this.teamId = teamId;
         
