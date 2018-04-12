@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.javalite.activejdbc.Model;
 
 /**
@@ -40,8 +41,11 @@ public class Game {
         resultDao.save();
     }
     public Result getResult(){
-//        return new Result(dao.parent(ResultDao.class));
-        return new Result(dao.getAll(ResultDao.class).get(0));
+        List<ResultDao> resultList = dao.getAll(ResultDao.class);
+        if (resultList.size() == 0){
+            return null;
+        }
+        return new Result(resultList.get(0));
     }
     public void setHomeTeam(Team team){
         TeamDao teamDao = team.getDao();

@@ -101,6 +101,7 @@ public class SetUpTestObjects {
             ex.getMessage();
         }
         game1.setResult(result1);
+        result1.setFullTime();
         result1.getDao().save();
 
         try {
@@ -111,6 +112,7 @@ public class SetUpTestObjects {
         }
 
         game2.setResult(result2);
+        result2.setOverTime();
         result2.getDao().save();
 
     }

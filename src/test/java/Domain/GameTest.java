@@ -13,6 +13,9 @@ import DAO.ArenaDao;
 import DAO.GameDao;
 import DAO.ResultDao;
 import DAO.TeamDao;
+import java.util.ArrayList;
+import java.util.List;
+import org.javalite.activejdbc.LazyList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -79,12 +82,16 @@ public class GameTest {
      */
     @Test
     public void testGetResult() {
-        GameDao dao = mock(GameDao.class);
-        when(dao.parent(ResultDao.class)).thenReturn(mock(ResultDao.class));
+       
+        /**GameDao gDao = mock(GameDao.class);
+        ResultDao rDao = mock(ResultDao.class);
+        List<ResultDao> lor = new ArrayList<ResultDao> ();
+        lor.add(rDao);
+        when(gDao.getAll(ResultDao.class)).thenReturn(lazyLor);
         System.out.println("getResult");
-        Game instance = new Game(dao);
+        Game instance = new Game(gDao);
         
-        Result result = instance.getResult();
+        Result result = instance.getResult();*/
         
     }
 

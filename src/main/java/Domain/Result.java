@@ -47,7 +47,30 @@ public class Result {
     public Long getGameId(){
         return dao.getLong("game_id");
     }
-//    public void setGame(Game game){
-//        dao.add(game.getDao());
-//    }
+
+    public void setFullTime(){
+        dao.setLong("time", 1);
+    }
+    
+    public void setOverTime(){
+        dao.setLong("time", 2);
+    }
+    
+    public void setShotOut(){
+        dao.setLong("time", 3);
+    }
+    
+    public boolean getFullTime(){
+        return 1L == dao.getLong("time");
+    }
+    
+    public boolean getOverTime(){
+        return 2L == dao.getLong("time");
+    }
+        
+    public boolean getShotOut(){
+        return 3L == dao.getLong("time");
+    }
+        
+        
 }
