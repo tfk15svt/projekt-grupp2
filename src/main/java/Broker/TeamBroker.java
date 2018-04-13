@@ -70,4 +70,8 @@ public class TeamBroker {
 
         return logA;
     }
+    
+    public boolean teamExists (Long id){
+        return TeamDao.findById(id) != null;
+    }
 }
