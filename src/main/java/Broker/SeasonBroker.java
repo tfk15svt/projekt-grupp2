@@ -37,6 +37,10 @@ public class SeasonBroker {
     public Season create(){
         return new Season();
     }
+    
+    public boolean seasonExists (Long id){
+        return SeasonDao.findById(id) != null;
+    }
 
    
     

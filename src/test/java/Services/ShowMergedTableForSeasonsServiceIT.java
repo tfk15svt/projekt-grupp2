@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oldTests;
+package Services;
 
-import oldServices.ShowSeasonTableOldService;
 import Broker.BrokerFactory;
-import Services.SetUpTestObjects;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,13 +17,17 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Veiret
+ * @author Simon
  */
-public class ShowSeasonTableServiceOldIT {
+public class ShowMergedTableForSeasonsServiceIT {
     
+    private static List<Long> seasonIds;
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
+        seasonIds = new ArrayList<Long>();
+        seasonIds.add(SetUpTestObjects.getSeasonId1());
+        seasonIds.add(SetUpTestObjects.getSeasonId2());
     }
     @AfterClass
     public static void tearDownClass() {
@@ -32,7 +36,7 @@ public class ShowSeasonTableServiceOldIT {
     
     @Test
     public void testExecute() {
-        ShowSeasonTableOldService instance = new ShowSeasonTableOldService(SetUpTestObjects.getSeasonId1());
+        ShowMergedTableForSeasonsService instance = new ShowMergedTableForSeasonsService(seasonIds);
         instance.init(new BrokerFactory());
         System.out.println("hejhejhkeh \n" + instance.execute());
     }

@@ -24,36 +24,48 @@ public class SetUpTestObjects {
 
     private static Result result1;
     private static Result result2;
+    private static Result result3;
     private static Game game1;
     private static Game game2;
+    private static Game game3;
     private static Sport sport;
     private static Arena arena;
     private static Team team1;
     private static Team team2;
-    private static Season season;
-    private static Long seasonId;
-    private static Round round;
+    private static Season season1;
+    private static Long seasonId1;
+    private static Season season2;
+    private static Long seasonId2;
+    private static Round round1;
+    private static Round round2;
     private static League league;
     private static Long teamId1;
     private static Long teamId2;
     private static Long gameId1;
     private static Long gameId2;
+    private static Long gameId3;
     private static TeamsSeasonsDao tTs1;
     private static TeamsSeasonsDao tTs2;
+    private static TeamsSeasonsDao tTs3;
+    private static TeamsSeasonsDao tTs4;
 
 
     public static void setUp() {
         DbConn.staticOpen();
         result1 = new Result();
         result2 = new Result();
+        result3 = new Result();
         game1 = new Game();
         game2 = new Game();
+        game3 = new Game();
         arena = new Arena();
         team1 = new Team();
         team2 = new Team();
         sport = new Sport();
-        season = new Season();
-        round = new Round();
+        season1 = new Season();
+        season2 = new Season();
+        round1 = new Round();
+        round2 = new Round();
         league = new League();
 
         sport.setName("sporttest");
@@ -63,12 +75,18 @@ public class SetUpTestObjects {
         league.setName("leaguetest");
         league.getDao().save();
 
-        season.setSummer(Boolean.TRUE);
-        season.setYear(1);
+        season1.setSummer(Boolean.TRUE);
+        season1.setYear(1);
+        
+        season2.setSummer(Boolean.TRUE);
+        season2.setYear(2019);
 
-        league.addSeason(season);
-        season.getDao().save();
-        seasonId = season.getId();
+        league.addSeason(season1);
+        league.addSeason(season2);
+        season2.getDao().save();
+        season1.getDao().save();
+        seasonId1 = season1.getId();
+        seasonId2 = season2.getId();
 
         team1.setName("teamtest1");
         team1.setSport(sport);
@@ -80,14 +98,18 @@ public class SetUpTestObjects {
 
         arena.getDao().save();
 
-        round.setRoundNumber(22);
-        round.setSeason(season);
-        round.getDao().save();
+        round1.setRoundNumber(22);
+        round1.setSeason(season1);
+        round1.getDao().save();
+        
+        round2.setRoundNumber(23);
+        round2.setSeason(season2);
+        round2.getDao().save();
 
         game1.setArena(arena);
         game1.setAwayTeam(team1);
         game1.setHomeTeam(team2);
-        game1.setRound(round);
+        game1.setRound(round1);
 
         game1.getDao().save();
         gameId1 = game1.getDao().getLongId();
@@ -95,10 +117,19 @@ public class SetUpTestObjects {
         game2.setArena(arena);
         game2.setAwayTeam(team1);
         game2.setHomeTeam(team2);
-        game2.setRound(round);
+        game2.setRound(round1);
 
         game2.getDao().save();
         gameId2 = game2.getDao().getLongId();
+        
+        game3.setArena(arena);
+        game3.setHomeTeam(team1);
+        game3.setAwayTeam(team2);
+        game3.setRound(round2);
+        
+        game3.getDao().save();
+        gameId3 = game3.getDao().getLongId();
+        
 
         try {
             result1.setHomeScore(43);
@@ -116,20 +147,41 @@ public class SetUpTestObjects {
         } catch (Exception ex) {
             ex.getMessage();
         }
-
+        
         game2.setResult(result2);
         result2.setOverTime();
         result2.getDao().save();
         
+        try {
+            result3.setHomeScore(7);
+            result3.setAwayScore(6);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        
+        game3.setResult(result3);
+        result3.setOverTime();
+        result3.getDao().save();
+        
         tTs1 = new TeamsSeasonsDao();
-        tTs1.setSeason(season);
+        tTs1.setSeason(season1);
         tTs1.setTeam(team1);
         tTs1.save();
         
         tTs2 = new TeamsSeasonsDao();
-        tTs2.setSeason(season);
+        tTs2.setSeason(season1);
         tTs2.setTeam(team2);
         tTs2.save();
+        
+        tTs3 = new TeamsSeasonsDao();
+        tTs3.setSeason(season2);
+        tTs3.setTeam(team1);
+        tTs3.save();
+        
+        tTs4 = new TeamsSeasonsDao();
+        tTs4.setSeason(season2);
+        tTs4.setTeam(team2);
+        tTs4.save();
 
     }
 
@@ -137,12 +189,18 @@ public class SetUpTestObjects {
         
         tTs1.delete();
         tTs2.delete();
+        tTs3.delete();
+        tTs4.delete();
         result1.getDao().delete();
         result2.getDao().delete();
+        result3.getDao().delete();
         game1.getDao().delete();
         game2.getDao().delete();
-        round.getDao().delete();
-        season.getDao().delete();
+        game3.getDao().delete();
+        round1.getDao().delete();
+        round2.getDao().delete();
+        season1.getDao().delete();
+        season2.getDao().delete();
         league.getDao().delete();
         arena.getDao().delete();
         team1.getDao().delete();
@@ -158,6 +216,10 @@ public class SetUpTestObjects {
     public static Long getGameId2() {
         return gameId2;
     }
+    
+    public static Long getGameId3(){
+        return gameId3;
+    }
 
     public static Long getTeamId1() {
         teamId1 = team1.getDao().getLongId();
@@ -168,7 +230,11 @@ public class SetUpTestObjects {
         teamId2 = team2.getDao().getLongId();
         return teamId2;
     }
-    public static Long getSeasonId() {
-        return seasonId;
+    public static Long getSeasonId1() {
+        return seasonId1;
+    }
+    
+    public static Long getSeasonId2(){
+        return seasonId2;
     }
 }

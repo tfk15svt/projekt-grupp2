@@ -32,7 +32,7 @@ public class ShowSeasonTableServiceIT {
     
     @Test
     public void testExecute() {
-        ShowSeasonTableService instance = new ShowSeasonTableService(SetUpTestObjects.getSeasonId());
+        ShowSeasonTableService instance = new ShowSeasonTableService(SetUpTestObjects.getSeasonId1());
         instance.init(new BrokerFactory());
         System.out.println("hejhejhkeh \n" + instance.execute());
     }
