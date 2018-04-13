@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Services;
+package oldTests;
 
 import oldServices.ShowSeasonTableOldService;
 import Broker.BrokerFactory;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  *
  * @author Veiret
  */
-public class ShowSeasonTableServiceIT {
+public class ShowSeasonTableServiceOldIT {
     
     @BeforeClass
     public static void setUpClass() {
@@ -32,7 +32,7 @@ public class ShowSeasonTableServiceIT {
     
     @Test
     public void testExecute() {
-        ShowSeasonTableService instance = new ShowSeasonTableService(SetUpTestObjects.getSeasonId());
+        ShowSeasonTableOldService instance = new ShowSeasonTableOldService(SetUpTestObjects.getSeasonId());
         instance.init(new BrokerFactory());
         System.out.println("hejhejhkeh \n" + instance.execute());
     }

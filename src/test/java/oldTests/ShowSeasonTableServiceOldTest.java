@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Services;
+package oldTests;
 
+import oldServices.ShowSeasonTableOldService;
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
 import Broker.ServiceBroker;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Veiret
  */
-public class ShowSeasonTableServiceTest {
+public class ShowSeasonTableServiceOldTest {
 
     private static Long seasonId;
     private static BrokerFactory brokerFactory;
@@ -167,16 +168,16 @@ public class ShowSeasonTableServiceTest {
     @Test
     public void testConstructor() {
         try {
-            new ShowSeasonTableService(null);
+            new ShowSeasonTableOldService(null);
         } catch (ServiceException e) {
 
         }
-        new ShowSeasonTableService(seasonId);
+        new ShowSeasonTableOldService(seasonId);
     }
 
     @Test
     public void testInit() {
-        ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
+        ShowSeasonTableOldService instance = new ShowSeasonTableOldService(seasonId);
         try {
             instance.init(null);
         } catch (ServiceException e) {
@@ -187,7 +188,7 @@ public class ShowSeasonTableServiceTest {
     @Test
     public void testExecute() {
         System.out.println("execute");
-        ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
+        ShowSeasonTableOldService instance = new ShowSeasonTableOldService(seasonId);
         instance.init(brokerFactory);
         String expResult = 
                 row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +

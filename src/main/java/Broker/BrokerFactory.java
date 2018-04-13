@@ -46,4 +46,7 @@ public class BrokerFactory {
     public RoundBroker getRoundBroker(){
         return new RoundBroker();
     }
+    public ServiceBroker getServiceBroker(){
+        return new ServiceBroker();
+    }
 }

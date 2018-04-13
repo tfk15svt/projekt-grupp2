@@ -5,6 +5,7 @@
  */
 package Services;
 
+import DAO.TeamsSeasonsDao;
 import DB.DbConn;
 import Domain.Arena;
 import Domain.Game;
@@ -30,12 +31,16 @@ public class SetUpTestObjects {
     private static Team team1;
     private static Team team2;
     private static Season season;
+    private static Long seasonId;
     private static Round round;
     private static League league;
     private static Long teamId1;
     private static Long teamId2;
     private static Long gameId1;
     private static Long gameId2;
+    private static TeamsSeasonsDao tTs1;
+    private static TeamsSeasonsDao tTs2;
+
 
     public static void setUp() {
         DbConn.staticOpen();
@@ -51,11 +56,11 @@ public class SetUpTestObjects {
         round = new Round();
         league = new League();
 
-        sport.setName("sporttest5512213");
+        sport.setName("sporttest");
         sport.getDao().save();
 
         league.setSport(sport);
-        league.setName("leaguetest5512213");
+        league.setName("leaguetest");
         league.getDao().save();
 
         season.setSummer(Boolean.TRUE);
@@ -63,12 +68,13 @@ public class SetUpTestObjects {
 
         league.addSeason(season);
         season.getDao().save();
+        seasonId = season.getId();
 
-        team1.setName("teamtest5512213");
+        team1.setName("teamtest1");
         team1.setSport(sport);
         team1.getDao().save();
 
-        team2.setName("teamtest55122134");
+        team2.setName("teamtest2");
         team2.setSport(sport);
         team2.getDao().save();
 
@@ -114,10 +120,23 @@ public class SetUpTestObjects {
         game2.setResult(result2);
         result2.setOverTime();
         result2.getDao().save();
+        
+        tTs1 = new TeamsSeasonsDao();
+        tTs1.setSeason(season);
+        tTs1.setTeam(team1);
+        tTs1.save();
+        
+        tTs2 = new TeamsSeasonsDao();
+        tTs2.setSeason(season);
+        tTs2.setTeam(team2);
+        tTs2.save();
 
     }
 
     public static void tearDown() {
+        
+        tTs1.delete();
+        tTs2.delete();
         result1.getDao().delete();
         result2.getDao().delete();
         game1.getDao().delete();
@@ -148,5 +167,8 @@ public class SetUpTestObjects {
     public static Long getTeamId2() {
         teamId2 = team2.getDao().getLongId();
         return teamId2;
+    }
+    public static Long getSeasonId() {
+        return seasonId;
     }
 }

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  *
  * @author Veiret
  */
-public class AddTeamToNewSportServiceIT {
+public class AddTeamToNewSportServiceOldIT {
     
     @Test
     public void testExecute() {

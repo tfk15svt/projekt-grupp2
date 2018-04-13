@@ -30,7 +30,7 @@ public class SeasonBroker {
     public List<Team> getAllTeamsFromSeasonId(Long id) {
         TeamBroker teamBroker = new TeamBroker();
         List<TeamsSeasonsDao> teamSeasonsFromSeason = SeasonDao.findById(id).getAll(TeamsSeasonsDao.class);
-        List<Team> teamList = teamSeasonsFromSeason.stream().map(dao -> teamBroker.findTeamById(dao.getLong("id_teams"))).collect(Collectors.toList());
+        List<Team> teamList = teamSeasonsFromSeason.stream().map(dao -> teamBroker.findTeamById(dao.getLong("team_id"))).collect(Collectors.toList());
         
         return teamList;
     }

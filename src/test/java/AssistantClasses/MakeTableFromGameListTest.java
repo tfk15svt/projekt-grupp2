@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Services;
+package AssistantClasses;
 
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
@@ -23,15 +23,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
  * @author Veiret
  */
-public class ShowSeasonTableServiceTest {
-
-    private static Long seasonId;
+public class MakeTableFromGameListTest {
+    
     private static BrokerFactory brokerFactory;
     private static String[] row1;
     private static String teamName1;
@@ -67,14 +67,13 @@ public class ShowSeasonTableServiceTest {
     private static ServiceBroker serviceBroker;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonService;
     
-    private static List<Game> allSeasonGames;
-    private static List<Team> allSeasonTeams;
+    private static List<Game> games;
+    private static List<Team> teams;
     
     
     @BeforeClass
     public static void setUpClass() {
              
-        seasonId = 1L;
         brokerFactory = mock(BrokerFactory.class);
         getAllGamesFromSeasonService = mock(GetAllGamesFromSeasonService.class);
         team1 = mock(Team.class);
@@ -110,18 +109,16 @@ public class ShowSeasonTableServiceTest {
         opponentScore2 = 7;
         points2 = 1;
         
-        allSeasonGames = new ArrayList<Game>();
-        allSeasonGames.add(game1);
-        allSeasonGames.add(game2);
-        allSeasonTeams = new ArrayList<Team>();
-        allSeasonTeams.add(team1);
-        allSeasonTeams.add(team2);
+        games = new ArrayList<Game>();
+        games.add(game1);
+        games.add(game2);
+        teams = new ArrayList<Team>();
+        teams.add(team1);
+        teams.add(team2);
         
         when(brokerFactory.getServiceBroker()).thenReturn(serviceBroker);
         when(brokerFactory.getSeasonBroker()).thenReturn(seasonBroker);
-        when(serviceBroker.getAllGamesFromSeasonService(seasonId)).thenReturn(getAllGamesFromSeasonService);
-        when(getAllGamesFromSeasonService.execute()).thenReturn(allSeasonGames);
-        when(seasonBroker.getAllTeamsFromSeasonId(seasonId)).thenReturn(allSeasonTeams);
+        when(getAllGamesFromSeasonService.execute()).thenReturn(games);
         when(team1.getDao()).thenReturn(teamDao1);
         when(team2.getDao()).thenReturn(teamDao2);
         when(team1.getName()).thenReturn(teamName1);
@@ -167,28 +164,25 @@ public class ShowSeasonTableServiceTest {
     @Test
     public void testConstructor() {
         try {
-            new ShowSeasonTableService(null);
+            new MakeTableFromGameList( games, null);
+            fail();
         } catch (ServiceException e) {
 
         }
-        new ShowSeasonTableService(seasonId);
+         try {
+            new MakeTableFromGameList(null, teams);
+            fail();
+        } catch (ServiceException e) {
+
+        }
+        new MakeTableFromGameList(games, teams);
     }
 
-    @Test
-    public void testInit() {
-        ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
-        try {
-            instance.init(null);
-        } catch (ServiceException e) {
-        }
-        instance.init(brokerFactory);
-    }
 
     @Test
     public void testExecute() {
         System.out.println("execute");
-        ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
-        instance.init(brokerFactory);
+        MakeTableFromGameList instance = new MakeTableFromGameList(games, teams);
         String expResult = 
                 row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +
                 row2[0] + row2[1] + row2[2] + row2[3] + row2[4] + row2[5] + row2[6] + "\n";

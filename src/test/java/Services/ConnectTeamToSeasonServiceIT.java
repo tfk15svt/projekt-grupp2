@@ -68,12 +68,12 @@ public class ConnectTeamToSeasonServiceIT {
     }
     @Test
     public void testSomeMethod() {
-        
+        DbConn.staticOpen();
         ConnectTeamToSeasonService connect = new ConnectTeamToSeasonService(expectedTeamId, expectedSeasonId);
         connect.init(new BrokerFactory ());
         connect.execute();
         
-        DbConn.staticOpen();
+        
         TeamsSeasonsDao teamSeasonFromTeam = TeamDao.findById(expectedTeamId).getAll(TeamsSeasonsDao.class).get(0);
         TeamsSeasonsDao teamSeasonFromSeason = SeasonDao.findById(expectedSeasonId).getAll(TeamsSeasonsDao.class).get(0);
         
