@@ -8,6 +8,7 @@ package Domain;
 import DAO.GameDao;
 import DAO.RoundDao;
 import DAO.SeasonDao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ public class Round {
     public Round(RoundDao dao){
         this.dao = dao;
     }
+    @JsonIgnore
     public List<Game> getGames() {
         return dao.getAll(GameDao.class).stream()
                 .map(dao -> new Game(dao))
@@ -32,7 +34,7 @@ public class Round {
     public Long getId(){
         return dao.getLongId();
     }
-    
+    @JsonIgnore
     public RoundDao getDao(){
         return dao;
     }
@@ -48,6 +50,7 @@ public class Round {
     public void setSeason(Season season){
         dao.setParent(season.getDao());
     }
+    @JsonIgnore
     public Season getSeason(){
         return new Season(dao.parent(SeasonDao.class));
     }

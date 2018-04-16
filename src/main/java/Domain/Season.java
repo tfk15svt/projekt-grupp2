@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Veiret
  */
 public class Season {
-    
+    @JsonIgnore
     private final SeasonDao dao;
     
     public Season() {

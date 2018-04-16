@@ -7,6 +7,7 @@ package Domain;
 
 import DAO.ArenaDao;
 import DAO.TeamDao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.javalite.activejdbc.Model;
 
 /**
@@ -22,6 +23,7 @@ public class Arena {
     public Arena(ArenaDao dao){
         this.dao = dao;
     }
+    @JsonIgnore
     public ArenaDao getDao() {
         return dao;
     }

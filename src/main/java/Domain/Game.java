@@ -40,6 +40,7 @@ public class Game {
         resultDao.setParent(dao);
         resultDao.save();
     }
+    @JsonIgnore
     public Result getResult(){
         List<ResultDao> resultList = dao.getAll(ResultDao.class);
         if (resultList.size() == 0){
@@ -79,7 +80,7 @@ public class Game {
     public void setRound(Round round){
         dao.setParent(round.getDao());
     }
-    
+    @JsonIgnore
     public Round getRound(){
         return new Round(dao.parent(RoundDao.class));
     }

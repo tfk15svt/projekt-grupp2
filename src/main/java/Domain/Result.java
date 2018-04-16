@@ -6,6 +6,7 @@
 package Domain;
 
 import DAO.ResultDao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.javalite.activejdbc.Model;
 import java.lang.Exception;
 
@@ -23,6 +24,7 @@ public class Result {
     public Result(ResultDao dao){
         this.dao = dao;
     }
+    @JsonIgnore
     public ResultDao getDao(){
         return dao;
     }
@@ -59,15 +61,15 @@ public class Result {
     public void setShotOut(){
         dao.setLong("time", 3);
     }
-    
+    @JsonIgnore
     public boolean getFullTime(){
         return 1L == dao.getLong("time");
     }
-    
+    @JsonIgnore
     public boolean getOverTime(){
         return 2L == dao.getLong("time");
     }
-        
+    @JsonIgnore    
     public boolean getShotOut(){
         return 3L == dao.getLong("time");
     }

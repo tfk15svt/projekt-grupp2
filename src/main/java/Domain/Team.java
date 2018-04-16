@@ -7,6 +7,7 @@ package Domain;
 
 import DAO.SportDao;
 import DAO.TeamDao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.javalite.activejdbc.Model;
 
 /**
@@ -14,6 +15,7 @@ import org.javalite.activejdbc.Model;
  * @author Veiret
  */
 public class Team {
+    @JsonIgnore
     private final TeamDao dao;
     public Team(){
         this(new TeamDao());
@@ -21,6 +23,7 @@ public class Team {
     public Team(TeamDao dao){
         this.dao = dao;
     }
+    @JsonIgnore
     public TeamDao getDao(){
         return dao;
     }
@@ -30,9 +33,11 @@ public class Team {
     public void setName (String name){
         dao.setString ("name", name);
     }
+    @JsonIgnore
     public void setSport(Sport sport){
         dao.setParent(sport.getDao());
     }
+    @JsonIgnore
     public Sport getSport(){
         return new Sport(dao.parent(SportDao.class));
     }

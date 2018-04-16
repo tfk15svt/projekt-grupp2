@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.javalite.activejdbc.Model;
 
 public class Sport {
-    
+    @JsonIgnore
     private final SportDao dao;
     
     public Sport(){
