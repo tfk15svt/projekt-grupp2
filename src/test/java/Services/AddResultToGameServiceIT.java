@@ -93,7 +93,7 @@ public class AddResultToGameServiceIT {
             game.setAwayTeam(team1);
             game.setHomeTeam(team2);
             game.setRound(round);
-            game.setDate(20180410L);
+            game.setDate(20180410);
             game.getDao().save();
             gameId = game.getDao().getLongId();
             

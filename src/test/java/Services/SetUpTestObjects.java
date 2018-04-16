@@ -39,6 +39,7 @@ public class SetUpTestObjects {
     private static Round round1;
     private static Round round2;
     private static League league;
+    private static Long leagueId;
     private static Long teamId1;
     private static Long teamId2;
     private static Long gameId1;
@@ -74,7 +75,7 @@ public class SetUpTestObjects {
         league.setSport(sport);
         league.setName("leaguetest");
         league.getDao().save();
-
+        leagueId = league.getId();
         season1.setSummer(Boolean.TRUE);
         season1.setYear(1);
         
@@ -110,7 +111,7 @@ public class SetUpTestObjects {
         game1.setAwayTeam(team1);
         game1.setHomeTeam(team2);
         game1.setRound(round1);
-
+        game1.setDate(1);
         game1.getDao().save();
         gameId1 = game1.getDao().getLongId();
 
@@ -118,7 +119,7 @@ public class SetUpTestObjects {
         game2.setAwayTeam(team1);
         game2.setHomeTeam(team2);
         game2.setRound(round1);
-
+        game2.setDate(2);
         game2.getDao().save();
         gameId2 = game2.getDao().getLongId();
         
@@ -126,7 +127,7 @@ public class SetUpTestObjects {
         game3.setHomeTeam(team1);
         game3.setAwayTeam(team2);
         game3.setRound(round2);
-        
+        game3.setDate(3);
         game3.getDao().save();
         gameId3 = game3.getDao().getLongId();
         
@@ -208,7 +209,9 @@ public class SetUpTestObjects {
         sport.getDao().delete();
         DbConn.staticClose();
     }
-
+    public static Long getLeagueId () {
+        return leagueId;
+    }
     public static Long getGameId1() {
         return gameId1;
     }

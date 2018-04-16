@@ -5,10 +5,14 @@
  */
 package Broker;
 
+import DAO.GameDao;
 import DAO.LeagueDao;
+import DAO.RoundDao;
 import DAO.SeasonDao;
+import Domain.Game;
 import Domain.League;
 import Domain.Season;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,22 +21,43 @@ import java.util.stream.Collectors;
  * @author Veiret
  */
 public class LeagueBroker {
-    public void saveLeague(League league){
+
+    public void saveLeague(League league) {
         LeagueDao leagueDao = league.getDao();
         leagueDao.save();
     }
-    public League findLeagueById(Long id){
+
+    public League findLeagueById(Long id) {
         return new League(LeagueDao.findById(id));
     }
-    public List<Season> getAllSeasonsFromLeagueId (Long id) {
+
+    public List<Season> getAllSeasonsFromLeagueId(Long id) {
         LeagueDao leagueDao = LeagueDao.findById(id);
         List<Season> result = leagueDao.getAll(SeasonDao.class).stream()
                 .map(seasonDao -> new Season((SeasonDao) seasonDao))
                 .collect(Collectors.toList());
         return result;
     }
-    
-    public League create(){
+
+    public List<Game> getGamesWithinDateInterVal(long leagueId, int startDate, int endDate) {
+        return LeagueDao.findById(leagueId).getAll(SeasonDao.class).stream()
+                .map(seasonDao -> ((SeasonDao) seasonDao).getAll(RoundDao.class))
+                .flatMap(roundList -> roundList.stream())
+                .map(roundDao -> ((RoundDao) roundDao).getAll(GameDao.class))
+                .flatMap(gameDaoList -> gameDaoList.stream())
+                .filter(gameDao -> 
+                        endDate >= (Integer)((GameDao) gameDao).get("date") &&
+                                (Integer)((GameDao) gameDao).get("date") >= startDate)
+                .map(gameDao -> new Game(gameDao))
+                .collect(Collectors.toList());
+        /**
+         * GameDao.find("league_id=? AND date >= " + startDate + "AND date <= " + endDate, leagueId)
+         * .stream().map(dao -> new Game((GameDao) dao))
+         * .collect(Collectors.toList()); *
+         */
+    }
+
+    public League create() {
         return new League();
     }
 }

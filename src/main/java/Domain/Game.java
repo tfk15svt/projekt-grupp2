@@ -64,12 +64,12 @@ public class Game {
     public Arena getArena(){
         return new Arena (dao.parent(ArenaDao.class));
     }
-    public void setDate(Long date) {
+    public void setDate(Integer date) {
         dao.set("date", date);
     }
         @JsonIgnore
-    public Long getDate() {
-        return dao.getLong("date");
+    public Integer getDate() {
+        return (Integer) dao.get("date");
     }
     public Long getId(){
         return dao.getLongId();

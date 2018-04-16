@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
  */
 public class GetAllGamesFromDateServiceTest {
     private static Game game;
-    private static Long date;
+    private static Integer date;
     private static BrokerFactory brokerFactory;
     private static GameBroker gameBroker;
     private static List<Game> listOfGames;
@@ -39,7 +39,7 @@ public class GetAllGamesFromDateServiceTest {
         gameBroker = mock(GameBroker.class);
         listOfGames = new ArrayList<Game>();
         listOfGames.add(game);
-        date = 12345678L;
+        date = 12345678;
         
         when(brokerFactory.getGameBroker()).thenReturn(gameBroker);
         when(gameBroker.findGamesByDate(date)).thenReturn(listOfGames);
@@ -54,7 +54,7 @@ public class GetAllGamesFromDateServiceTest {
             e.getMessage();
         }
         try{
-            new GetAllGamesFromDateService(49234L);
+            new GetAllGamesFromDateService(49234);
             fail("tar emot ogiltigt datum");
         }catch(ServiceException e){
             e.getMessage();
