@@ -30,7 +30,7 @@ public class Round {
                 .map(dao -> new Game(dao))
                 .collect(Collectors.toList());
     }
-    
+    @JsonIgnore
     public Long getId(){
         return dao.getLongId();
     }

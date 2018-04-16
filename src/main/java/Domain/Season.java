@@ -31,6 +31,7 @@ public class Season {
     public void setYear(Integer year){
         dao.setInteger("year", year);
     }
+    @JsonIgnore
     public Boolean isSummer(){
         return dao.getBoolean("summer");
     }
@@ -46,6 +47,7 @@ public class Season {
                 (isSummer() ? "" : " - " + 
                 (getYear() + 1));
     }
+    @JsonIgnore
     public Long getId() {
         return dao.getLongId();
     }
