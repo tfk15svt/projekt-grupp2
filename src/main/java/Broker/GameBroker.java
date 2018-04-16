@@ -47,6 +47,7 @@ public class GameBroker {
                 
         return listOfGames;
     }
+    
     public boolean gameExists (Long id){
         return GameDao.findById(id) != null;
     }
