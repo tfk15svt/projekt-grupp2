@@ -5,6 +5,7 @@
  */
 package Services;
 
+import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 import DB.DbConn;
 
@@ -19,11 +20,22 @@ public class ServiceRunner<T> {
     public ServiceRunner(Service service){
         this.service = service;
     }
-    public T execute(){
+    public T internalExecute(){
         service.init(new BrokerFactory());
         dbConn.open();
         try {
             return service.execute();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            dbConn.close();
+        }
+    }
+        public String execute(){
+        service.init(new BrokerFactory());
+        dbConn.open();
+        try {
+            return new JsonOutputformat().create(service.execute());
         } catch (Exception e) {
             throw e;
         } finally {

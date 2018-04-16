@@ -5,6 +5,7 @@
  */
 package Services;
 
+import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 
 /**
@@ -25,4 +26,5 @@ public abstract class Service<T> implements ServiceInterface<T>{
     protected BrokerFactory getBrokerFactory() {
         return brokerFactory;
     }
+
 }
