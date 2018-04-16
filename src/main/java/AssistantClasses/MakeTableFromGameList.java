@@ -1,4 +1,4 @@
-  /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -194,10 +194,10 @@ public class MakeTableFromGameList {
         public void setRowColumns() {
             row = new String[7];
             row[0] = teamname;
-            row[1] = " GP :" + (fullTimeWins + losses + tied);
-            row[2] = " W :" + (fullTimeWins);
-            row[3] = " T :" + (tied);
-            row[4] = " L :" + losses;
+            row[1] = " GP: " + (fullTimeWins + losses + tied);
+            row[2] = " W: " + (fullTimeWins);
+            row[3] = " T: " + (tied);
+            row[4] = " L: " + losses;
             row[5] = " " + scoredGoals + " - " + opponentScore + " ";
             row[6] = getPoints() + "p";
         }

@@ -157,5 +157,7 @@ public class GetAllWinsForTeamServiceIT {
         instance.init(new BrokerFactory());
         listOfGames = instance.execute();
         System.out.println("LIST OF GAMES: " + listOfGames);
+        
     }
+    
 }
