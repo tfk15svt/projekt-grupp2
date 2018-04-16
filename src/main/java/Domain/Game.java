@@ -32,6 +32,7 @@ public class Game {
     public void setName(String name){
         dao.setString("name", name);
     }
+    @JsonIgnore
     public String getName(){
         return dao.getString("name");
     }
@@ -56,21 +57,25 @@ public class Game {
         TeamDao teamDao = team.getDao();
         dao.setLong("away_team_id", teamDao.getLongId());              
     }
+    @JsonIgnore
     public Team getHomeTeam(){
         return new Team(TeamDao.findById(dao.getLong("home_team_id")));
     }
+    @JsonIgnore
     public Team getAwayTeam(){
         return new Team(TeamDao.findById(dao.getLong("away_team_id")));
     }
     public void setArena(Arena arena){
         dao.setParent(arena.getDao());
     }
+    @JsonIgnore
     public Arena getArena(){
         return new Arena (dao.parent(ArenaDao.class));
     }
     public void setDate(Long date) {
         dao.set("date", date);
     }
+        @JsonIgnore
     public Long getDate() {
         return dao.getLong("date");
     }
@@ -96,7 +101,7 @@ public class Game {
         else
             dao.setInteger("spectators" , spectators);
     }
-    
+    @JsonIgnore
     public Integer getSpectators(){
        return dao.getInteger("spectators");
     }
