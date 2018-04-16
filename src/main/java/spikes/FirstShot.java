@@ -31,7 +31,7 @@ public class FirstShot {
 //        List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
 //          new ServiceRunner<>(new AddSeasonToLeagueService(1, 2L)).execute();
           List<Game> listOfLostGames;
-          listOfLostGames = (List<Game>) new ServiceRunner<>(new GetAllLossesForTeamService(1L)).execute();
+          listOfLostGames = (List<Game>) new ServiceRunner<>(new GetAllLossesForTeamService(1L)).internalExecute();
 
           
     }
