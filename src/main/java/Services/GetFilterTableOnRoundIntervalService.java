@@ -9,56 +9,76 @@ import AssistantClasses.MakeTableFromGameList;
 import Domain.Game;
 import Domain.Season;
 import Domain.Team;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
  * @author Simon
  */
-public class GetFilterTableOnRoundIntervalService extends Service{
+public class GetFilterTableOnRoundIntervalService extends Service {
+
     private final Long seasonId;
-    private final Long startDate;
-    private final Long endDate;
+    private final int startRound;
+    private final int endRound;
     List<Game> allSeasonGames;
     List<Team> allSeasonTeams;
     List<Game> intervalGames;
-    Team team;
-    Game game;
+    List<Team> intervalTeams;
 
-    public GetFilterTableOnRoundIntervalService(Long seasonId, Long startDate, Long endDate) {
+    public GetFilterTableOnRoundIntervalService(Long seasonId, int startRound, int endRound) {
         this.seasonId = seasonId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        
-        if(seasonId == null){
+        this.startRound = startRound;
+        this.endRound = endRound;
+
+        if (seasonId == null) {
             throw new ServiceException("seasonId cannot be null");
         }
-        if(startDate == null){
-            throw new ServiceException("startDate cannot be null");
+        if (startRound < 0) {
+            throw new ServiceException("startRound cannot be null");
         }
-        if(endDate == null){
-            throw new ServiceException("endDate cannot be null");
+        if (endRound < 0) {
+            throw new ServiceException("endRound cannot be null");
         }
     }
 
     @Override
     public String execute() {
-        if(getBrokerFactory().getSeasonBroker().findSeasonById(seasonId) == null){
+        Game game;
+        intervalGames = new ArrayList<>();
+        intervalTeams = new ArrayList<>();
+        if (getBrokerFactory().getSeasonBroker().findSeasonById(seasonId) == null) {
             throw new ServiceException("no season with given id");
         }
+
         GetAllGamesFromSeasonService getGameService = new GetAllGamesFromSeasonService(seasonId);
         getGameService.init(getBrokerFactory());
         allSeasonGames = getGameService.execute();
         allSeasonTeams = getBrokerFactory().getSeasonBroker().getAllTeamsFromSeasonId(seasonId);
-        for(int i = 0; i<allSeasonGames.size(); i++){
+        for (int i = 0; i < allSeasonGames.size(); i++) {
             game = allSeasonGames.get(i);
-            if(game.getDate() == null){
-                throw new ServiceException("Game Date is null");
+            if (game.getRound().getRoundNumber() < 0 || game == null) {
+                throw new ServiceException("GameRound is null");
             }
-            if(game.getDate()<= endDate && game.getDate() >= startDate){
+            if (game.getRound().getRoundNumber() <= endRound && game.getRound().getRoundNumber() >= startRound) {
                 intervalGames.add(game);
             }
         }
-        return new MakeTableFromGameList(intervalGames, allSeasonTeams).execute();
+        int i = 0;
+        for (Team team : allSeasonTeams) {
+            boolean contains = false;
+            long teamId = (long) team.getDao().getLongId();
+
+            for (Team addedTeam : intervalTeams) {
+                long addedTeamId = (long) addedTeam.getDao().getLongId();
+                contains = contains || (addedTeamId == teamId);
+            }
+            if (!contains) {
+                intervalTeams.add(team);
+            }
+        }
+        return new MakeTableFromGameList(intervalGames, intervalTeams).execute();
     }
 }

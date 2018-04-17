@@ -6,6 +6,7 @@
 package Services;
 
 import Broker.BrokerFactory;
+import DB.DbConn;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,11 +23,14 @@ public class GetFilterTableOnRoundIntervalServiceIT {
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
+        //DbConn.staticOpen();
+        
     }
     
     @AfterClass
     public static void tearDownClass() {
         SetUpTestObjects.tearDown();
+        //DbConn.staticClose();
     }
     
     /**
@@ -34,9 +38,9 @@ public class GetFilterTableOnRoundIntervalServiceIT {
      */
     @Test
     public void testExecute() {
-        GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(0L, 20180416L, 20180417L);
+        //GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(0L, 1, 2);
+        GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(SetUpTestObjects.getSeasonId1(), 0, 1);
         g.init(new BrokerFactory());
-        System.out.println("FILTERGAMES: " + g.execute());
+        System.out.println("FILTERGAMES: " + "\n" + g.execute());
     }
-    
 }
