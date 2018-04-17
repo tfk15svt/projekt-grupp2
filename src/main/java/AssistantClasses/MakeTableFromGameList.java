@@ -99,7 +99,7 @@ public class MakeTableFromGameList {
 
     }
 
-    public String createTable() {
+    private String createTable() {
         String table = "";
         for (TableRow tablerow : sortedRows) {
             table += tablerow.row[0] + tablerow.row[1] + tablerow.row[2]

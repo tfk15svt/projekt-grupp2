@@ -63,19 +63,20 @@ public class SetUpTestObjects {
     private static TeamsSeasonsDao tTs4;
     private static TeamsSeasonsDao tTs5;
     private static TeamsSeasonsDao tTs6;
-    
+    private static int numberOfGames;
 
 
     public static void setUp() {
         DbConn.staticOpen();
+        numberOfGames = 0;
         result1 = new Result();
         result2 = new Result();
         result3 = new Result();
         result4 = new Result();
-        game1 = new Game();
-        game2 = new Game();
-        game3 = new Game();
-        game4 = new Game();
+        game1 = new Game(); numberOfGames++;
+        game2 = new Game(); numberOfGames++;
+        game3 = new Game(); numberOfGames++;
+        game4 = new Game(); numberOfGames++;
         arena = new Arena();
         team1 = new Team();
         team2 = new Team();
@@ -179,7 +180,7 @@ public class SetUpTestObjects {
         game4.setHomeTeam(team5);
         game4.setAwayTeam(team2);
         game4.setRound(round3);
-        game4.setDate(3);
+        game4.setDate(4);
         game4.getDao().save();
         gameId4 = game4.getDao().getLongId();
         
@@ -345,6 +346,9 @@ public class SetUpTestObjects {
     
     public static Long getSeasonId2(){
         return seasonId2;
+    }
+    public static int getNumberOfGames(){
+        return numberOfGames;
     }
     
 }

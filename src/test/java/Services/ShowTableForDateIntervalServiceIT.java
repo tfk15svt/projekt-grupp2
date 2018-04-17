@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Broker.BrokerFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,38 +18,29 @@ import static org.junit.Assert.*;
  * @author Veiret
  */
 public class ShowTableForDateIntervalServiceIT {
-    
-    public ShowTableForDateIntervalServiceIT() {
-    }
-    
+
     @BeforeClass
     public static void setUpClass() {
+        SetUpTestObjects.setUp();
     }
     
     @AfterClass
     public static void tearDownClass() {
+        SetUpTestObjects.tearDown();
     }
     
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of execute method, of class ShowTableForDateIntervalService.
      */
     @Test
     public void testExecute() {
-        System.out.println("execute");
-        ShowTableForDateIntervalService instance = null;
-        String expResult = "";
-        String result = instance.execute();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ShowTableForDateIntervalService instance = new ShowTableForDateIntervalService(SetUpTestObjects.getLeagueId(), 1, 2);
+        instance.init(new BrokerFactory());
+        System.out.println(instance.execute());
+        ShowTableForDateIntervalService instance2 = new ShowTableForDateIntervalService(SetUpTestObjects.getLeagueId(), 1, 3);
+        instance2.init(new BrokerFactory());
+        System.out.println(instance.execute());
+        System.out.println(instance2.execute());
     }
     
 }
