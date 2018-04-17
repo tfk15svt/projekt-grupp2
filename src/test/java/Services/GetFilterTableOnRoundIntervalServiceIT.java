@@ -39,7 +39,7 @@ public class GetFilterTableOnRoundIntervalServiceIT {
     @Test
     public void testExecute() {
         //GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(0L, 1, 2);
-        GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(SetUpTestObjects.getSeasonId1(), 0, 1);
+        GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(SetUpTestObjects.getSeasonId1(), 0, 2);
         g.init(new BrokerFactory());
         System.out.println("FILTERGAMES: " + "\n" + g.execute());
     }

@@ -37,18 +37,23 @@ public class GetAllLossesForTeamService extends Service {
         List<Game> listOfLostGames = new ArrayList<>();
         
         for(int x = 0; x < listOfAwayGames.size(); x++) {
-            
-            if (listOfAwayGames.get(x).getResult().getAwayScore() < listOfAwayGames.get(x).getResult().getHomeScore()) {
-                
-                listOfLostGames.add(listOfAwayGames.get(x));
+            try {
+               if (listOfAwayGames.get(x).getResult().getAwayScore() < listOfAwayGames.get(x).getResult().getHomeScore()) {
+                   listOfLostGames.add(listOfAwayGames.get(x));
+                }
+            } catch (Exception ex) {
+                ex.getMessage();
             }
         }
         
         for(int x = 0; x < listOfHomeGames.size(); x++) {
             
-            if (listOfHomeGames.get(x).getResult().getAwayScore() > listOfHomeGames.get(x).getResult().getHomeScore()) {
-                
-                listOfLostGames.add(listOfHomeGames.get(x));
+           try {
+               if (listOfHomeGames.get(x).getResult().getAwayScore() > listOfHomeGames.get(x).getResult().getHomeScore()) {
+                    listOfLostGames.add(listOfAwayGames.get(x));
+                }
+            } catch (Exception ex) {
+                ex.getMessage();
             }
         }
         

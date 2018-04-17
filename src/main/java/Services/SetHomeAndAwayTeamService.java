@@ -15,10 +15,12 @@ import Domain.Team;
 public class SetHomeAndAwayTeamService extends Service{
     private final Long homeTeamId;
     private final Long awayTeamId;
+    private final Long gameId;
 
-    public SetHomeAndAwayTeamService(Long homeTeamId, Long awayTeamId) {
+    public SetHomeAndAwayTeamService(Long homeTeamId, Long awayTeamId, Long gameId) {
         this.homeTeamId = homeTeamId;
         this.awayTeamId = awayTeamId;
+        this.gameId = gameId;
         
         if(homeTeamId == null){
             throw new ServiceException("hometeamID cannot be null");
@@ -26,12 +28,16 @@ public class SetHomeAndAwayTeamService extends Service{
         if(awayTeamId == null){
             throw new SecurityException("awayTeamID cannot be null");
         }
+        if(gameId == null){
+            throw new SecurityException("gameID cannot be null");
+        }
     }
 
     @Override
     public Game execute() {
         Team homeTeam = getBrokerFactory().getTeamBroker().findTeamById(homeTeamId);
         Team awayTeam = getBrokerFactory().getTeamBroker().findTeamById(awayTeamId);
+        Game game = getBrokerFactory().getGameBroker().findById(gameId);
         
         if(getBrokerFactory().getTeamBroker().teamExists(homeTeamId) == false){
             throw new ServiceException("hometeam not found");
@@ -40,7 +46,7 @@ public class SetHomeAndAwayTeamService extends Service{
             throw new ServiceException("awayteam not found");
         }
         
-        Game game = getBrokerFactory().getGameBroker().create();
+        
         game.setHomeTeam(homeTeam);
         game.setAwayTeam(awayTeam);
         game.getDao().save();

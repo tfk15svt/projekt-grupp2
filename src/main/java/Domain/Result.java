@@ -46,6 +46,7 @@ public class Result {
     public Integer getAwayScore(){
         return dao.getInteger("awayScore");
     }
+    @JsonIgnore
     public Long getGameId(){
         return dao.getLong("game_id");
     }

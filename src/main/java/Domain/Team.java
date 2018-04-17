@@ -36,7 +36,6 @@ public class Team {
     public void setName (String name){
         dao.setString ("name", name);
     }
-    @JsonIgnore
     public void setSport(Sport sport){
         dao.setParent(sport.getDao());
     }

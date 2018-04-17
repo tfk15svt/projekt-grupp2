@@ -40,7 +40,7 @@ public class GameBroker {
         return new Game(GameDao.findById(id));
     }
     
-    public List<Game> findGamesByDate(Long date){
+    public List<Game> findGamesByDate(Integer date){
         List<Game> listOfGames = GameDao.find("date=?", date).stream()
                 .map(gameDao -> new Game((GameDao) gameDao))
                 .collect(Collectors.toList());

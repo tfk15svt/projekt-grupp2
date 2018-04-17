@@ -6,8 +6,8 @@
 package Services;
 
 import Broker.BrokerFactory;
-import DAO.GameDao;
 import Domain.Game;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,10 +17,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Simon
+ * @author Veiret
  */
-public class SetHomeAndAwayTeamServiceIT {
-    
+public class GetAllGamesFromDateIntervalServiceIT {
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
@@ -30,15 +29,18 @@ public class SetHomeAndAwayTeamServiceIT {
     public static void tearDownClass() {
         SetUpTestObjects.tearDown();
     }
-
+    
     /**
-     * Test of execute method, of class SetHomeAndAwayTeamService.
+     * Test of execute method, of class GetAllGamesFromDateIntervalService.
      */
     @Test
     public void testExecute() {
-        SetHomeAndAwayTeamService s = new SetHomeAndAwayTeamService(38L, 39L, 40L);
-        s.init(new BrokerFactory());
-        System.out.println("SetHomeAndAwayTeam: " + s.execute());
+        System.out.println("execute");
+        GetAllGamesFromDateIntervalService instance = new GetAllGamesFromDateIntervalService(SetUpTestObjects.getLeagueId(), 2 , 3);
+        instance.init(new BrokerFactory());
+        List<Game> result = instance.execute();
+        assertEquals(2, result.size());
+        // TODO review the generated test code and remove the default call to fail.
     }
     
 }

@@ -15,13 +15,13 @@ import java.util.List;
  * @author Simon
  */
 public class GetAllGamesFromDateService extends Service{
-    Long date;
-    public GetAllGamesFromDateService(Long date) {
+    Integer date;
+    public GetAllGamesFromDateService(Integer date) {
         this.date = date;
-        if(date == null){
+        if(this.date == null){
             throw new ServiceException("date can not be null.");
         }
-        if(date.toString().length() != 8){
+        if(this.date.toString().length() != 8){
             throw new ServiceException("date should be yyyyMMdd");
         }
     }
