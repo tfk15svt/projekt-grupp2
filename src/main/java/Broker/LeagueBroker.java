@@ -50,11 +50,7 @@ public class LeagueBroker {
                                 (Integer)((GameDao) gameDao).get("date") >= startDate)
                 .map(gameDao -> new Game(gameDao))
                 .collect(Collectors.toList());
-        /**
-         * GameDao.find("league_id=? AND date >= " + startDate + "AND date <= " + endDate, leagueId)
-         * .stream().map(dao -> new Game((GameDao) dao))
-         * .collect(Collectors.toList()); *
-         */
+        
     }
 
     public League create() {
