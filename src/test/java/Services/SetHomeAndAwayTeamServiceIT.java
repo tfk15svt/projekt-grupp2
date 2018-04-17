@@ -36,7 +36,7 @@ public class SetHomeAndAwayTeamServiceIT {
      */
     @Test
     public void testExecute() {
-        SetHomeAndAwayTeamService s = new SetHomeAndAwayTeamService(38L, 39L);
+        SetHomeAndAwayTeamService s = new SetHomeAndAwayTeamService(38L, 39L, 40L);
         s.init(new BrokerFactory());
         System.out.println("SetHomeAndAwayTeam: " + s.execute());
     }

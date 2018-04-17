@@ -37,11 +37,15 @@ public class GetAllTiesForTeamService extends Service {
         List<Game> listOfTiedGames = new ArrayList<>();
         
         for(int x = 0; x < listOfGames.size(); x++) {
-            
-            if (Objects.equals(listOfGames.get(x).getResult().getAwayScore(), listOfGames.get(x).getResult().getHomeScore())) {
+            try {
+                if (Objects.equals(listOfGames.get(x).getResult().getAwayScore(), listOfGames.get(x).getResult().getHomeScore())) {
                 
-                listOfTiedGames.add(listOfGames.get(x));
+                    listOfTiedGames.add(listOfGames.get(x));
+                }
+            } catch (Exception ex) {
+                ex.getMessage();
             }
+            
         }
         
         return listOfTiedGames;

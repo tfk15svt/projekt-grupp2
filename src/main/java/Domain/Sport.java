@@ -28,6 +28,7 @@ public class Sport {
     public void setName(String name) {
         dao.setString("name", name);
     }
+    @JsonIgnore
     public Long getId(){
         return dao.getLongId();
     }

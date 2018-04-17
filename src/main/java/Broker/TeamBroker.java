@@ -32,10 +32,10 @@ public class TeamBroker {
     public Team create() {
         return new Team();
     }
+    
     public List<Game> getAllGamesForTwoTeams(Long team1Id, Long team2Id)
     {
-        String SQLString = "SELECT * FROM games WHERE home_team_id = " + team1Id.toString() + " AND away_team_id = " + team2Id.toString() + " OR home_team_id = " + team2Id.toString() + " AND away_team_id = " + team1Id.toString();
-        List<Game> listOfGames = GameDao.findBySQL(SQLString).stream()
+        List<Game> listOfGames = GameDao.find("(home_team_id=? AND away_team_id=?) OR (home_team_id=? AND away_team_id=?)", team1Id, team2Id, team2Id, team1Id).stream()
                 .map(gameDao -> new Game((GameDao) gameDao))
                 .collect(Collectors.toList());
         
@@ -43,16 +43,9 @@ public class TeamBroker {
     }   
 
     public List<Game> getAllGamesForOneTeam(Long teamId) {
-        List<Game> logH = GameDao.find("home_team_id=?", teamId).stream()
+        List<Game> listOfGames = GameDao.find("home_team_id=? OR away_team_id=?", teamId, teamId).stream()
                 .map(gameDao -> new Game((GameDao) gameDao))
                 .collect(Collectors.toList());
-
-        List<Game> logA = GameDao.find("away_team_id=?", teamId).stream()
-                .map(gameDao -> new Game((GameDao) gameDao))
-                .collect(Collectors.toList());
-
-        List<Game> listOfGames = Stream.concat(logH.stream(), logA.stream()).collect(Collectors.toList());
-
         return listOfGames;
     }
 

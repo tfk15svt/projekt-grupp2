@@ -33,6 +33,7 @@ public class Arena {
     public String getArenaName(){
         return dao.getString("name");
     }
+    @JsonIgnore
     public Team getTeam(){
         return new Team (dao.parent(TeamDao.class));
     }

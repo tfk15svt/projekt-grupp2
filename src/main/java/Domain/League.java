@@ -56,6 +56,7 @@ public class League {
                 .map(dao -> new Season(dao))
                 .collect(Collectors.toList());
     }
+    @JsonIgnore
     public Long getId(){
         return dao.getLongId();
     }

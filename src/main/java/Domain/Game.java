@@ -35,7 +35,7 @@ public class Game {
         resultDao.setParent(dao);
         resultDao.save();
     }
-    @JsonIgnore
+    
     public Result getResult(){
         List<ResultDao> resultList = dao.getAll(ResultDao.class);
         if (resultList.size() == 0){

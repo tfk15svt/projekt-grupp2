@@ -10,6 +10,8 @@ import Services.AddGameService;
 import Services.AddResultToGameService;
 import Services.AddSeasonToLeagueService;
 import Services.GetAllLossesForTeamService;
+import Services.GetAllWinsForTeamService;
+import Services.GetGameResultInfoService;
 import Services.GetTeamsMatchHistoryService;
 import Services.Service;
 import java.util.List;
@@ -31,7 +33,9 @@ public class FirstShot {
 //        List<Game> listOfGames = (List<Game>) (new ServiceRunner<>(new GetTeamsMatchHistoryService(1L, 2L)).execute());
 //          new ServiceRunner<>(new AddSeasonToLeagueService(1, 2L)).execute();
           List<Game> listOfLostGames;
-          listOfLostGames = (List<Game>) new ServiceRunner<>(new GetAllLossesForTeamService(1L)).internalExecute();
+//          System.out.println(listOfLostGames = (List<Game>) new ServiceRunner<>(new GetAllLossesForTeamService(0L)).execute());
+//          System.out.println(listOfLostGames.get(0).getResult());
+          System.out.println(new ServiceRunner(new GetGameResultInfoService(0L)).execute());
 
           
     }
