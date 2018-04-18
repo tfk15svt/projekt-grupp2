@@ -5,6 +5,7 @@
  */
 package Services;
 
+import AssistantClasses.GetTeamsFromListOfGames;
 import AssistantClasses.MakeTableFromGameList;
 import Domain.Game;
 import Domain.Season;
@@ -44,13 +45,9 @@ public class ShowMergedTableForSeasonsService extends Service {
         }).flatMap(gameList -> gameList.stream())
                 .collect(Collectors.toList());
         
-        List<Team> listOfTeams = Stream.concat(
-                listOfGames.stream().map(game -> ((Game) game).getHomeTeam()), 
-                listOfGames.stream().map(game -> ((Game) game).getAwayTeam()))
-                .map(team -> (long) team.getId())
-                .distinct()
-                .map(id -> getBrokerFactory().getTeamBroker().findTeamById(id))
-                .collect(Collectors.toList());
+        GetTeamsFromListOfGames getTeams = new GetTeamsFromListOfGames(listOfGames);
+        getTeams.init(getBrokerFactory());
+        List<Team> listOfTeams = getTeams.execute();
         
         return new MakeTableFromGameList(listOfGames, listOfTeams).execute();
     }

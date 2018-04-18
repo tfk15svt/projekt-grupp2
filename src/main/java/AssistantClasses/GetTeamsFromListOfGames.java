@@ -25,9 +25,11 @@ public class GetTeamsFromListOfGames extends Service {
     }
     public List<Team> execute() {
         return Stream.concat(
-                gameList.stream().map(game -> (long) ((Game) game).getDao().getLong("away_team_id")),
-                gameList.stream().map(game -> (long) ((Game) game).getDao().getLong("home_team_id")))
-                .distinct().map(id -> getBrokerFactory().getTeamBroker().findTeamById((long) id))
+                gameList.stream().map(game -> ((Game) game).getHomeTeam()), 
+                gameList.stream().map(game -> ((Game) game).getAwayTeam()))
+                .map(team -> (long) team.getId())
+                .distinct()
+                .map(id -> getBrokerFactory().getTeamBroker().findTeamById(id))
                 .collect(Collectors.toList());
     }
 
