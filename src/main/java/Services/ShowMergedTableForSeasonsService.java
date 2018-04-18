@@ -52,34 +52,6 @@ public class ShowMergedTableForSeasonsService extends Service {
                 .map(id -> getBrokerFactory().getTeamBroker().findTeamById(id))
                 .collect(Collectors.toList());
         
-        /**
-         * ArrayList<List<Game>> arrayOfgameLists = new ArrayList<List<Game>>();
-         * for(int i = 0; i < seasonIds.size(); i++){
-         * GetAllGamesFromSeasonService getGames =
-         * getBrokerFactory().getServiceBroker().getAllGamesFromSeasonService(seasonIds.get(i));
-         * getGames.init(getBrokerFactory());
-         * arrayOfgameLists.add(getGames.execute()); }
-         *
-         * List<Game> conGameList = new ArrayList<Game>(); for(List<Game> list :
-         * arrayOfgameLists){ conGameList = Stream.concat(conGameList.stream(),
-         * list.stream()).collect(Collectors.toList()); }
-         *
-         * ArrayList<List<Team>> arrayOfTeamLists = new ArrayList<List<Team>>();
-         *
-         * for(int i = 0; i < seasonIds.size(); i++){
-         * arrayOfTeamLists.add(getBrokerFactory().getSeasonBroker()
-         * .getAllTeamsFromSeasonId(seasonIds.get(i))); }
-         *
-         * List<Team> conTeamList = new ArrayList<Team>();
-         *
-         * for (List<Team> teamList: arrayOfTeamLists){ for(Team team: teamList)
-         * { boolean contains = false; long teamId = team.getDao().getLongId();
-         *
-         * for(Team addedTeam :conTeamList) { long addedTeamId =
-         * addedTeam.getDao().getLongId(); contains = contains || (addedTeamId
-         * == teamId); } if (!contains){ conTeamList.add(team); } } }
-         */
-
         return new MakeTableFromGameList(listOfGames, listOfTeams).execute();
     }
 
