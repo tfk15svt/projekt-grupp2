@@ -53,7 +53,7 @@ public class GetFilterTableOnRoundIntervalService extends Service {
             throw new ServiceException("no season with given id");
         }
 
-        GetAllGamesFromSeasonService getGameService = new GetAllGamesFromSeasonService(seasonId);
+        GetAllGamesFromSeasonService getGameService = getBrokerFactory().getServiceBroker().getAllGamesFromSeasonService(seasonId);
         getGameService.init(getBrokerFactory());
         allSeasonGames = getGameService.execute();
         allSeasonTeams = getBrokerFactory().getSeasonBroker().getAllTeamsFromSeasonId(seasonId);
@@ -66,7 +66,6 @@ public class GetFilterTableOnRoundIntervalService extends Service {
                 intervalGames.add(game);
             }
         }
-        int i = 0;
         for (Team team : allSeasonTeams) {
             boolean contains = false;
             long teamId = (long) team.getDao().getLongId();

@@ -35,8 +35,7 @@ public class ShowSeasonTableServiceTest {
 
     private static Long seasonId;
     private static BrokerFactory brokerFactory;
-    private static FakeTableRowForJsonTests row1;
-    private static FakeTableRowForJsonTests row2;
+    
     private static String teamName1;
     private static int fullTimeWins1;
     private static int losses1;
@@ -46,6 +45,7 @@ public class ShowSeasonTableServiceTest {
     private static int scoredGoals1;
     private static int opponentScore1;
     private static int points1;
+    
     private static String teamName2;
     private static int fullTimeWins2;
     private static int tied2;
@@ -71,6 +71,9 @@ public class ShowSeasonTableServiceTest {
     private static List<FakeTableRowForJsonTests> expList;
     private static List<Game> allSeasonGames;
     private static List<Team> allSeasonTeams;
+    
+    private static FakeTableRowForJsonTests row1;
+    private static FakeTableRowForJsonTests row2;
     
     
     @BeforeClass
@@ -147,6 +150,7 @@ public class ShowSeasonTableServiceTest {
         
         row1 = new FakeTableRowForJsonTests();
         row2 = new FakeTableRowForJsonTests();
+        
         row1.setFullTimeWins(fullTimeWins1);
         row1.setGamesPlayed(fullTimeWins1 + losses1 + tied1);
         row1.setLosses(losses1);
@@ -167,6 +171,7 @@ public class ShowSeasonTableServiceTest {
         expList = new ArrayList<>();
         expList.add(row1);
         expList.add(row2);
+        
     }
 
     @Test
@@ -194,7 +199,7 @@ public class ShowSeasonTableServiceTest {
         System.out.println("execute");
         ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
         instance.init(brokerFactory);
-        String expResult = JsonOutputformat.create(expList);        
+        String expResult = JsonOutputformat.create(expList);
         String reString = instance.execute();
         assertTrue(expResult.equals(reString));
     }

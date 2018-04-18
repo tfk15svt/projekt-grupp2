@@ -6,7 +6,6 @@
 package Services;
 
 import Broker.BrokerFactory;
-import DB.DbConn;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,29 +17,23 @@ import static org.junit.Assert.*;
  *
  * @author Simon
  */
-public class GetFilterTableOnRoundIntervalServiceIT {
-    
+public class GetFilterTableForHomeGamesServiceIT {
+   
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
-        //DbConn.staticOpen();
-        
     }
     
     @AfterClass
     public static void tearDownClass() {
         SetUpTestObjects.tearDown();
-        //DbConn.staticClose();
     }
     
-    /**
-     * Test of execute method, of class GetFilterTableOnRoundIntervalService.
-     */
     @Test
-    public void testExecute() {
-        //GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(0L, 1, 2);
-        GetFilterTableOnRoundIntervalService g = new GetFilterTableOnRoundIntervalService(SetUpTestObjects.getSeasonId1(), 0, 1);
-        g.init(new BrokerFactory());
-        System.out.println("FILTERGAMES: " + "\n" + g.execute());
+    public void testSomeMethod() {
+        GetFilterTableForHomeGamesService instance = new GetFilterTableForHomeGamesService(SetUpTestObjects.getSeasonId1());
+        instance.init(new BrokerFactory());
+        System.out.println("Home table: " + "\n" + instance.execute());
     }
+    
 }
