@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
  *
  * @author Simon
  */
-public class GetFilterTableForHomeGamesServiceIT {
-   
+public class GetFilterTableForAwayGamesServiceIT {
+    
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
@@ -31,8 +31,9 @@ public class GetFilterTableForHomeGamesServiceIT {
     
     @Test
     public void testSomeMethod() {
-        GetFilterTableForHomeGamesService instance = new GetFilterTableForHomeGamesService(SetUpTestObjects.getSeasonId1());
+        GetFilterTableForAwayGamesService instance = new GetFilterTableForAwayGamesService(SetUpTestObjects.getSeasonId1());
         instance.init(new BrokerFactory());
-        System.out.println("Home table: " + "\n" + instance.execute());
+        System.out.println("AwayTeams: " + "\n" + instance.execute());
     }
+    
 }
