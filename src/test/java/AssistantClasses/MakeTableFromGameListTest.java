@@ -183,11 +183,14 @@ public class MakeTableFromGameListTest {
     public void testExecute() {
         System.out.println("execute");
         MakeTableFromGameList instance = new MakeTableFromGameList(games, teams);
-        String expResult = 
-                row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +
-                row2[0] + row2[1] + row2[2] + row2[3] + row2[4] + row2[5] + row2[6] + "\n";
+        FakeTableRowForJsonTest row1 = new FakeTableRowForJsonTest();
+        row1.points = 4;
+        
+        List<FakeTableRowForJsonTest> expList = new ArrayList<>();
+        expList.add(row1);
+               
         String reString = instance.execute();
-        assertEquals(expResult, reString);
+        assertEquals(JsonOutputformat.create(expList), reString);
     }
 
 }

@@ -27,40 +27,39 @@ public class MakeTableFromGameList {
     public MakeTableFromGameList(List<Game> games, List<Team> teams) {
         this.listOfGames = games;
         this.listOfTeams = teams;
-        if(listOfGames == null) {
+        if (listOfGames == null) {
             throw new ServiceException("List of games is null");
         }
-        if(listOfTeams == null) {
+        if (listOfTeams == null) {
             throw new ServiceException("List of games is null");
         }
     }
 
-    
     public String execute() {
         notSortedRows = new ArrayList<TableRow>();
         sortedRows = new ArrayList<TableRow>();
 
-        for (Team team : listOfTeams) {
+        listOfTeams.forEach((team) -> {
             notSortedRows.add(new TableRow(team));
-        }
+        });
 
         setRowSizes();
         sortList();
-        return createTable();
+        return JsonOutputformat.create(sortedRows);
     }
 
     public void setRowSizes() {
         for (int i = 0; i < sizeOfCol.length; i++) {
             sizeOfCol[i] = 0;
         }
-        for (TableRow tableRow : notSortedRows) {
+        notSortedRows.forEach((tableRow) -> {
             for (int i = 0; i < tableRow.row.length; i++) {
                 if (tableRow.row[i].length() > sizeOfCol[i]) {
                     sizeOfCol[i] = tableRow.row[i].length();
                 }
             }
-        }
-        for (TableRow tableRow : notSortedRows) {
+        });
+        notSortedRows.forEach((tableRow) -> {
             for (int colInTableRow = 0; colInTableRow < tableRow.row.length; colInTableRow++) {
                 if (tableRow.row[colInTableRow].length() < sizeOfCol[colInTableRow]) {
 
@@ -73,7 +72,7 @@ public class MakeTableFromGameList {
                     tableRow.row[colInTableRow] = spaces + tableRow.row[colInTableRow];
                 }
             }
-        }
+        });
     }
 
     public void sortList() {
@@ -91,21 +90,19 @@ public class MakeTableFromGameList {
                 if (mostPoints == row.getPoints()) {
                     sortedRows.add(row);
                     iterator.remove();
-                    notSortedRowsLength = notSortedRowsLength -1;
+                    notSortedRowsLength = notSortedRowsLength - 1;
                 }
             }
-            
+
         }
 
     }
 
     private String createTable() {
         String table = "";
-        for (TableRow tablerow : sortedRows) {
-            table += tablerow.row[0] + tablerow.row[1] + tablerow.row[2]
-                    + tablerow.row[3] + tablerow.row[4] + tablerow.row[5]
-                    + tablerow.row[6] + "\n";
-        }
+        table = sortedRows.stream().map((tablerow) -> tablerow.row[0] + tablerow.row[1] + tablerow.row[2]
+                + tablerow.row[3] + tablerow.row[4] + tablerow.row[5]
+                + tablerow.row[6] + "\n").reduce(table, String::concat);
         return table;
     }
 
@@ -134,17 +131,16 @@ public class MakeTableFromGameList {
             opponentScore = 0;
             overTimeWins = 0;
 
-            for (Game game : listOfGames) {
+            listOfGames.forEach((game) -> {
                 long homeTeamId = game.getHomeTeam().getDao().getLongId();
                 long awayTeamId = game.getAwayTeam().getDao().getLongId();
-                
                 if ((homeTeamId == teamId) /*&& (game.getResult() != null)*/) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();
-                    
+
                     scoredGoals += homeScore;
                     opponentScore += awayScore;
-                    
+
                     if ((homeScore > awayScore) && game.getResult().getFullTime()) {
                         fullTimeWins++;
                     }
@@ -160,13 +156,11 @@ public class MakeTableFromGameList {
                         losses++;
                     }
                 }
-                if ((awayTeamId == teamId)/* && (game.getResult() != null)*/) {
+                if (awayTeamId == teamId) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();
-                    
                     scoredGoals += awayScore;
                     opponentScore += homeScore;
-                    
                     if ((homeScore < awayScore) && game.getResult().getFullTime()) {
                         fullTimeWins++;
                     }
@@ -181,10 +175,37 @@ public class MakeTableFromGameList {
                     if ((homeScore > awayScore) && game.getResult().getFullTime()) {
                         losses++;
                     }
-
                 }
-            }
+            });
             setRowColumns();
+        }
+
+        public String getTeamname() {
+            return teamname;
+        }
+
+        public int getGamesPlayed() {
+            return fullTimeWins + losses + tied;
+        }
+
+        public int getFulltimeWins() {
+            return fullTimeWins;
+        }
+
+        public int getTied() {
+            return tied;
+        }
+
+        public int getLosses() {
+            return losses;
+        }
+
+        public int getScoredGoals() {
+            return scoredGoals;
+        }
+
+        public int getOpponentScore() {
+            return opponentScore;
         }
 
         public int getPoints() {
