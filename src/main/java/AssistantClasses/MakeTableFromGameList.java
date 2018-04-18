@@ -8,6 +8,7 @@ package AssistantClasses;
 import Services.*;
 import Domain.Game;
 import Domain.Team;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -105,11 +106,10 @@ public class MakeTableFromGameList {
                 + tablerow.row[6] + "\n").reduce(table, String::concat);
         return table;
     }
-
+    @JsonPropertyOrder({ "teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points" })
     private class TableRow {
-
         long teamId;
-        String teamname;
+        String teamName;
         String[] row;
         int fullTimeWins;
         int losses;
@@ -118,10 +118,10 @@ public class MakeTableFromGameList {
         int scoredGoals;
         int opponentScore;
         int overTimeWins;
-
+        //int getGamesPlayed;
         TableRow(Team team) {
             this.teamId = team.getDao().getLongId();
-            this.teamname = team.getName();
+            this.teamName = team.getName();
 
             fullTimeWins = 0;
             losses = 0;
@@ -180,15 +180,16 @@ public class MakeTableFromGameList {
             setRowColumns();
         }
 
-        public String getTeamname() {
-            return teamname;
+        public String getTeamName() {
+            return teamName;
         }
 
         public int getGamesPlayed() {
+            //getGamesPlayed = fullTimeWins + losses + tied;
             return fullTimeWins + losses + tied;
         }
 
-        public int getFulltimeWins() {
+        public int getFullTimeWins() {
             return fullTimeWins;
         }
 
@@ -214,7 +215,7 @@ public class MakeTableFromGameList {
 
         public void setRowColumns() {
             row = new String[7];
-            row[0] = teamname;
+            row[0] = teamName;
             row[1] = " GP: " + (fullTimeWins + losses + tied);
             row[2] = " W: " + (fullTimeWins);
             row[3] = " T: " + (tied);
