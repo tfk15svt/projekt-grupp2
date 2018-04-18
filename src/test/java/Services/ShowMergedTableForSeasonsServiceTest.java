@@ -5,9 +5,12 @@
  */
 package Services;
 
+import AssistantClasses.FakeTableRowForJsonTests;
+import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
 import Broker.ServiceBroker;
+import Broker.TeamBroker;
 import DAO.TeamDao;
 import Domain.Game;
 import Domain.Result;
@@ -28,10 +31,11 @@ import static org.mockito.Mockito.*;
  */
 public class ShowMergedTableForSeasonsServiceTest {
     private static BrokerFactory brokerFactory;
+    private static TeamBroker teamBroker;
     private static List<Long> seasonIds;
-    
+    private static FakeTableRowForJsonTests row1;
+    private static FakeTableRowForJsonTests row2;
     private static Long seasonId;
-    private static String[] row1;
     private static String teamName1;
     private static int fullTimeWins1;
     private static int losses1;
@@ -41,7 +45,6 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static int scoredGoals1;
     private static int opponentScore1;
     private static int points1;
-    private static String[] row2;
     private static String teamName2;
     private static int fullTimeWins2;
     private static int tied2;
@@ -67,12 +70,13 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static ServiceBroker serviceBroker;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonService1;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonService2;
+    private static List<FakeTableRowForJsonTests> expList;
     private static List<Game> allSeasonGames1;
     private static List<Team> allSeasonTeams1;
     private static List<Game> allSeasonGames2;
     private static List<Team> allSeasonTeams2;
-    
-    
+    private static long teamId1;
+    private static long teamId2;
     
     @BeforeClass
     public static void setUpClass() {
@@ -80,7 +84,8 @@ public class ShowMergedTableForSeasonsServiceTest {
         seasonIds.add(1L);
         seasonIds.add(2L);
         brokerFactory = mock(BrokerFactory.class);
-        
+        teamId1 = 1L;
+        teamId2 = 2L;
         seasonId = 1L;
         brokerFactory = mock(BrokerFactory.class);
         getAllGamesFromSeasonService1 = mock(GetAllGamesFromSeasonService.class);
@@ -98,6 +103,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         result3 = mock(Result.class);
         serviceRunner = mock(ServiceRunner.class);
         serviceBroker = mock(ServiceBroker.class);
+        teamBroker = mock(TeamBroker.class);
         
         teamName1 = "Lag1";
         teamName2 = "Lag2";
@@ -109,8 +115,6 @@ public class ShowMergedTableForSeasonsServiceTest {
         scoredGoals1 = 15;
         opponentScore1 = 7;
         points1 = 8;
-        row1 = new String[7] ;
-        row2 = new String[7] ;
         fullTimeWins2 = 0;
         tied2 = 1;
         overTimeWins2 = 0;
@@ -135,6 +139,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         
         when(brokerFactory.getServiceBroker()).thenReturn(serviceBroker);
         when(brokerFactory.getSeasonBroker()).thenReturn(seasonBroker);
+        when(brokerFactory.getTeamBroker()).thenReturn(teamBroker);
         when(serviceBroker.getAllGamesFromSeasonService(seasonIds.get(0))).thenReturn(getAllGamesFromSeasonService1);
         when(serviceBroker.getAllGamesFromSeasonService(seasonIds.get(1))).thenReturn(getAllGamesFromSeasonService2);
         when(getAllGamesFromSeasonService1.execute()).thenReturn(allSeasonGames1);
@@ -144,12 +149,18 @@ public class ShowMergedTableForSeasonsServiceTest {
         when(seasonBroker.seasonExists(seasonIds.get(0))).thenReturn(true);
         when(seasonBroker.seasonExists(seasonIds.get(1))).thenReturn(true);
         when(seasonBroker.seasonExists(999L)).thenReturn(false);
+        when(teamBroker.findTeamById(teamId1)).thenReturn(team1);
+        when(teamBroker.findTeamById(teamId2)).thenReturn(team2);
         when(team1.getDao()).thenReturn(teamDao1);
         when(team2.getDao()).thenReturn(teamDao2);
+        when(teamDao1.getId()).thenReturn(teamId1);
+        when(teamDao1.getLongId()).thenReturn(teamId1);
+        when(teamDao2.getId()).thenReturn(teamId2);
+        when(teamDao2.getLongId()).thenReturn(teamId2);
+        when(team1.getId()).thenReturn(teamId1);
+        when(team2.getId()).thenReturn(teamId2);
         when(team1.getName()).thenReturn(teamName1);
         when(team2.getName()).thenReturn(teamName2);
-        when(teamDao1.getLongId()).thenReturn(1L);
-        when(teamDao2.getLongId()).thenReturn(2L);
         when(game1.getResult()).thenReturn(result1);
         when(game2.getResult()).thenReturn(result2);
         when(game3.getResult()).thenReturn(result3);
@@ -177,23 +188,28 @@ public class ShowMergedTableForSeasonsServiceTest {
         when(game3.getHomeTeam()).thenReturn(team1);
         when(game3.getAwayTeam()).thenReturn(team2);
         
-        row1 = new String[7];
-        row1[0] = teamName1;
-        row1[1] = " GP: " + (fullTimeWins1 + losses1 + tied1);
-        row1[2] = " W: " + (fullTimeWins1);
-        row1[3] = " T: " + (tied1);
-        row1[4] = " L: " + losses1;
-        row1[5] = " " + scoredGoals1 + " - " + opponentScore1 + " ";
-        row1[6] = points1 + "p";
-
-        row2 = new String[7];
-        row2[0] = teamName2;
-        row2[1] = " GP: " + (fullTimeWins2 + losses2 + tied2);
-        row2[2] = " W: " + (fullTimeWins2);
-        row2[3] = " T: " + (tied2);
-        row2[4] = " L: " + losses2;
-        row2[5] = " " + scoredGoals2 + " - " + opponentScore2 + " ";
-        row2[6] = points2 + "p";
+        row1 = new FakeTableRowForJsonTests();
+        row2 = new FakeTableRowForJsonTests();
+        row1.setFullTimeWins(fullTimeWins1);
+        row1.setGamesPlayed(fullTimeWins1 + losses1 + tied1);
+        row1.setLosses(losses1);
+        row1.setOpponentScore(opponentScore1);
+        row1.setPoints(points1);
+        row1.setScoredGoals(scoredGoals1);
+        row1.setTeamname(teamName1);
+        row1.setTied(tied1);
+        row2.setFullTimeWins(fullTimeWins2);
+        row2.setGamesPlayed(fullTimeWins2 + losses2 + tied2);
+        row2.setLosses(losses2);
+        row2.setOpponentScore(opponentScore2);
+        row2.setPoints(points2);
+        row2.setScoredGoals(scoredGoals2);
+        row2.setTeamname(teamName2);
+        row2.setTied(tied2);
+        
+        expList = new ArrayList<>();
+        expList.add(row1);
+        expList.add(row2);
         
     }
     
@@ -229,11 +245,9 @@ public class ShowMergedTableForSeasonsServiceTest {
         System.out.println("execute");
         ShowMergedTableForSeasonsService instance = new ShowMergedTableForSeasonsService(seasonIds);
         instance.init(brokerFactory);
-        String expResult = 
-                row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +
-                row2[0] + row2[1] + row2[2] + row2[3] + row2[4] + row2[5] + row2[6] + "\n";
+        String expResult = JsonOutputformat.create(expList);        
         String reString = instance.execute();
-        assertEquals(expResult, reString);
+        assertTrue(expResult.equals(reString));
     }
     
 }

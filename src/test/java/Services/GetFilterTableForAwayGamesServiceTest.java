@@ -30,9 +30,8 @@ import static org.mockito.Mockito.*;
  *
  * @author Simon
  */
-public class GetFilterTableOnRoundIntervalServiceTest {
-    
-    private static Long seasonId;
+public class GetFilterTableForAwayGamesServiceTest {
+ private static Long seasonId;
     private static BrokerFactory brokerFactory;
     private static String teamName1;
     private static String teamName3;
@@ -123,23 +122,23 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         teamName2 = "Lag2";
         teamName3 = "Lag3";
         
-        fullTimeWins1 = 1;
+        fullTimeWins1 = 0;
         losses1 = 1;
         tied1 = 1;
         overTimeWins1 = 1;
         overTimeLosses1 = 0;
-        scoredGoals1 = 9;
-        opponentScore1 = 5;
-        points1 = 5;
+        scoredGoals1 = 8;
+        opponentScore1 = 47;
+        points1 = 2;
         
         fullTimeWins2 = 1;
-        tied2 = 1;
+        tied2 = 0;
         overTimeWins2 = 0;
-        overTimeLosses2 = 1;
-        losses2 = 1;
-        scoredGoals2 = 5;
-        opponentScore2 = 9;
-        points2 = 4;
+        overTimeLosses2 = 0;
+        losses2 = 0;
+        scoredGoals2 = 7;
+        opponentScore2 = 3;
+        points2 = 3;
         
         fullTimeWins3 = 0;
         tied3 = 0;
@@ -189,8 +188,8 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         row3.setTied(tied3);
         
         expList = new ArrayList<>();
-        expList.add(row1);
         expList.add(row2);
+        expList.add(row1);
         expList.add(row3);
         
         when(round1.getRoundNumber()).thenReturn(1);
@@ -219,27 +218,27 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         when(game1.getResult()).thenReturn(result1);
         when(game2.getResult()).thenReturn(result2);
         when(game3.getResult()).thenReturn(result3);
-        when(result1.getAwayScore()).thenReturn(0);
-        when(result1.getHomeScore()).thenReturn(5);
-        when(result2.getAwayScore()).thenReturn(2);
-        when(result2.getHomeScore()).thenReturn(1);
+        when(result1.getAwayScore()).thenReturn(3);
+        when(result1.getHomeScore()).thenReturn(43);
+        when(result2.getAwayScore()).thenReturn(5);
+        when(result2.getHomeScore()).thenReturn(4);
         when(result1.getFullTime()).thenReturn(true);
         when(result2.getFullTime()).thenReturn(false);
         when(result1.getOverTime()).thenReturn(false);
         when(result2.getOverTime()).thenReturn(true);
         when(result1.getShotOut()).thenReturn(false);
         when(result2.getShotOut()).thenReturn(false);
-        when(result3.getAwayScore()).thenReturn(2);
-        when(result3.getHomeScore()).thenReturn(4);
+        when(result3.getAwayScore()).thenReturn(7);
+        when(result3.getHomeScore()).thenReturn(3);
         when(result3.getOverTime()).thenReturn(false);
         when(result3.getShotOut()).thenReturn(false);
         when(result3.getFullTime()).thenReturn(true);
-        when(game1.getHomeTeam()).thenReturn(team1);
-        when(game1.getAwayTeam()).thenReturn(team2);
+        when(game1.getHomeTeam()).thenReturn(team2);
+        when(game1.getAwayTeam()).thenReturn(team1);
         when(game2.getHomeTeam()).thenReturn(team2);
         when(game2.getAwayTeam()).thenReturn(team1);
-        when(game3.getAwayTeam()).thenReturn(team1);
-        when(game3.getHomeTeam()).thenReturn(team2);
+        when(game3.getAwayTeam()).thenReturn(team2);
+        when(game3.getHomeTeam()).thenReturn(team3);
         
         
         
@@ -248,7 +247,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
     @Test 
     public void testConstructor(){
         try{
-            new GetFilterTableOnRoundIntervalService(null, 0, 0);
+            new GetFilterTableForAwayGamesService(null);
         }catch(ServiceException e){
             e.getMessage();
         }
@@ -256,7 +255,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
 
     @Test
     public void testInit(){
-        GetFilterTableOnRoundIntervalService instance = new GetFilterTableOnRoundIntervalService(seasonId, startRound, endRound);
+        GetFilterTableForAwayGamesService instance = new GetFilterTableForAwayGamesService(seasonId);
         try{
             instance.init(null);
         }catch(ServiceException e){
@@ -268,10 +267,12 @@ public class GetFilterTableOnRoundIntervalServiceTest {
     @Test
     public void testExecute() {
         System.out.println("execute");
-        GetFilterTableOnRoundIntervalService instance = new GetFilterTableOnRoundIntervalService(seasonId, startRound, endRound);
+        GetFilterTableForAwayGamesService instance = new GetFilterTableForAwayGamesService(seasonId);
         instance.init(brokerFactory);
         String expResult = JsonOutputformat.create(expList);   
         String reString = instance.execute();
         assertEquals(expResult, reString);
     }
+    
+    
 }
