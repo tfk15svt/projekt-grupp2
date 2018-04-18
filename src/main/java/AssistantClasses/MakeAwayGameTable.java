@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Veiret
  */
-public class MakeTableFromGameList {
+public class MakeAwayGameTable {
 
     private List<TableRow> notSortedRows;
     private List<TableRow> sortedRows;
@@ -25,7 +25,7 @@ public class MakeTableFromGameList {
     List<Game> listOfGames;
     List<Team> listOfTeams;
 
-    public MakeTableFromGameList(List<Game> games, List<Team> teams) {
+    public MakeAwayGameTable(List<Game> games, List<Team> teams) {
         this.listOfGames = games;
         this.listOfTeams = teams;
         if (listOfGames == null) {
@@ -134,28 +134,6 @@ public class MakeTableFromGameList {
             listOfGames.forEach((game) -> {
                 long homeTeamId = game.getHomeTeam().getDao().getLongId();
                 long awayTeamId = game.getAwayTeam().getDao().getLongId();
-                if ((homeTeamId == teamId) /*&& (game.getResult() != null)*/) {
-                    int homeScore = game.getResult().getHomeScore();
-                    int awayScore = game.getResult().getAwayScore();
-
-                    scoredGoals += homeScore;
-                    opponentScore += awayScore;
-
-                    if ((homeScore > awayScore) && game.getResult().getFullTime()) {
-                        fullTimeWins++;
-                    }
-                    if ((homeScore > awayScore) && (game.getResult().getOverTime() || game.getResult().getShotOut())) {
-                        tied++;
-                        overTimeWins++;
-                    }
-                    if ((homeScore < awayScore) && (game.getResult().getOverTime() || game.getResult().getShotOut())) {
-                        tied++;
-                        overTimeLosses++;
-                    }
-                    if ((homeScore < awayScore) && game.getResult().getFullTime()) {
-                        losses++;
-                    }
-                }
                 if (awayTeamId == teamId) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();

@@ -5,6 +5,8 @@
  */
 package Services;
 
+import AssistantClasses.FakeTableRowForJsonTests;
+import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
 import Broker.ServiceBroker;
@@ -32,8 +34,6 @@ public class GetFilterTableOnRoundIntervalServiceTest {
     
     private static Long seasonId;
     private static BrokerFactory brokerFactory;
-    private static String[] row1;
-    private static String[] row3;
     private static String teamName1;
     private static String teamName3;
     private static int fullTimeWins1;
@@ -44,7 +44,6 @@ public class GetFilterTableOnRoundIntervalServiceTest {
     private static int scoredGoals1;
     private static int opponentScore1;
     private static int points1;
-    private static String[] row2;
     private static String teamName2;
     private static int fullTimeWins2;
     private static int tied2;
@@ -88,7 +87,11 @@ public class GetFilterTableOnRoundIntervalServiceTest {
     
     private static List<Game> allSeasonGames;
     private static List<Team> allSeasonTeams;
+    private static FakeTableRowForJsonTests row1;
+    private static FakeTableRowForJsonTests row2;
+    private static FakeTableRowForJsonTests row3;
     
+    private static List<FakeTableRowForJsonTests> expList;
     
     @BeforeClass
     public static void setUpClass() {
@@ -128,9 +131,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         scoredGoals1 = 9;
         opponentScore1 = 5;
         points1 = 5;
-        row1 = new String[7] ;
         
-        row2 = new String[7] ;
         fullTimeWins2 = 1;
         tied2 = 1;
         overTimeWins2 = 0;
@@ -140,7 +141,6 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         opponentScore2 = 9;
         points2 = 4;
         
-        row3 = new String[7] ;
         fullTimeWins3 = 0;
         tied3 = 0;
         overTimeWins3 = 0;
@@ -158,6 +158,40 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         allSeasonTeams.add(team1);
         allSeasonTeams.add(team2);
         allSeasonTeams.add(team3);
+        
+        row1 = new FakeTableRowForJsonTests();
+        row2 = new FakeTableRowForJsonTests();
+        row3 = new FakeTableRowForJsonTests();
+        
+        row1.setFullTimeWins(fullTimeWins1);
+        row1.setGamesPlayed(fullTimeWins1 + losses1 + tied1);
+        row1.setLosses(losses1);
+        row1.setOpponentScore(opponentScore1);
+        row1.setPoints(points1);
+        row1.setScoredGoals(scoredGoals1);
+        row1.setTeamname(teamName1);
+        row1.setTied(tied1);
+        row2.setFullTimeWins(fullTimeWins2);
+        row2.setGamesPlayed(fullTimeWins2 + losses2 + tied2);
+        row2.setLosses(losses2);
+        row2.setOpponentScore(opponentScore2);
+        row2.setPoints(points2);
+        row2.setScoredGoals(scoredGoals2);
+        row2.setTeamname(teamName2);
+        row2.setTied(tied2);
+        row3.setFullTimeWins(fullTimeWins3);
+        row3.setGamesPlayed(fullTimeWins3 + losses3 + tied3);
+        row3.setLosses(losses3);
+        row3.setOpponentScore(opponentScore3);
+        row3.setPoints(points3);
+        row3.setScoredGoals(scoredGoals3);
+        row3.setTeamname(teamName3);
+        row3.setTied(tied3);
+        
+        expList = new ArrayList<>();
+        expList.add(row1);
+        expList.add(row2);
+        expList.add(row3);
         
         when(round1.getRoundNumber()).thenReturn(1);
         when(round2.getRoundNumber()).thenReturn(2);
@@ -208,32 +242,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         when(game3.getHomeTeam()).thenReturn(team2);
         
         
-        row1 = new String[7];
-        row1[0] = teamName1;
-        row1[1] = " GP: " + (fullTimeWins1 + losses1 + tied1);
-        row1[2] = " W: " + (fullTimeWins1);
-        row1[3] = " T: " + (tied1);
-        row1[4] = " L: " + losses1;
-        row1[5] = " " + scoredGoals1 + " - " + opponentScore1 + " ";
-        row1[6] = points1 + "p";
-
-        row2 = new String[7];
-        row2[0] = teamName2;
-        row2[1] = " GP: " + (fullTimeWins2 + losses2 + tied2);
-        row2[2] = " W: " + (fullTimeWins2);
-        row2[3] = " T: " + (tied2);
-        row2[4] = " L: " + losses2;
-        row2[5] = " " + scoredGoals2 + " - " + opponentScore2 + " ";
-        row2[6] = points2 + "p";
         
-        row3 = new String[7];
-        row3[0] = teamName3;
-        row3[1] = " GP: " + (fullTimeWins3 + losses3 + tied3);
-        row3[2] = " W: " + (fullTimeWins3);
-        row3[3] = " T: " + (tied3);
-        row3[4] = " L: " + losses3;
-        row3[5] = " " + scoredGoals3 + " - " + opponentScore3 + " ";
-        row3[6] = points3 + "p";
     }
 
     @Test 
@@ -261,10 +270,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         System.out.println("execute");
         GetFilterTableOnRoundIntervalService instance = new GetFilterTableOnRoundIntervalService(seasonId, startRound, endRound);
         instance.init(brokerFactory);
-        String expResult = 
-                row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +
-                row2[0] + row2[1] + row2[2] + row2[3] + row2[4] + row2[5] + row2[6] + "\n" + 
-                row3[0] + row3[1] + row3[2] + row3[3] + row3[4] + row3[5] + row3[6] + "\n";
+        String expResult = JsonOutputformat.create(expList);   
         String reString = instance.execute();
         assertEquals(expResult, reString);
     }

@@ -5,9 +5,8 @@
  */
 package Services;
 
-import AssistantClasses.MakeTableFromGameList;
+import AssistantClasses.MakeHomeGameTable;
 import Domain.Game;
-import Domain.Result;
 import Domain.Team;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,6 @@ public class GetFilterTableForHomeGamesService extends Service{
     List<Team> listOfTeams;
     List<Game> listOfGames;
     List<Team> homeTeams;
-    List<Game> homeGames;
-    Game game;
-    Team team;
-    Result result;
 
     public GetFilterTableForHomeGamesService(Long seasonId) {
         this.seasonId = seasonId;
@@ -38,7 +33,6 @@ public class GetFilterTableForHomeGamesService extends Service{
         listOfTeams = new ArrayList<>();
         listOfGames = new ArrayList<>();
         homeTeams = new ArrayList<>();
-        homeGames = new ArrayList<>();
         
         if(getBrokerFactory().getServiceBroker().getAllGamesFromSeasonService(seasonId) == null){
             throw new ServiceException("no season with given id");
@@ -48,13 +42,6 @@ public class GetFilterTableForHomeGamesService extends Service{
         getGames.init(getBrokerFactory());
         listOfGames = getGames.execute();
         listOfTeams = getBrokerFactory().getSeasonBroker().getAllTeamsFromSeasonId(seasonId);
-        
-        for(int i = 0; i<listOfGames.size(); i++){
-            game = listOfGames.get(i);
-           
-            
-            
-        }
         
         for(Team team : listOfTeams){
             boolean contains = false;
@@ -68,6 +55,6 @@ public class GetFilterTableForHomeGamesService extends Service{
                 homeTeams.add(team);
             }
         }
-        return new MakeTableFromGameList(homeGames, homeTeams).execute();    
+        return new MakeHomeGameTable(listOfGames, homeTeams).execute();    
     }
 }

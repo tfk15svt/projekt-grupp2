@@ -5,6 +5,8 @@
  */
 package Services;
 
+import AssistantClasses.FakeTableRowForJsonTests;
+import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
 import Broker.ServiceBroker;
@@ -31,7 +33,6 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static List<Long> seasonIds;
     
     private static Long seasonId;
-    private static String[] row1;
     private static String teamName1;
     private static int fullTimeWins1;
     private static int losses1;
@@ -41,7 +42,6 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static int scoredGoals1;
     private static int opponentScore1;
     private static int points1;
-    private static String[] row2;
     private static String teamName2;
     private static int fullTimeWins2;
     private static int tied2;
@@ -71,6 +71,9 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static List<Team> allSeasonTeams1;
     private static List<Game> allSeasonGames2;
     private static List<Team> allSeasonTeams2;
+    private static FakeTableRowForJsonTests row1;
+    private static FakeTableRowForJsonTests row2;
+    private static List<FakeTableRowForJsonTests> expList;
     
     
     
@@ -109,8 +112,6 @@ public class ShowMergedTableForSeasonsServiceTest {
         scoredGoals1 = 15;
         opponentScore1 = 7;
         points1 = 8;
-        row1 = new String[7] ;
-        row2 = new String[7] ;
         fullTimeWins2 = 0;
         tied2 = 1;
         overTimeWins2 = 0;
@@ -177,23 +178,31 @@ public class ShowMergedTableForSeasonsServiceTest {
         when(game3.getHomeTeam()).thenReturn(team1);
         when(game3.getAwayTeam()).thenReturn(team2);
         
-        row1 = new String[7];
-        row1[0] = teamName1;
-        row1[1] = " GP: " + (fullTimeWins1 + losses1 + tied1);
-        row1[2] = " W: " + (fullTimeWins1);
-        row1[3] = " T: " + (tied1);
-        row1[4] = " L: " + losses1;
-        row1[5] = " " + scoredGoals1 + " - " + opponentScore1 + " ";
-        row1[6] = points1 + "p";
-
-        row2 = new String[7];
-        row2[0] = teamName2;
-        row2[1] = " GP: " + (fullTimeWins2 + losses2 + tied2);
-        row2[2] = " W: " + (fullTimeWins2);
-        row2[3] = " T: " + (tied2);
-        row2[4] = " L: " + losses2;
-        row2[5] = " " + scoredGoals2 + " - " + opponentScore2 + " ";
-        row2[6] = points2 + "p";
+        row1 = new FakeTableRowForJsonTests();
+        row2 = new FakeTableRowForJsonTests();
+        
+        row1.setFullTimeWins(fullTimeWins1);
+        row1.setGamesPlayed(fullTimeWins1 + losses1 + tied1);
+        row1.setLosses(losses1);
+        row1.setOpponentScore(opponentScore1);
+        row1.setPoints(points1);
+        row1.setScoredGoals(scoredGoals1);
+        row1.setTeamname(teamName1);
+        row1.setTied(tied1);
+        row2.setFullTimeWins(fullTimeWins2);
+        row2.setGamesPlayed(fullTimeWins2 + losses2 + tied2);
+        row2.setLosses(losses2);
+        row2.setOpponentScore(opponentScore2);
+        row2.setPoints(points2);
+        row2.setScoredGoals(scoredGoals2);
+        row2.setTeamname(teamName2);
+        row2.setTied(tied2);
+        
+        expList = new ArrayList<>();
+        expList.add(row1);
+        expList.add(row2);
+        
+        
         
     }
     
@@ -229,9 +238,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         System.out.println("execute");
         ShowMergedTableForSeasonsService instance = new ShowMergedTableForSeasonsService(seasonIds);
         instance.init(brokerFactory);
-        String expResult = 
-                row1[0] + row1[1] + row1[2] + row1[3] + row1[4] + row1[5] + row1[6] + "\n" +
-                row2[0] + row2[1] + row2[2] + row2[3] + row2[4] + row2[5] + row2[6] + "\n";
+        String expResult = JsonOutputformat.create(expList);
         String reString = instance.execute();
         assertEquals(expResult, reString);
     }
