@@ -68,13 +68,12 @@ public class ShowSeasonTableServiceTest {
     private static ServiceRunner serviceRunner;
     private static ServiceBroker serviceBroker;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonService;
-    
+    private static List<FakeTableRowForJsonTests> expList;
     private static List<Game> allSeasonGames;
     private static List<Team> allSeasonTeams;
     
     private static FakeTableRowForJsonTests row1;
     private static FakeTableRowForJsonTests row2;
-    private static List<FakeTableRowForJsonTests> expList;
     
     
     @BeforeClass
@@ -202,7 +201,7 @@ public class ShowSeasonTableServiceTest {
         instance.init(brokerFactory);
         String expResult = JsonOutputformat.create(expList);
         String reString = instance.execute();
-        assertEquals(expResult, reString);
+        assertTrue(expResult.equals(reString));
     }
 
 }
