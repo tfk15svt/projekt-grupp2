@@ -10,6 +10,7 @@ import AssistantClasses.JsonOutputformat;
 import Broker.BrokerFactory;
 import Broker.SeasonBroker;
 import Broker.ServiceBroker;
+import Broker.TeamBroker;
 import DAO.TeamDao;
 import Domain.Game;
 import Domain.Result;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.*;
  */
 public class ShowMergedTableForSeasonsServiceTest {
     private static BrokerFactory brokerFactory;
+    private static TeamBroker teamBroker;
     private static List<Long> seasonIds;
     private static FakeTableRowForJsonTests row1;
     private static FakeTableRowForJsonTests row2;
@@ -73,8 +75,8 @@ public class ShowMergedTableForSeasonsServiceTest {
     private static List<Team> allSeasonTeams1;
     private static List<Game> allSeasonGames2;
     private static List<Team> allSeasonTeams2;
-    
-    
+    private static long teamId1;
+    private static long teamId2;
     
     @BeforeClass
     public static void setUpClass() {
@@ -82,7 +84,8 @@ public class ShowMergedTableForSeasonsServiceTest {
         seasonIds.add(1L);
         seasonIds.add(2L);
         brokerFactory = mock(BrokerFactory.class);
-        
+        teamId1 = 1L;
+        teamId2 = 2L;
         seasonId = 1L;
         brokerFactory = mock(BrokerFactory.class);
         getAllGamesFromSeasonService1 = mock(GetAllGamesFromSeasonService.class);
@@ -100,6 +103,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         result3 = mock(Result.class);
         serviceRunner = mock(ServiceRunner.class);
         serviceBroker = mock(ServiceBroker.class);
+        teamBroker = mock(TeamBroker.class);
         
         teamName1 = "Lag1";
         teamName2 = "Lag2";
@@ -135,6 +139,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         
         when(brokerFactory.getServiceBroker()).thenReturn(serviceBroker);
         when(brokerFactory.getSeasonBroker()).thenReturn(seasonBroker);
+        when(brokerFactory.getTeamBroker()).thenReturn(teamBroker);
         when(serviceBroker.getAllGamesFromSeasonService(seasonIds.get(0))).thenReturn(getAllGamesFromSeasonService1);
         when(serviceBroker.getAllGamesFromSeasonService(seasonIds.get(1))).thenReturn(getAllGamesFromSeasonService2);
         when(getAllGamesFromSeasonService1.execute()).thenReturn(allSeasonGames1);
@@ -144,12 +149,18 @@ public class ShowMergedTableForSeasonsServiceTest {
         when(seasonBroker.seasonExists(seasonIds.get(0))).thenReturn(true);
         when(seasonBroker.seasonExists(seasonIds.get(1))).thenReturn(true);
         when(seasonBroker.seasonExists(999L)).thenReturn(false);
+        when(teamBroker.findTeamById(teamId1)).thenReturn(team1);
+        when(teamBroker.findTeamById(teamId2)).thenReturn(team2);
         when(team1.getDao()).thenReturn(teamDao1);
         when(team2.getDao()).thenReturn(teamDao2);
+        when(teamDao1.getId()).thenReturn(teamId1);
+        when(teamDao1.getLongId()).thenReturn(teamId1);
+        when(teamDao2.getId()).thenReturn(teamId2);
+        when(teamDao2.getLongId()).thenReturn(teamId2);
+        when(team1.getId()).thenReturn(teamId1);
+        when(team2.getId()).thenReturn(teamId2);
         when(team1.getName()).thenReturn(teamName1);
         when(team2.getName()).thenReturn(teamName2);
-        when(teamDao1.getLongId()).thenReturn(1L);
-        when(teamDao2.getLongId()).thenReturn(2L);
         when(game1.getResult()).thenReturn(result1);
         when(game2.getResult()).thenReturn(result2);
         when(game3.getResult()).thenReturn(result3);
