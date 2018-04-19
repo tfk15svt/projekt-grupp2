@@ -23,8 +23,10 @@ public class MakeTableFromGameList {
     private List<TableRow> sortedRows;
     List<Game> listOfGames;
     List<Team> listOfTeams;
+    private boolean countHome;
+    private boolean countAway;
 
-    public MakeTableFromGameList(List<Game> games, List<Team> teams) {
+    public MakeTableFromGameList(List<Game> games, List<Team> teams, boolean[] conditions) {
         this.listOfGames = games;
         this.listOfTeams = teams;
         if (listOfGames == null) {
@@ -33,6 +35,8 @@ public class MakeTableFromGameList {
         if (listOfTeams == null) {
             throw new ServiceException("List of games is null");
         }
+        countHome = conditions[0];
+        countAway = conditions[1];
     }
 
     public String execute() {
@@ -99,7 +103,7 @@ public class MakeTableFromGameList {
             listOfGames.forEach((game) -> {
                 long homeTeamId = game.getHomeTeam().getDao().getLongId();
                 long awayTeamId = game.getAwayTeam().getDao().getLongId();
-                if ((homeTeamId == teamId) /*&& (game.getResult() != null)*/) {
+                if ((homeTeamId == teamId) && countHome/*&& (game.getResult() != null)*/) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();
 
@@ -121,7 +125,7 @@ public class MakeTableFromGameList {
                         losses++;
                     }
                 }
-                if (awayTeamId == teamId) {
+                if (awayTeamId == teamId && countAway) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();
                     scoredGoals += awayScore;

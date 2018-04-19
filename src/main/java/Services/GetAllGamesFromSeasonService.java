@@ -28,6 +28,7 @@ public class GetAllGamesFromSeasonService extends Service {
             throw new ServiceException ("No round with that id");
         }
     }
+    @Override
     public List<Game> execute (){
         SeasonBroker seasonBroker = getBrokerFactory().getSeasonBroker();
         if (seasonBroker.findSeasonById(seasonId) == null){

@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
  * @author Veiret
  */
 public class MakeTableFromGameListTest {
-    
+
     private static BrokerFactory brokerFactory;
     private static FakeTableRowForJsonTests row1;
     private static FakeTableRowForJsonTests row2;
@@ -53,7 +53,7 @@ public class MakeTableFromGameListTest {
     private static int scoredGoals2;
     private static int opponentScore2;
     private static int points2;
-    
+
     private static Team team1;
     private static Team team2;
     private static TeamDao teamDao1;
@@ -69,11 +69,12 @@ public class MakeTableFromGameListTest {
     private static List<FakeTableRowForJsonTests> expList;
     private static List<Game> games;
     private static List<Team> teams;
-    
-    
+    private static boolean[] conditions = new boolean[2];
+
     @BeforeClass
     public static void setUpClass() {
-             
+        conditions[0] = true;
+        conditions[1] = true;
         brokerFactory = mock(BrokerFactory.class);
         getAllGamesFromSeasonService = mock(GetAllGamesFromSeasonService.class);
         team1 = mock(Team.class);
@@ -87,7 +88,7 @@ public class MakeTableFromGameListTest {
         result2 = mock(Result.class);
         serviceRunner = mock(ServiceRunner.class);
         serviceBroker = mock(ServiceBroker.class);
-        
+
         teamName1 = "Lag1";
         teamName2 = "Lag2";
         fullTimeWins1 = 1;
@@ -106,14 +107,14 @@ public class MakeTableFromGameListTest {
         scoredGoals2 = 1;
         opponentScore2 = 7;
         points2 = 1;
-        
+
         games = new ArrayList<Game>();
         games.add(game1);
         games.add(game2);
         teams = new ArrayList<Team>();
         teams.add(team1);
         teams.add(team2);
-        
+
         when(brokerFactory.getServiceBroker()).thenReturn(serviceBroker);
         when(brokerFactory.getSeasonBroker()).thenReturn(seasonBroker);
         when(getAllGamesFromSeasonService.execute()).thenReturn(games);
@@ -139,7 +140,7 @@ public class MakeTableFromGameListTest {
         when(game1.getAwayTeam()).thenReturn(team2);
         when(game2.getHomeTeam()).thenReturn(team2);
         when(game2.getAwayTeam()).thenReturn(team1);
-        
+
         row1 = new FakeTableRowForJsonTests();
         row2 = new FakeTableRowForJsonTests();
         row1.setFullTimeWins(fullTimeWins1);
@@ -158,7 +159,7 @@ public class MakeTableFromGameListTest {
         row2.setScoredGoals(scoredGoals2);
         row2.setTeamname(teamName2);
         row2.setTied(tied2);
-        
+
         expList = new ArrayList<>();
         expList.add(row1);
         expList.add(row2);
@@ -167,27 +168,25 @@ public class MakeTableFromGameListTest {
     @Test
     public void testConstructor() {
         try {
-            new MakeTableFromGameList( games, null);
+            new MakeTableFromGameList(games, null, conditions);
             fail();
         } catch (ServiceException e) {
 
         }
-         try {
-            new MakeTableFromGameList(null, teams);
+        try {
+            new MakeTableFromGameList(null, teams, conditions);
             fail();
         } catch (ServiceException e) {
 
         }
-        new MakeTableFromGameList(games, teams);
+        new MakeTableFromGameList(games, teams, conditions);
     }
-
 
     @Test
     public void testExecute() {
         System.out.println("execute");
-        MakeTableFromGameList instance = new MakeTableFromGameList(games, teams);
-        
-               
+        MakeTableFromGameList instance = new MakeTableFromGameList(games, teams, conditions);
+
         String reString = instance.execute();
         String result = JsonOutputformat.create(expList);
         assertTrue(result.equals(reString));

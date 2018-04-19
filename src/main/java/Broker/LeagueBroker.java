@@ -52,8 +52,20 @@ public class LeagueBroker {
                 .collect(Collectors.toList());
         
     }
+    public List<Game> getAllGames(long leagueId) {
+        return LeagueDao.findById(leagueId).getAll(SeasonDao.class).stream()
+                .map(seasonDao -> ((SeasonDao) seasonDao).getAll(RoundDao.class))
+                .flatMap(roundList -> roundList.stream())
+                .map(roundDao -> ((RoundDao) roundDao).getAll(GameDao.class))
+                .flatMap(gameDaoList -> gameDaoList.stream())
+                .map(gameDao -> new Game(gameDao))
+                .collect(Collectors.toList());
+    }
 
     public League create() {
         return new League();
+    }
+    public boolean leagueExists (Long id){
+        return LeagueDao.findById(id) != null;
     }
 }

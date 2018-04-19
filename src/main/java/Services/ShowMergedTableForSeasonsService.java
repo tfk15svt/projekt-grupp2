@@ -48,8 +48,10 @@ public class ShowMergedTableForSeasonsService extends Service {
         GetTeamsFromListOfGames getTeams = new GetTeamsFromListOfGames(listOfGames);
         getTeams.init(getBrokerFactory());
         List<Team> listOfTeams = getTeams.execute();
-        
-        return new MakeTableFromGameList(listOfGames, listOfTeams).execute();
+        boolean[] conditions = new boolean[2];
+        conditions[0] = true;
+        conditions[1] = true;
+        return new MakeTableFromGameList(listOfGames, listOfTeams, conditions).execute();
     }
 
 }

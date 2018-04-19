@@ -78,6 +78,9 @@ public class GetFilterTableOnRoundIntervalService extends Service {
                 intervalTeams.add(team);
             }
         }
-        return new MakeTableFromGameList(intervalGames, intervalTeams).execute();
+        boolean[] conditions = new boolean[2];
+        conditions[0] = true;
+        conditions[1] = true;
+        return new MakeTableFromGameList(intervalGames, intervalTeams, conditions).execute();
     }
 }

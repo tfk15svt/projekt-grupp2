@@ -28,7 +28,10 @@ public class ShowTableForDateIntervalService extends Service{
         List<Game> listGames = getBrokerFactory().getLeagueBroker().getGamesWithinDateInterVal(leagueId, startDate, endDate);
         GetTeamsFromListOfGames getTeams = new GetTeamsFromListOfGames(listGames);
         getTeams.init(getBrokerFactory());
-        return new MakeTableFromGameList(listGames, getTeams.execute()).execute(); 
+        boolean[] conditions = new boolean[2];
+        conditions[0] = true;
+        conditions[1] = true;
+        return new MakeTableFromGameList(listGames, getTeams.execute(), conditions).execute(); 
     }
     
 }

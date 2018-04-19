@@ -31,7 +31,10 @@ public class ShowSeasonTableService extends Service {
         getGamesService.init(getBrokerFactory());
         allSeasonGames = getGamesService.execute();
         allSeasonTeams = getBrokerFactory().getSeasonBroker().getAllTeamsFromSeasonId(seasonId);
-        return new MakeTableFromGameList(allSeasonGames, allSeasonTeams).execute();
+        boolean[] conditions = new boolean[2];
+        conditions[0] = true;
+        conditions[1] = true;
+        return new MakeTableFromGameList(allSeasonGames, allSeasonTeams, conditions).execute();
     }
     
 }
