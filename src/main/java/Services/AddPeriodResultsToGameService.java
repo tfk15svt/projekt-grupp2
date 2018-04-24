@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Domain.Game;
 import Domain.Result;
 
 /**
@@ -28,13 +29,13 @@ public class AddPeriodResultsToGameService extends Service {
         
         for (Integer x : homeScores) {
             if (x == null) {
-                throw new ServiceException("Result is null");
+                throw new ServiceException("HomeScore is null");
             }
         }
         
         for (Integer x : awayScores) {
             if (x == null) {
-                throw new ServiceException("Result is null");
+                throw new ServiceException("AwayScore is null");
             }
         }
         
@@ -45,7 +46,11 @@ public class AddPeriodResultsToGameService extends Service {
     
     @Override
     public Result execute() {
-        Result result = new Result();
+        Result result = getBrokerFactory().getResultBroker().create();
+        Game game = getBrokerFactory().getGameBroker().findById(gameId);
+        if(getBrokerFactory().getGameBroker().findById(gameId)==null)
+            throw new ServiceException("game does not exist.");
+        
         String scoreString = "";
 
         for(int x = 0; x < homeScores.length; x++) {
@@ -55,7 +60,16 @@ public class AddPeriodResultsToGameService extends Service {
             scoreString += awayScores[x];
             scoreString += "-";
         }
-
+        try {
+            System.out.println("TRY THIS BIATCH");
+            result.setScore(scoreString);
+        } catch (Exception ex){
+            ex.getMessage();
+        }
+        
+        game.setResult(result);
+        getBrokerFactory().getGameBroker().saveGame(game);
+        result.getDao().save();
 
         return result;
     }

@@ -76,8 +76,16 @@ public class Result {
     }
     
     @JsonIgnore
-    public void setScore() {
-        
-        
-    }        
+    public void setScore(String score) throws Exception {
+        if (score == null){
+            throw (new Exception());
+        }
+        System.out.println("SETTING SCORE:    " + score);
+        dao.setString("score", score);
+    }
+    @JsonIgnore
+    public String getScore(){
+        System.out.println("GETTING SCORE:   " + dao.getString("score"));
+        return dao.getString("score");
+    }
 }

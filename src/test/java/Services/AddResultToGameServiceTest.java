@@ -62,7 +62,7 @@ public class AddResultToGameServiceTest {
     * Test constructor
     */
     @Test
-    public void testConstrusctor(){
+    public void testConstructor(){
         
         try {
             new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), null);
