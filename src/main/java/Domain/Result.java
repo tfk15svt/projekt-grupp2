@@ -74,6 +74,10 @@ public class Result {
     public boolean getShotOut(){
         return 3L == dao.getLong("time");
     }
+    
+    @JsonIgnore
+    public void setScore() {
         
         
+    }        
 }
