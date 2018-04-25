@@ -61,6 +61,13 @@ public class ShowTableWithDynamicFiltersService extends Service {
         if (seasonIds == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if (filter == null){
+            throw new ServiceException("Filter can not be null");
+        }
+        if(filter[0] > filter[1]){
+            throw new ServiceException("End of interval is before start of interval");
+        }
+        
     }
 
     public ShowTableWithDynamicFiltersService(List<Long> seasonIds, boolean[] homeAwayConditions) {
@@ -73,12 +80,38 @@ public class ShowTableWithDynamicFiltersService extends Service {
         if (seasonIds == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if (homeAwayConditions == null) {
+            throw new ServiceException("Home and away conditions cannot be null");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
+        }
     }
 
-    public ShowTableWithDynamicFiltersService(List<Long> seasonIds, int[] filter, boolean trueDateFalseRound, boolean[] homeAwayConditions) {
+    public ShowTableWithDynamicFiltersService(List<Long> seasonIds, int[] filter, Boolean trueDateFalseRound, boolean[] homeAwayConditions) {
         this.seasonIds = seasonIds;
         this.leagueId = null;
         this.trueDateFalseRound = trueDateFalseRound;
+        this.homeAwayConditions = homeAwayConditions;
+
+        if (seasonIds == null) {
+            throw new ServiceException("seasonIds cannot be null");
+        }
+        if(filter == null){
+            throw new ServiceException("Filter cannot be null");
+        }
+        if (this.trueDateFalseRound == null){
+            throw new ServiceException("TrueDateFalseRound cannot be null");
+        }
+        if(this.homeAwayConditions == null){
+            throw new ServiceException("HomeAwayConditions cannot be null");
+        }
+        if(filter[0] > filter[1]){
+            throw new ServiceException("End of interval is before start of interval");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
+        }
         if (trueDateFalseRound) {
             this.startEndDate = filter;
             this.startEndRound = null;
@@ -86,12 +119,7 @@ public class ShowTableWithDynamicFiltersService extends Service {
             this.startEndDate = null;
             this.startEndRound = filter;
         }
-        this.homeAwayConditions = homeAwayConditions;
-        homeAwayConditions[0] = true;
-        homeAwayConditions[1] = true;
-        if (seasonIds == null) {
-            throw new ServiceException("seasonIds cannot be null");
-        }
+        
     }
 
     public ShowTableWithDynamicFiltersService(List<Long> seasonIds, int[] startEndDate, int[] startEndRound) {
@@ -106,6 +134,20 @@ public class ShowTableWithDynamicFiltersService extends Service {
         if (seasonIds == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if(startEndDate == null){
+            throw new ServiceException("StartEndDate cannot be null");
+        }
+        if(startEndRound == null){
+            throw new ServiceException("StartEndRound cannot be null");
+        }
+        if (startEndRound[0] > startEndRound[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if(startEndDate[0] > startEndDate[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        
+        
     }
 
     public ShowTableWithDynamicFiltersService(List<Long> seasonIds, int[] startEndDate, int[] startEndRound, boolean[] homeAwayConditions) {
@@ -118,6 +160,26 @@ public class ShowTableWithDynamicFiltersService extends Service {
         if (seasonIds == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if (startEndDate == null){
+            throw new ServiceException("StartEndDate cannot be null");
+        }
+        if(startEndRound == null){
+            throw new ServiceException("StartEndRound cannot be null");
+        }
+        if(homeAwayConditions == null){
+            throw new ServiceException("HomeAwayConditions cannot be null");
+        }
+         if (startEndRound[0] > startEndRound[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if(startEndDate[0] > startEndDate[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
+        }
+        
+                
     }
 
     public ShowTableWithDynamicFiltersService(Long leagueId) {
@@ -134,18 +196,35 @@ public class ShowTableWithDynamicFiltersService extends Service {
         }
     }
 
-    public ShowTableWithDynamicFiltersService(Long leagueId, int[] filter, boolean chooseFilter) {
+    public ShowTableWithDynamicFiltersService(Long leagueId, int[] filter, Boolean chooseFilter) {
         this.leagueId = leagueId;
         this.seasonIds = null;
         this.trueDateFalseRound = chooseFilter;
         this.homeAwayConditions = new boolean[2];
+        
         homeAwayConditions[0] = true;
         homeAwayConditions[1] = true;
-        this.startEndDate = null;
-        this.startEndRound = null;
         if (leagueId == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if(filter == null){
+            throw new ServiceException("Filter cannot be null");
+        }
+        if(this.trueDateFalseRound == null){
+            throw new ServiceException("ChooseFilter cannot be null");
+        }
+        if (filter[0] > filter[1]){
+            throw new ServiceException("Start cannot be larger then end");
+        }
+        
+        if (trueDateFalseRound) {
+            this.startEndDate = filter;
+            this.startEndRound = null;
+        } else {
+            this.startEndDate = null;
+            this.startEndRound = filter;
+        }
+        
     }
 
     public ShowTableWithDynamicFiltersService(Long leagueId, boolean[] homeAwayConditions) {
@@ -156,21 +235,46 @@ public class ShowTableWithDynamicFiltersService extends Service {
         this.startEndDate = null;
         this.startEndRound = null;
         if (leagueId == null) {
-            throw new ServiceException("seasonIds cannot be null");
+            throw new ServiceException("leagueId cannot be null");
+        }
+        if (homeAwayConditions == null) {
+            throw new ServiceException("Home and away conditions cannot be null");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
         }
     }
 
-    public ShowTableWithDynamicFiltersService(Long leagueId, int[] filter, boolean chooseFilter, boolean[] homeAwayConditions) {
+    public ShowTableWithDynamicFiltersService(Long leagueId, int[] filter, Boolean chooseFilter, boolean[] homeAwayConditions) {
         this.leagueId = leagueId;
         this.seasonIds = null;
         this.trueDateFalseRound = chooseFilter;
         this.homeAwayConditions = homeAwayConditions;
-        homeAwayConditions[0] = true;
-        homeAwayConditions[1] = true;
-        this.startEndDate = null;
-        this.startEndRound = null;
         if (leagueId == null) {
             throw new ServiceException("seasonIds cannot be null");
+        }
+        if (filter == null) {
+            throw new ServiceException("filter cannot be null");
+        }
+        if (trueDateFalseRound == null) {
+            throw new ServiceException("chooseFilter cannot be null");
+        }
+        if(homeAwayConditions == null) {
+            throw new ServiceException("homeAwayConditions cannot be null");
+        }
+        if (filter[0] > filter[1]){
+            throw new ServiceException("Start cannot be larger then end");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
+        }
+        
+        if (trueDateFalseRound) {
+            this.startEndDate = filter;
+            this.startEndRound = null;
+        } else {
+            this.startEndDate = null;
+            this.startEndRound = filter;
         }
     }
 
@@ -186,6 +290,19 @@ public class ShowTableWithDynamicFiltersService extends Service {
         if (leagueId == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
+        if(startEndDate == null) {
+            throw new ServiceException("StartEndDate cannot be null");
+        }
+        if(startEndRound == null){
+            throw new ServiceException("StartEndRound cannot be null");
+        }
+         if (startEndRound[0] > startEndRound[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if(startEndDate[0] > startEndDate[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        
     }
 
     public ShowTableWithDynamicFiltersService(Long leagueId, int[] startEndDate, int[] startEndRound, boolean[] homeAwayConditions) {
@@ -196,8 +313,27 @@ public class ShowTableWithDynamicFiltersService extends Service {
         this.startEndDate = startEndDate;
         this.startEndRound = startEndRound;
         if (leagueId == null) {
-            throw new ServiceException("seasonIds cannot be null");
+            throw new ServiceException("leagueId cannot be null");
         }
+        if (startEndDate == null){
+            throw new ServiceException("StartEndDate cannot be null");
+        }
+        if(startEndRound == null){
+            throw new ServiceException("StartEndRound cannot be null");
+        }
+        if(homeAwayConditions == null){
+            throw new ServiceException("HomeAwayConditions cannot be null");
+        }
+         if (startEndRound[0] > startEndRound[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if(startEndDate[0] > startEndDate[1]){
+            throw new ServiceException("Start can not be larger then end");
+        }
+        if (!homeAwayConditions[0] && !homeAwayConditions[1]) {
+            throw new ServiceException("Pointless table exception");
+        }
+        
     }
 
     @Override
