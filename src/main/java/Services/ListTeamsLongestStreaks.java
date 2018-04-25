@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class ListTeamsLongestStreaks extends Service {
 
-    private Long teamId;
-    private Integer startDate;
-    private Integer endDate;
+    private final Long teamId;
+    private final Integer startDate;
+    private final Integer endDate;
     private int maxStreakWins;
     private int maxStreakTied;
     private int maxStreakLost;
@@ -24,7 +24,6 @@ public class ListTeamsLongestStreaks extends Service {
     private int streakTied;
     private int streakLost;
     private List<Game> listOfGames;
-    private List<Game> listOfStreaks;
     private int gamesPlayed;
 
     public ListTeamsLongestStreaks(Long teamId, Integer startDate, Integer endDate) {
@@ -104,6 +103,6 @@ public class ListTeamsLongestStreaks extends Service {
                 }
             }
         }
-        return "GP:" + gamesPlayed + " WinningStreak:" + streakWins + " TiedStrek:" + streakTied + " LostStreak:" + streakLost;
+        return "GP:" + gamesPlayed + " WinningStreak:" + streakWins + " TiedStreak:" + streakTied + " LostStreak:" + streakLost;
     }
 }
