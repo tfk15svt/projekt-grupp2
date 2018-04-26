@@ -58,7 +58,8 @@ public class AddPeriodResultsToGameService extends Service {
             scoreString += homeScores[x];
             scoreString += ":";
             scoreString += awayScores[x];
-            scoreString += "-";
+            if ((x+1) != homeScores.length)
+                scoreString += "-";
         }
         try {
             System.out.println("TRY THIS BIATCH");
