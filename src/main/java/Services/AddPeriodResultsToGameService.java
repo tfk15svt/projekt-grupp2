@@ -52,9 +52,11 @@ public class AddPeriodResultsToGameService extends Service {
             throw new ServiceException("game does not exist.");
         
         String scoreString = "";
-
+        Integer finalHomeScore = 0;
+        Integer finalAwayScore = 0;
         for(int x = 0; x < homeScores.length; x++) {
-            
+            finalHomeScore += homeScores[x];
+            finalAwayScore += awayScores[x];
             scoreString += homeScores[x];
             scoreString += ":";
             scoreString += awayScores[x];
@@ -63,7 +65,7 @@ public class AddPeriodResultsToGameService extends Service {
         }
         try {
             System.out.println("TRY THIS BIATCH");
-            result.setScore(scoreString);
+            result.setScore(scoreString, finalHomeScore, finalAwayScore);
         } catch (Exception ex){
             ex.getMessage();
         }
@@ -71,7 +73,7 @@ public class AddPeriodResultsToGameService extends Service {
         game.setResult(result);
         getBrokerFactory().getGameBroker().saveGame(game);
         result.getDao().save();
-
+        
         return result;
     }
 }

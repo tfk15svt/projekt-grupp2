@@ -61,5 +61,8 @@ public class ResultBroker {
     
         return result;
     }
+    public Result findByGameId(Long gameId){
+        return new Result
+    }
 
 }

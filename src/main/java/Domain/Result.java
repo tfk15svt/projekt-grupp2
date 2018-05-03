@@ -29,16 +29,18 @@ public class Result {
         return dao;
     }
     public void setHomeScore (Integer score) throws Exception {
-        if (score == null){
+        if (score == null || dao.getString("score") != null){
             throw (new Exception());
         }
         dao.setInteger("homeScore", score);
     }
     public void setAwayScore(Integer score) throws Exception {
-        if (score == null){
+        if (score == null || dao.getString("score") != null){
             throw (new Exception());
         }
+        System.out.println(dao.getString("score"));
         dao.setInteger("awayScore", score);
+        
     }
     public Integer getHomeScore(){
         return dao.getInteger("homeScore");
@@ -76,14 +78,15 @@ public class Result {
     }
     
     @JsonIgnore
-    public void setScore(String score) throws Exception {
+    public void setScore(String score, Integer homeScore, Integer awayScore) throws Exception {
         if (score == null){
             throw (new Exception());
         }
         System.out.println("SETTING SCORE:    " + score);
         dao.setString("score", score);
+        dao.setInteger("awayScore", awayScore);
+        dao.setInteger("homeScore", homeScore);
     }
-    @JsonIgnore
     public String getScore(){
         System.out.println("GETTING SCORE:   " + dao.getString("score"));
         return dao.getString("score");
