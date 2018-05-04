@@ -46,7 +46,14 @@ public class AddPeriodResultsToGameService extends Service {
     
     @Override
     public Result execute() {
-        Result result = getBrokerFactory().getResultBroker().create();
+        Result result;
+        if (getBrokerFactory().getResultBroker().findByGameId(gameId) != null)
+            result = getBrokerFactory().getResultBroker().findByGameId(gameId);
+        else
+            result = getBrokerFactory().getResultBroker().create();
+        
+        
+        
         Game game = getBrokerFactory().getGameBroker().findById(gameId);
         if(getBrokerFactory().getGameBroker().findById(gameId)==null)
             throw new ServiceException("game does not exist.");
@@ -64,7 +71,6 @@ public class AddPeriodResultsToGameService extends Service {
                 scoreString += "-";
         }
         try {
-            System.out.println("TRY THIS BIATCH");
             result.setScore(scoreString, finalHomeScore, finalAwayScore);
         } catch (Exception ex){
             ex.getMessage();

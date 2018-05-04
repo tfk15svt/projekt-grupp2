@@ -82,13 +82,11 @@ public class Result {
         if (score == null){
             throw (new Exception());
         }
-        System.out.println("SETTING SCORE:    " + score);
         dao.setString("score", score);
         dao.setInteger("awayScore", awayScore);
         dao.setInteger("homeScore", homeScore);
     }
     public String getScore(){
-        System.out.println("GETTING SCORE:   " + dao.getString("score"));
         return dao.getString("score");
     }
 }

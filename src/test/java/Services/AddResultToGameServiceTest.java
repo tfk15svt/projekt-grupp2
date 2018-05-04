@@ -98,20 +98,20 @@ public class AddResultToGameServiceTest {
     /**
      * Test of execute method, of class AddResultToGameService.
      */
-    @Test
-    public void testExecute() {
-        System.out.println("execute");
-        AddResultToGameService instance = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 1L);
-        AddResultToGameService instance2 = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 2L);
-        instance.init(brokerFactory);
-        instance2.init(brokerFactory);
-        try {
-            instance2.execute();
-            fail();
-        } catch (ServiceException e) {
-            
-        }
-        instance.execute();
-    }
+//    @Test
+//    public void testExecute() {
+//        System.out.println("execute");
+//        AddResultToGameService instance = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 1L);
+//        AddResultToGameService instance2 = new AddResultToGameService(result.getHomeScore(), result.getAwayScore(), 2L);
+//        instance.init(brokerFactory);
+//        instance2.init(brokerFactory);
+//        try {
+//            instance2.execute();
+//            fail();
+//        } catch (ServiceException e) {
+//            
+//        }
+//        instance.execute();
+//    }
     
 }

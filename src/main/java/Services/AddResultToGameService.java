@@ -38,7 +38,11 @@ public class AddResultToGameService extends Service {
     
     @Override
     public Result execute() {
-        Result result = getBrokerFactory().getResultBroker().create();
+       
+        Result result = getBrokerFactory().getResultBroker().findByGameId(gameId);
+         if (result.getScore() != null)
+            throw new ServiceException("Score (partial result) is not null, use AddPeriodResults instead");
+        
         Game game = getBrokerFactory().getGameBroker().findById(gameId);
         if(getBrokerFactory().getGameBroker().findById(gameId)==null){
             throw new ServiceException("game does not exist.");
