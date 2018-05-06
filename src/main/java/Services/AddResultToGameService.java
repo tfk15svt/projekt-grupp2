@@ -40,26 +40,35 @@ public class AddResultToGameService extends Service {
     public Result execute() {
        
         Result result = getBrokerFactory().getResultBroker().findByGameId(gameId);
-         if (result.getScore() != null)
-            throw new ServiceException("Score (partial result) is not null, use AddPeriodResults instead");
-        
+        if(result == null) {
+            
+            result = getBrokerFactory().getResultBroker().create();
+        }
+        try {
+            if (result.getScore() != null)
+                throw new ServiceException("Score (partial result) is not null, use AddPeriodResults instead");
+            } catch (Exception ex) {
+                ex.getMessage();
+        }
+
         Game game = getBrokerFactory().getGameBroker().findById(gameId);
+        
         if(getBrokerFactory().getGameBroker().findById(gameId)==null){
             throw new ServiceException("game does not exist.");
         }
-            try {
-                result.setHomeScore(homeScore);
+        try {
+            result.setHomeScore(homeScore);
             } catch (Exception ex) {
                 ex.getMessage();
             }
-            try{
-                result.setAwayScore(awayScore);
+        try{
+            result.setAwayScore(awayScore);
             }catch(Exception e){
                 e.getMessage();
             }
-            game.setResult(result);
-            getBrokerFactory().getGameBroker().saveGame(game);
-            result.getDao().save();
+        game.setResult(result);
+        getBrokerFactory().getGameBroker().saveGame(game);
+        result.getDao().save();
         return result;
     }
     

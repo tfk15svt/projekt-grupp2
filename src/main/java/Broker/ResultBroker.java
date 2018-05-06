@@ -55,7 +55,6 @@ public class ResultBroker {
                         result = result1;
                     }
                 }
-
             }
         }
     
@@ -65,12 +64,11 @@ public class ResultBroker {
          try {
              return new Result((ResultDao) ResultDao.find("game_id=?", gameId).get(0));
          } catch (Exception ex){
+           
             ex.getMessage();
             return create();
          }
 //        return new Result((ResultDao) ResultDao.find("game_id=?", gameId).get(0));
 //        return new Result(ResultDao.findById(dao);
     }
-    
-
 }
