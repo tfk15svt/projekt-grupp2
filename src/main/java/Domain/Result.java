@@ -74,6 +74,36 @@ public class Result {
     public boolean getShotOut(){
         return 3L == dao.getLong("time");
     }
-        
-        
+    @JsonIgnore
+    public boolean getHomeTeamFirstGoal() {
+        Boolean res = dao.getBoolean("firstScoreByHomeTeam");
+        if (res == null) res = false;
+        return (boolean) res;
+    }
+    @JsonIgnore
+    public boolean getHomeTeamLastGoal() {
+        Boolean res = dao.getBoolean("lastScoreByHomeTeam");
+        if (res == null) res = false;
+        return (boolean) res;
+    }
+    @JsonIgnore
+    public boolean getAwayTeamFirstGoal() {
+        Boolean res = dao.getBoolean("firstScoreByHomeTeam");
+        if (res == null) {
+            res = false;
+        } else {
+            res = !res;
+        }
+        return res;
+    }
+    @JsonIgnore
+    public boolean getAwayTeamLastGoal() {
+        Boolean res = dao.getBoolean("lastScoreByHomeTeam");
+        if (res == null) {
+            res = false;
+        } else {
+            res = !res;
+        }
+        return res;
+    }
 }
