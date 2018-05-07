@@ -6,6 +6,7 @@
 package Services;
 
 import Domain.Game;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.List;
 
 /**
@@ -103,6 +104,17 @@ public class ListTeamsLongestStreaks extends Service {
                 }
             }
         }
+        StreakStats streakStats = new StreakStats();
+        streakStats.gP = gamesPlayed;
+        streakStats.winningStreak = streakWins;
+        /// fortsätt göra saker !!!!!!!!!!
         return "GP:" + gamesPlayed + " WinningStreak:" + streakWins + " TiedStreak:" + streakTied + " LostStreak:" + streakLost;
+    }
+    @JsonPropertyOrder({ "gP", "winningStreak", "tiedStreak", "lostStreak"})
+    private class StreakStats {
+        public int gP;
+        public int winningStreak;
+        public int tiedStreak;
+        public int lostStreak;
     }
 }
