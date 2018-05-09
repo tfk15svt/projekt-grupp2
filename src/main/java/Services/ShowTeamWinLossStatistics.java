@@ -22,7 +22,7 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
     private final List<Long> teamIds;
     private final List<Long> seasonIds;
     private final Boolean firstGoal, lastGoal, fulltime, overtime, homeGames, awayGames;
-    private final Integer wonPeriods;
+    private final Integer wonPeriod;
     /* If == 0 -> dont filter on period */
     private List<Game> listOfGames;
     private List<Team> listOfTeams;
@@ -34,7 +34,7 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         this.lastGoal = firstLastGoal[1];
         this.fulltime = fullOvertime[0];
         this.overtime = fullOvertime[1];
-        this.wonPeriods = wonPeriods;
+        this.wonPeriod = wonPeriods;
         this.homeGames = homeAway[0];
         this.awayGames = homeAway[1];
         if (seasonIds == null) {
@@ -51,16 +51,16 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         }
     }
 
-    ShowTeamWinLossStatistics(List<Long> seasonIds, Boolean firstGoal, Boolean lastGoal, Boolean fulltime, Boolean overtime, Integer wonPeriods, List<Long> teamIds , Boolean homeGame, Boolean awayGame) {
+    ShowTeamWinLossStatistics(List<Long> seasonIds, Boolean[] firstLastGoal, Boolean[] fullOvertime, Integer wonPeriods, List<Long> teamIds , Boolean[] homeAway) {
         this.seasonIds = seasonIds;
         this.teamIds = teamIds;
-        this.firstGoal = firstGoal;
-        this.lastGoal = lastGoal;
-        this.fulltime = fulltime;
-        this.overtime = overtime;
-        this.wonPeriods = wonPeriods;
-        this.homeGames = homeGame;
-        this.awayGames = awayGame;
+        this.firstGoal = firstLastGoal[0];
+        this.lastGoal = firstLastGoal[1];
+        this.fulltime = fullOvertime[0];
+        this.overtime = fullOvertime[1];
+        this.wonPeriod = wonPeriods;
+        this.homeGames = homeAway[0];
+        this.awayGames = homeAway[1];
         if (seasonIds == null) {
             throw new ServiceException("seasonIds cannot be null");
         }
@@ -86,7 +86,7 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         this.lastGoal = firstLastGoal[1];
         this.fulltime = fullOvertime[0];
         this.overtime = fullOvertime[1];
-        this.wonPeriods = wonPeriods;
+        this.wonPeriod = wonPeriods;
         this.homeGames = homeAway[0];
         this.awayGames = homeAway[1];
         if (teamIds == null) {
@@ -190,12 +190,35 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
 
         }
 
-        public void create() {
+        private void create() {
             listOfGames.stream().forEach(game
                     -> {
                 Result result = game.getResult(); // Avoid creating result a bunch of times
+                int periodHS;
+                int periodAS;
+                boolean homeWonPeriod = false;
+                boolean awayWonPeriod = false;
+                if (wonPeriod != 0) {
+                    String resString = game.getResult().getScore();
+                    if (resString == null) {
+                        throw new ServiceException("No period results");
+                    }
+                    if (resString.split("-").length < wonPeriod) {
+                        throw new ServiceException("Period does not exist");
+                    }
+                    String periodRes = resString.split("-")[wonPeriod-1];
+                    periodHS = Integer.parseInt(periodRes.split(":")[0]);
+                    periodAS = Integer.parseInt(periodRes.split(":")[1]);
+                    if (periodHS > periodAS) {
+                        homeWonPeriod = true;
+                    }
+                    if (periodHS < periodAS) {
+                        awayWonPeriod = true;
+                    }
+                }
                 if (game.getHomeTeam().getId() == teamId && homeGames && !(firstGoal && !result.getHomeTeamFirstGoal()) && !(lastGoal && !result.getHomeTeamLastGoal()) 
                         && (fulltime && result.getFullTime() || overtime && (result.getOverTime() || result.getShotOut())) 
+                        && !((wonPeriod != 0) && ! homeWonPeriod)
                         ) {
                     gamesPlayed++;
                     if (result.getHomeScore() > result.getAwayScore()) {
@@ -205,6 +228,7 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
                     }
                 } else if (game.getAwayTeam().getId() == teamId && awayGames && !(firstGoal && !result.getAwayTeamFirstGoal()) && !(lastGoal && !result.getAwayTeamLastGoal())
                         && (fulltime && result.getFullTime() || overtime && (result.getOverTime() || result.getShotOut()))
+                        && !((wonPeriod != 0) && ! awayWonPeriod)
                         ) {
                     gamesPlayed++;
                     if (result.getHomeScore() < result.getAwayScore()) {

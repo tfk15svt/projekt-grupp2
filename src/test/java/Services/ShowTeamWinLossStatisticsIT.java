@@ -49,7 +49,7 @@ public class ShowTeamWinLossStatisticsIT {
         Boolean[] firstLastGoal = {false, false};
         Boolean[] fullOvertime = {true, true};
         Boolean[] homeAway = {true, true};
-        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 2, teamIds, homeAway);
+        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
         instance.init(new BrokerFactory());
         System.out.println("Services.ShowTeamWinLossStatisticsIT.testExecute() \n ");
 
