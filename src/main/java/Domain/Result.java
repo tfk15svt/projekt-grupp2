@@ -38,7 +38,7 @@ public class Result {
         if (score == null || dao.getString("score") != null){
             throw (new Exception());
         }
-        System.out.println(dao.getString("score"));
+        //System.out.println(dao.getString("score"));
         dao.setInteger("awayScore", score);
         
     }
