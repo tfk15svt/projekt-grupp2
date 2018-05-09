@@ -29,16 +29,18 @@ public class Result {
         return dao;
     }
     public void setHomeScore (Integer score) throws Exception {
-        if (score == null){
+        if (score == null || dao.getString("score") != null){
             throw (new Exception());
         }
         dao.setInteger("homeScore", score);
     }
     public void setAwayScore(Integer score) throws Exception {
-        if (score == null){
+        if (score == null || dao.getString("score") != null){
             throw (new Exception());
         }
+        System.out.println(dao.getString("score"));
         dao.setInteger("awayScore", score);
+        
     }
     public Integer getHomeScore(){
         return dao.getInteger("homeScore");
@@ -74,6 +76,20 @@ public class Result {
     public boolean getShotOut(){
         return 3L == dao.getLong("time");
     }
+    
+    @JsonIgnore
+    public void setScore(String score, Integer homeScore, Integer awayScore) throws Exception {
+        if (score == null){
+            throw (new Exception());
+        }
+        dao.setString("score", score);
+        dao.setInteger("awayScore", awayScore);
+        dao.setInteger("homeScore", homeScore);
+    }
+    public String getScore(){
+        return dao.getString("score");
+    }
+
     @JsonIgnore
     public boolean getHomeTeamFirstGoal() {
         Boolean res = dao.getBoolean("firstScoreByHomeTeam");
