@@ -24,7 +24,6 @@ public class ShowTableWithDynamicFiltersServiceIT {
     
     @BeforeClass
     public static void setUpClass() {
-        
         dates = new int[2];
         dates[0] = 1;
         dates[1] = 2;
@@ -35,7 +34,6 @@ public class ShowTableWithDynamicFiltersServiceIT {
     
     @AfterClass
     public static void tearDownClass() {
-        
         SetUpTestObjects.tearDown();
     }
 
@@ -52,5 +50,4 @@ public class ShowTableWithDynamicFiltersServiceIT {
         instance2.init(new BrokerFactory());
         System.out.println("Instance2: " + "\n" + instance2.execute());
     }
-    
 }

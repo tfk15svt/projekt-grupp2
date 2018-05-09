@@ -14,9 +14,9 @@ import java.util.List;
  * @author Simon
  */
 public class ShowTableOverIntervalOnGamePeriod extends Service{
-    private Integer gamePeriod;
-    private Integer start;
-    private Integer end;
+    private final Integer gamePeriod;
+    private final Integer start;
+    private final Integer end;
 
     public ShowTableOverIntervalOnGamePeriod(Integer gamePeriod, Integer start, Integer end) {
         this.gamePeriod = gamePeriod;

@@ -107,6 +107,12 @@ public class ListTeamsLongestStreaksTest {
         }catch(ServiceException e){
             e.getMessage();
         }
+        
+        try{
+            new ListTeamsLongestStreaks(null, null, null);
+        }catch(ServiceException e){
+            e.getMessage();
+        }
     }
     
     @Test
