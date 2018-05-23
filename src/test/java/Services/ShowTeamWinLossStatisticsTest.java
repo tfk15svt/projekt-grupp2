@@ -49,9 +49,9 @@ public class ShowTeamWinLossStatisticsTest {
     private static List<Game> seasonOneListOfGames;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonOne;
     private static Result result1, result2, result3, result4;
-    private static List<String> table1, table2, table3, table4, table5, table6;
+    private static List<String> table1, table2, table3, table4, table5, table6, table7;
     private static TableRow table1Team1, table1Team2, table2Team1, table2Team2, table3Team1, table3Team2,
-    table4Team1, table4Team2, table5Team1, table5Team2, table6Team1, table6Team2;
+    table4Team1, table4Team2, table5Team1, table5Team2, table6Team1, table6Team2, table7Team1, table7Team2;
     
     
     @BeforeClass
@@ -160,21 +160,25 @@ public class ShowTeamWinLossStatisticsTest {
         when(result1.getAwayTeamFirstGoal()).thenReturn(false);
         when(result1.getHomeTeamLastGoal()).thenReturn(true);
         when(result1.getAwayTeamLastGoal()).thenReturn(false);
+        when(result1.getScore()).thenReturn("2:1-2:1");
         
         when(result2.getHomeTeamFirstGoal()).thenReturn(false);
         when(result2.getHomeTeamLastGoal()).thenReturn(false);
         when(result2.getAwayTeamFirstGoal()).thenReturn(true);
         when(result2.getAwayTeamLastGoal()).thenReturn(true);
+        when(result2.getScore()).thenReturn("1:2-5:1");
         
         when(result3.getHomeTeamFirstGoal()).thenReturn(true);
         when(result3.getAwayTeamFirstGoal()).thenReturn(false);
         when(result3.getHomeTeamLastGoal()).thenReturn(true);
         when(result3.getAwayTeamLastGoal()).thenReturn(false);
+        when(result3.getScore()).thenReturn("2:1-3:4");
         
         when(result4.getHomeTeamFirstGoal()).thenReturn(false);
         when(result4.getHomeTeamLastGoal()).thenReturn(false);
         when(result4.getAwayTeamFirstGoal()).thenReturn(true);
         when(result4.getAwayTeamLastGoal()).thenReturn(true);
+        when(result4.getScore()).thenReturn("1:2-3:3");
         
         when(team1.getId()).thenReturn(teamId1);
         when(team2.getId()).thenReturn(teamId2);
@@ -321,6 +325,28 @@ public class ShowTeamWinLossStatisticsTest {
         
         table6.add(JsonOutputformat.create(table6Team1));
         table6.add(JsonOutputformat.create(table6Team2));
+        
+        table7 = new ArrayList<>();
+        table7Team1 = new TableRow();
+        table7Team1.gamesLossed = 0;
+        table7Team1.gamesPlayed = 2;
+        table7Team1.gamesWon = 1;
+        table7Team1.lossPercentage = 0;
+        table7Team1.teamId = 1L;
+        table7Team1.teamName = "team1";
+        table7Team1.winPercentage = 50;
+        
+        table7Team2 = new TableRow();
+        table7Team2.gamesLossed = 1;
+        table7Team2.gamesPlayed = 2;
+        table7Team2.gamesWon = 1;
+        table7Team2.lossPercentage = 50;
+        table7Team2.teamId = 2L;
+        table7Team2.teamName = "team2";
+        table7Team2.winPercentage = 50;
+        
+        table7.add(JsonOutputformat.create(table7Team1));
+        table7.add(JsonOutputformat.create(table7Team2));
     }
 
     @Test
@@ -329,7 +355,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {null, true};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -337,7 +363,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, null};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -345,7 +371,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {null, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -353,7 +379,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {true, null};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -369,7 +395,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, (List<Long>) null, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, (List<Long>) null, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -377,14 +403,14 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {false, false};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+            new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         Boolean[] firstLastGoal = {true, true};
         Boolean[] fullOvertime = {true, true};
         Boolean[] homeAway = {true, true};
-        new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+        new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
     }
 
     @Test
@@ -393,7 +419,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(null, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(null, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -401,7 +427,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {null, true};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -409,7 +435,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, null};
             Boolean[] fullOvertime = {false, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -417,7 +443,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {null, true};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -425,7 +451,7 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {true, null};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
@@ -441,59 +467,86 @@ public class ShowTeamWinLossStatisticsTest {
             Boolean[] firstLastGoal = {true, true};
             Boolean[] fullOvertime = {false, false};
             Boolean[] homeAway = {true, true};
-            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         Boolean[] firstLastGoal = {true, true};
         Boolean[] fullOvertime = {true, true};
         Boolean[] homeAway = {true, true};
-        new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 6, homeAway);
+        new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
     }
 
     @Test
     public void testConstructor3() {
         try {
-            new ShowTeamWinLossStatistics(null, true, true, true, false, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {true, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(null, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, null, true, true, false, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {null, true};
+            Boolean[] fullOvertime = {true, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, null, true, false, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, null};
+            Boolean[] fullOvertime = {true, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, true, null, false, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {null, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, true, true, null, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {true, null};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, true, true, false, null, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {true, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, null, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, true, true, true, 7, null, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {true, true};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, null, homeAway);
             fail();
         } catch (ServiceException e) {
         }
         try {
-            new ShowTeamWinLossStatistics(seasonIds, true, true, false, false, 7, teamIds, true, true);
+            Boolean[] firstLastGoal = {true, true};
+            Boolean[] fullOvertime = {false, false};
+            Boolean[] homeAway = {true, true};
+            new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
             fail();
         } catch (ServiceException e) {
         }
-        new ShowTeamWinLossStatistics(seasonIds, true, true, true, true, 7, teamIds, true, true);
+        Boolean[] firstLastGoal = {true, true};
+        Boolean[] fullOvertime = {true, true};
+        Boolean[] homeAway = {true, true};
+        new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
     }
 
     /**
@@ -505,7 +558,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal = {false, false};
         Boolean[] fullOvertime = {true, true};
         Boolean[] homeAway = {true, true};
-        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 7, teamIds, homeAway);
+        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
         instance.init(brokerFactory);
         List<String> res = instance.execute();
         assertEquals(table1.get(0), res.get(0));
@@ -514,7 +567,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal2 = {false, false};
         Boolean[] fullOvertime2 = {true, true};
         Boolean[] homeAway2 = {true, false};
-        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(firstLastGoal2, fullOvertime2, 7, teamIds, homeAway2);
+        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(firstLastGoal2, fullOvertime2, 0, teamIds, homeAway2);
         instance2.init(brokerFactory);
         List<String> res2 = instance2.execute();
         assertEquals(table2.get(0), res2.get(0));
@@ -523,7 +576,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal3 = {false, false};
         Boolean[] fullOvertime3 = {true, true};
         Boolean[] homeAway3 = {false, true};
-        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(firstLastGoal3, fullOvertime3, 7, teamIds, homeAway3);
+        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(firstLastGoal3, fullOvertime3, 0, teamIds, homeAway3);
         instance3.init(brokerFactory);
         List<String> res3 = instance3.execute();
         assertEquals(table3.get(0), res3.get(0));
@@ -532,7 +585,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal4 = {true, false};
         Boolean[] fullOvertime4 = {true, true};
         Boolean[] homeAway4 = {true, true};
-        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(firstLastGoal4, fullOvertime4, 7, teamIds, homeAway4);
+        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(firstLastGoal4, fullOvertime4, 0, teamIds, homeAway4);
         instance4.init(brokerFactory);
         List<String> res4 = instance4.execute();
         assertEquals(table4.get(0), res4.get(0));
@@ -541,7 +594,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal5 = {false, true};
         Boolean[] fullOvertime5 = {true, true};
         Boolean[] homeAway5 = {true, true};
-        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(firstLastGoal5, fullOvertime5, 7, teamIds, homeAway5);
+        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(firstLastGoal5, fullOvertime5, 0, teamIds, homeAway5);
         instance5.init(brokerFactory);
         List<String> res5 = instance5.execute();
         assertEquals(table4.get(0), res5.get(0));
@@ -550,7 +603,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal6 = {false, false};
         Boolean[] fullOvertime6 = {false, true};
         Boolean[] homeAway6 = {true, true};
-        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(firstLastGoal6, fullOvertime6, 7, teamIds, homeAway6);
+        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(firstLastGoal6, fullOvertime6, 0, teamIds, homeAway6);
         instance6.init(brokerFactory);
         List<String> res6 = instance6.execute();
         assertEquals(table5.get(0), res6.get(0));
@@ -559,11 +612,21 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal7 = {false, false};
         Boolean[] fullOvertime7 = {true, false};
         Boolean[] homeAway7 = {true, true};
-        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(firstLastGoal7, fullOvertime7, 7, teamIds, homeAway7);
+        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(firstLastGoal7, fullOvertime7, 0, teamIds, homeAway7);
         instance7.init(brokerFactory);
         List<String> res7 = instance7.execute();
         assertEquals(table6.get(0), res7.get(0));
         assertEquals(table6.get(1), res7.get(1));
+        
+        Boolean[] firstLastGoal8 = {false, false};
+        Boolean[] fullOvertime8 = {true, true};
+        Boolean[] homeAway8 = {true, true};
+        ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(firstLastGoal8, fullOvertime8, 1, teamIds, homeAway8);
+        instance8.init(brokerFactory);
+        List<String> res8 = instance8.execute();
+        assertEquals(table7.get(0), res8.get(0));
+        assertEquals(table7.get(1), res8.get(1));
+        
 
     }
     @Test
@@ -572,7 +635,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal = {false, false};
         Boolean[] fullOvertime = {true, true};
         Boolean[] homeAway = {true, true};
-        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 7, homeAway);
+        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
         instance.init(brokerFactory);
         List<String> res = instance.execute();
         assertEquals(table1.get(0), res.get(0));
@@ -581,7 +644,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal2 = {false, false};
         Boolean[] fullOvertime2 = {true, true};
         Boolean[] homeAway2 = {true, false};
-        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal2, fullOvertime2, 7, homeAway2);
+        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal2, fullOvertime2, 0, homeAway2);
         instance2.init(brokerFactory);
         List<String> res2 = instance2.execute();
         assertEquals(table2.get(0), res2.get(0));
@@ -590,7 +653,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal3 = {false, false};
         Boolean[] fullOvertime3 = {true, true};
         Boolean[] homeAway3 = {false, true};
-        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal3, fullOvertime3, 7, homeAway3);
+        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal3, fullOvertime3, 0, homeAway3);
         instance3.init(brokerFactory);
         List<String> res3 = instance3.execute();
         assertEquals(table3.get(0), res3.get(0));
@@ -599,7 +662,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal4 = {true, false};
         Boolean[] fullOvertime4 = {true, true};
         Boolean[] homeAway4 = {true, true};
-        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal4, fullOvertime4, 7, homeAway4);
+        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal4, fullOvertime4, 0, homeAway4);
         instance4.init(brokerFactory);
         List<String> res4 = instance4.execute();
         assertEquals(table4.get(0), res4.get(0));
@@ -608,7 +671,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal5 = {false, true};
         Boolean[] fullOvertime5 = {true, true};
         Boolean[] homeAway5 = {true, true};
-        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal5, fullOvertime5, 7, homeAway5);
+        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal5, fullOvertime5, 0, homeAway5);
         instance5.init(brokerFactory);
         List<String> res5 = instance5.execute();
         assertEquals(table4.get(0), res5.get(0));
@@ -617,7 +680,7 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal6 = {false, false};
         Boolean[] fullOvertime6 = {false, true};
         Boolean[] homeAway6 = {true, true};
-        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal6, fullOvertime6, 7, homeAway6);
+        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal6, fullOvertime6, 0, homeAway6);
         instance6.init(brokerFactory);
         List<String> res6 = instance6.execute();
         assertEquals(table5.get(0), res6.get(0));
@@ -626,57 +689,95 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] firstLastGoal7 = {false, false};
         Boolean[] fullOvertime7 = {true, false};
         Boolean[] homeAway7 = {true, true};
-        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal7, fullOvertime7, 7, homeAway7);
+        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal7, fullOvertime7, 0, homeAway7);
         instance7.init(brokerFactory);
         List<String> res7 = instance7.execute();
         assertEquals(table6.get(0), res7.get(0));
         assertEquals(table6.get(1), res7.get(1));
+        
+        Boolean[] firstLastGoal8 = {false, false};
+        Boolean[] fullOvertime8 = {true, true};
+        Boolean[] homeAway8 = {true, true};
+        ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal8, fullOvertime8, 1, homeAway8);
+        instance8.init(brokerFactory);
+        List<String> res8 = instance8.execute();
+        assertEquals(table7.get(0), res8.get(0));
+        assertEquals(table7.get(1), res8.get(1));
     }
     @Test
     public void testExecute3() {
         System.out.println("execute");
-        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, false, false, true, true, 7, teamIds, true, true);
+        Boolean[] firstLastGoal = {false, false};
+        Boolean[] fullOvertime = {true, true};
+        Boolean[] homeAway = {true, true};
+        ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
         instance.init(brokerFactory);
         List<String> res = instance.execute();
         assertEquals(table1.get(0), res.get(0));
         assertEquals(table1.get(1), res.get(1));
         
-        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, false, false, true, true, 7, teamIds, true, false);
+        Boolean[] firstLastGoal2 = {false, false};
+        Boolean[] fullOvertime2 = {true, true};
+        Boolean[] homeAway2 = {true, false};
+        ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal2, fullOvertime2, 0, teamIds, homeAway2);
         instance2.init(brokerFactory);
         List<String> res2 = instance2.execute();
         assertEquals(table2.get(0), res2.get(0));
         assertEquals(table2.get(1), res2.get(1));
         
-        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, false, false, true, true, 7, teamIds, false, true);
+        Boolean[] firstLastGoal3 = {false, false};
+        Boolean[] fullOvertime3= {true, true};
+        Boolean[] homeAway3 = {false, true};
+        ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal3, fullOvertime3, 0, teamIds, homeAway3);
         instance3.init(brokerFactory);
         List<String> res3 = instance3.execute();
         assertEquals(table3.get(0), res3.get(0));
         assertEquals(table3.get(1), res3.get(1));
         
-        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, true, false, true, true, 7, teamIds, true, true);
+        Boolean[] firstLastGoal4 = {true, false};
+        Boolean[] fullOvertime4 = {true, true};
+        Boolean[] homeAway4 = {true, true};
+        ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal4, fullOvertime4, 0, teamIds, homeAway4);
         instance4.init(brokerFactory);
         List<String> res4 = instance4.execute();
         assertEquals(table4.get(0), res4.get(0));
         assertEquals(table4.get(1), res4.get(1));
         
-        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, false, true, true, true, 7, teamIds, true, true);
+        Boolean[] firstLastGoal5 = {false, true};
+        Boolean[] fullOvertime5 = {true, true};
+        Boolean[] homeAway5 = {true, true};
+        ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal5, fullOvertime5, 0, teamIds, homeAway5);
         instance5.init(brokerFactory);
         List<String> res5 = instance5.execute();
         assertEquals(table4.get(0), res5.get(0));
         assertEquals(table4.get(1), res5.get(1));
         
-        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, false, false, false, true, 7, teamIds, true, true);
+        Boolean[] firstLastGoal6 = {false, false};
+        Boolean[] fullOvertime6 = {false, true};
+        Boolean[] homeAway6 = {true, true};
+        ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal6, fullOvertime6, 0, teamIds, homeAway6);
         instance6.init(brokerFactory);
         List<String> res6 = instance6.execute();
         assertEquals(table5.get(0), res6.get(0));
         assertEquals(table5.get(1), res6.get(1));
         
-        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, false, false, true, false, 7, teamIds, true, true);
+        Boolean[] firstLastGoal7 = {false, false};
+        Boolean[] fullOvertime7 = {true, false};
+        Boolean[] homeAway7 = {true, true};
+        ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal7, fullOvertime7, 0, teamIds, homeAway7);
         instance7.init(brokerFactory);
         List<String> res7 = instance7.execute();
         assertEquals(table6.get(0), res7.get(0));
         assertEquals(table6.get(1), res7.get(1));
-
+        
+        Boolean[] firstLastGoal8 = {false, false};
+        Boolean[] fullOvertime8 = {true, true};
+        Boolean[] homeAway8 = {true, true};
+        ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal8, fullOvertime8, 1, teamIds, homeAway8);
+        instance8.init(brokerFactory);
+        List<String> res8 = instance8.execute();
+        assertEquals(table7.get(0), res8.get(0));
+        assertEquals(table7.get(1), res8.get(1));
     }
     
 

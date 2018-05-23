@@ -5,6 +5,7 @@
  */
 package Services;
 
+import DAO.TeamsSeasonsDao;
 import org.junit.Test;
 
 /**
@@ -14,6 +15,6 @@ import org.junit.Test;
 public class DeleteDataBase {
     @Test
     public void tearDown() {
-        SetUpTestObjects.tearDown();
+        
     }
 }
