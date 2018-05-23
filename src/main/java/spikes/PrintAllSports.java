@@ -7,7 +7,7 @@ package spikes;
 
 import DAO.SportDao;
 import DB.DbConn;
-import Services.GetAllSportService;
+import Services.Get.GetAllSportService;
 import Domain.Sport;
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ import DAO.TeamDao;
 import Domain.Game;
 import Domain.Result;
 import Domain.Team;
-import Services.GetAllGamesFromSeasonService;
+import Services.Get.GetAllGamesFromSeasonService;
 import Services.ServiceException;
 import Services.ServiceRunner;
 import java.util.ArrayList;

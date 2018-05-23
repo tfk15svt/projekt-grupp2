@@ -6,7 +6,7 @@
 package spikes;
 
 import Services.ServiceRunner;
-import Services.ShowTableWithDynamicFiltersService;
+import Services.Show.ShowTableWithDynamicFiltersService;
 import java.util.ArrayList;
 import java.util.List;
 

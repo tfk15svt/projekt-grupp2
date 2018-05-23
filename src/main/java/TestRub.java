@@ -8,6 +8,7 @@
  *
  * @author Veiret
  */
+import Services.Show.ShowTableWithDynamicFiltersService;
 import Services.*;
 import java.util.ArrayList;
 import java.util.List;

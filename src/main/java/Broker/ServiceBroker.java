@@ -5,7 +5,7 @@
  */
 package Broker;
 
-import Services.GetAllGamesFromSeasonService;
+import Services.Get.GetAllGamesFromSeasonService;
 import Services.Service;
 import Services.ServiceRunner;
 

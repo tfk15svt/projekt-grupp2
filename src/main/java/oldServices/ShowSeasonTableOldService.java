@@ -7,7 +7,7 @@ package oldServices;
 
 import Domain.Game;
 import Domain.Team;
-import Services.GetAllGamesFromSeasonService;
+import Services.Get.GetAllGamesFromSeasonService;
 import Services.Service;
 import Services.ServiceException;
 import java.util.ArrayList;
