@@ -271,7 +271,7 @@ public class GetFilterTableOnRoundIntervalServiceTest {
         GetFilterTableOnRoundIntervalService instance = new GetFilterTableOnRoundIntervalService(seasonId, startRound, endRound);
         instance.init(brokerFactory);
         String expResult = JsonOutputformat.create(expList);   
-        String reString = instance.execute();
+        String reString = JsonOutputformat.create(instance.execute());
         assertEquals(expResult, reString);
     }
 }

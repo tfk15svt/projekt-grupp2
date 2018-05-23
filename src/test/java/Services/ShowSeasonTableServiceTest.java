@@ -200,7 +200,7 @@ public class ShowSeasonTableServiceTest {
         ShowSeasonTableService instance = new ShowSeasonTableService(seasonId);
         instance.init(brokerFactory);
         String expResult = JsonOutputformat.create(expList);
-        String reString = instance.execute();
+        String reString = JsonOutputformat.create(instance.execute());
         assertTrue(expResult.equals(reString));
     }
 

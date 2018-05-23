@@ -42,7 +42,7 @@ public class MakeTableFromGameList {
         countAway = conditions[1];
     }
 
-    public String execute() {
+    public List<TableRow> execute() {
         notSortedRows = new ArrayList<TableRow>();
         sortedRows = new ArrayList<TableRow>();
 
@@ -51,7 +51,7 @@ public class MakeTableFromGameList {
         });
 
         sortList();
-        return JsonOutputformat.create(sortedRows);
+        return sortedRows;
     }
 
     public void sortList() {
@@ -77,9 +77,9 @@ public class MakeTableFromGameList {
 
     }
 
-    @JsonPropertyOrder({"teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points"})
-    private class TableRow {
-
+   
+    @JsonPropertyOrder({ "teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points" })
+    public class TableRow {
         long teamId;
         String teamName;
         int fullTimeWins;

@@ -7,6 +7,7 @@ package Services;
 
 import AssistantClasses.GetTeamsFromListOfGames;
 import AssistantClasses.MakeTableFromGameList;
+import AssistantClasses.MakeTableFromGameList.TableRow;
 import Domain.Game;
 import Domain.Season;
 import Domain.Team;
@@ -31,7 +32,7 @@ public class ShowMergedTableForSeasonsService extends Service {
     }
 
     @Override
-    public String execute() {
+    public List<TableRow> execute() {
         for (Long id : seasonIds) {
             if (!getBrokerFactory().getSeasonBroker().seasonExists(id)) {
                 throw new ServiceException("no season with given id");
