@@ -13,7 +13,7 @@ import java.util.List;
  * @author Veiret
  */
 public class GetAllGamesFromDateIntervalService extends Service {
-    private Long leagueId;
+    private final Long leagueId;
     private Integer startDate;
     private Integer endDate;
     

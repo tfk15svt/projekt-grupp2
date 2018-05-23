@@ -6,7 +6,11 @@
 package Broker;
 
 import DAO.ArenaDao;
+import DAO.GameDao;
 import Domain.Arena;
+import Domain.Game;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -20,5 +24,12 @@ public class ArenaBroker {
     
     public Arena create(){
         return new Arena();
+    }
+    
+    public List<Game> getAllGamesForOneArena(Long arenaId){
+        ArenaDao arenaDao = ArenaDao.findById(arenaId);
+        return arenaDao.getAll(GameDao.class).stream()
+                .map(gameDao -> new Game ((GameDao) gameDao))
+                .collect(Collectors.toList());
     }
 }

@@ -32,6 +32,8 @@ public class SetUpTestObjects {
     private static Result result8;
     private static Result result9;
     private static Result result10;
+    private static Result result11;
+    private static Result result12;
     private static Game game1;
     private static Game game2;
     private static Game game3;
@@ -42,6 +44,8 @@ public class SetUpTestObjects {
     private static Game game8;
     private static Game game9;
     private static Game game10;
+    private static Game game11;
+    private static Game game12;
     private static Sport sport;
     private static Arena arena;
     private static Team team1;
@@ -63,6 +67,8 @@ public class SetUpTestObjects {
     private static Round round7;
     private static Round round8;
     private static Round round9;
+    private static Round round10;
+   private static Round round11;
     private static League league;
     private static Long leagueId;
     private static Long teamId1;
@@ -81,6 +87,9 @@ public class SetUpTestObjects {
     private static Long gameId8;
     private static Long gameId9;
     private static Long gameId10;
+    private static Long gameId11;
+    private static Long gameId12;
+    private static Long arenaId;
     private static TeamsSeasonsDao tTs1;
     private static TeamsSeasonsDao tTs2;
     private static TeamsSeasonsDao tTs3;
@@ -103,6 +112,8 @@ public class SetUpTestObjects {
         result8 = new Result();
         result9 = new Result();
         result10 = new Result();
+        result11 = new Result();
+        result12 = new Result();
         game1 = new Game(); numberOfGames++;
         game2 = new Game(); numberOfGames++;
         game3 = new Game(); numberOfGames++;
@@ -113,6 +124,8 @@ public class SetUpTestObjects {
         game8 = new Game(); numberOfGames++;
         game9 = new Game(); numberOfGames++;
         game10 = new Game(); numberOfGames++;
+        game11 = new Game(); numberOfGames++;
+        game12 = new Game(); numberOfGames++;
         arena = new Arena();
         team1 = new Team();
         team2 = new Team();
@@ -132,13 +145,15 @@ public class SetUpTestObjects {
         round7 = new Round();
         round8 = new Round();
         round9 = new Round();
+        round10 = new Round();
+        round11 = new Round();
         league = new League();
 
-        sport.setName("sporttest1");
+        sport.setName("sporttest12791");
         sport.getDao().save();
 
         league.setSport(sport);
-        league.setName("leaguetest1");
+        league.setName("leaguetest19271");
         league.getDao().save();
         leagueId = league.getId();
         season1.setSummer(Boolean.TRUE);
@@ -154,31 +169,34 @@ public class SetUpTestObjects {
         seasonId1 = season1.getId();
         seasonId2 = season2.getId();
 
-        team1.setName("teamtesst1");
+        team1.setName("teamtesst12971");
         team1.setSport(sport);
         team1.getDao().save();
 
-        team2.setName("teamtesst2");
+        team2.setName("teamtesst22971");
         team2.setSport(sport);
         team2.getDao().save();
         
-        team3.setName("teamtesst3");
+        team3.setName("teamtesst32971");
         team3.setSport(sport);
         team3.getDao().save();
         
-        team4.setName("teamtesst4");
+        team4.setName("teamtesst42971");
         team4.setSport(sport);
         team4.getDao().save();
         
-        team5.setName("teamtesst5");
+        team5.setName("teamtesst52791");
         team5.setSport(sport);
         team5.getDao().save();
         
-        team6.setName("teamtesst6");
+        team6.setName("teamtesst62971");
         team6.setSport(sport);
         team6.getDao().save();
 
+        arena.maxCapacity(8500);
+        arena.setArenaName("Gavlerinken");
         arena.getDao().save();
+        arenaId = arena.getDao().getLongId();
 
         round1.setRoundNumber(1);
         round1.setSeason(season1);
@@ -215,6 +233,14 @@ public class SetUpTestObjects {
         round9.setRoundNumber(9);
         round9.setSeason(season2);
         round9.getDao().save();
+        
+        round10.setRoundNumber(10);
+        round10.setSeason(season2);
+        round10.getDao().save();
+        
+        round11.setRoundNumber(11);
+        round11.setSeason(season2);
+        round11.getDao().save();
 
         game1.setArena(arena);
         game1.setDate(1);
@@ -297,6 +323,24 @@ public class SetUpTestObjects {
         game10.setDate(20190432);
         game10.getDao().save();
         gameId10 = game10.getDao().getLongId();
+        
+        game11.setArena(arena);
+        game11.setHomeTeam(team4);
+        game11.setAwayTeam(team3);
+        game11.setRound(round10);
+        game11.setSpectators(7000);
+        game11.setDate(20190432);
+        game11.getDao().save();
+        gameId11 = game11.getDao().getLongId();
+        
+        game12.setArena(arena);
+        game12.setHomeTeam(team1);
+        game12.setAwayTeam(team2);
+        game12.setRound(round10);
+        game12.setSpectators(4500);
+        game12.setDate(20190433);
+        game12.getDao().save();
+        gameId12 = game12.getDao().getLongId();
         
 
         try {
@@ -401,6 +445,28 @@ public class SetUpTestObjects {
         result10.setFullTime();
         result10.getDao().save();
         
+        try{
+            result11.setHomeScore(16);
+            result11.setAwayScore(16);
+            result11.setScore("1:2-3:2-6:4-6:8", result11.getHomeScore(), result11.getAwayScore());
+        }catch(Exception e){
+            e.getMessage();
+        }
+        game11.setResult(result11);
+        result11.setFullTime();
+        result11.getDao().save();
+        
+        try{
+            result12.setHomeScore(8);
+            result12.setAwayScore(12);
+            result12.setScore("2:3-4:6-1:1-1:2", result12.getHomeScore(), result12.getAwayScore());
+        }catch(Exception e){
+            e.getMessage();
+        }
+        game12.setResult(result12);
+        result12.setFullTime();
+        result12.getDao().save();
+        
         tTs1 = new TeamsSeasonsDao();
         tTs1.setSeason(season1);
         tTs1.setTeam(team1);
@@ -451,6 +517,8 @@ public class SetUpTestObjects {
         result8.getDao().delete();
         result9.getDao().delete();
         result10.getDao().delete();
+        result11.getDao().delete();
+        result12.getDao().delete();
         
         game1.getDao().delete();
         game2.getDao().delete();
@@ -462,6 +530,9 @@ public class SetUpTestObjects {
         game8.getDao().delete();
         game9.getDao().delete();
         game10.getDao().delete();
+        game11.getDao().delete();
+        game12.getDao().delete();
+        
         round1.getDao().delete();
         round2.getDao().delete();
         round3.getDao().delete();
@@ -471,6 +542,8 @@ public class SetUpTestObjects {
         round7.getDao().delete();
         round8.getDao().delete();
         round9.getDao().delete();
+        round10.getDao().delete();
+        round11.getDao().delete();
         season1.getDao().delete();
         season2.getDao().delete();
         league.getDao().delete();
@@ -526,6 +599,10 @@ public class SetUpTestObjects {
     public static Long getGameId10(){
         return gameId10;
     }
+    
+    public static Long getGameId11(){
+        return gameId11;
+    }
 
     public static Long getTeamId1() {
         teamId1 = team1.getDao().getLongId();
@@ -565,6 +642,10 @@ public class SetUpTestObjects {
     }
     public static int getNumberOfGames(){
         return numberOfGames;
+    }
+    
+    public static Long getArenaId1(){
+        return arenaId;
     }
     
 }

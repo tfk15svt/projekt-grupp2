@@ -6,6 +6,7 @@
 package Services;
 
 import Broker.BrokerFactory;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,31 +18,27 @@ import static org.junit.Assert.*;
  *
  * @author Simon
  */
-public class ShowTableOverIntervalOnGamePeriodIT {
+public class ShowSpectatorsAndTeamGoalsOnDateIntervalIT {
     
-    private static int start;
-    private static int end;
-    private static int gamePeriod;
+    public ShowSpectatorsAndTeamGoalsOnDateIntervalIT() {
+    }
     
     @BeforeClass
     public static void setUpClass() {
         SetUpTestObjects.setUp();
-        start = 7;
-        end = 9;
-        gamePeriod = 1;
     }
     
     @AfterClass
     public static void tearDownClass() {
         SetUpTestObjects.tearDown();
     }
-    
+    /**
+     * Test of execute method, of class ShowSpectatorsAndTeamGoalsOnDateInterval.
+     */
     @Test
     public void testExecute() {
-        ShowTableOverIntervalOnGamePeriod instance = new ShowTableOverIntervalOnGamePeriod(gamePeriod, start, end);
-        instance.init(new BrokerFactory());
-        System.out.println("Show table on interval: " + "\n" + instance.execute());
-        
+        ShowSpectatorsAndTeamGoalsOnDateInterval s = new ShowSpectatorsAndTeamGoalsOnDateInterval(SetUpTestObjects.getLeagueId(), 20190432, 20190433);
+        s.init(new BrokerFactory());
+        System.out.println("EXE: " + s.execute());
     }
-    
 }

@@ -36,7 +36,7 @@ public class GetAllGamesFromSeasonService extends Service {
         }
         List<Round> roundList = seasonBroker.getAllRoundsfromSeasonId(seasonId);
         RoundBroker roundBroker = getBrokerFactory().getRoundBroker();
-        gameList = new ArrayList(); 
+        gameList = new ArrayList<>(); 
         for(Round round : roundList){
            List<Game> gamesFromRound = roundBroker.getAllGamesByRoundId(round.getId());
            gameList = Stream.concat(gameList.stream(), gamesFromRound.stream()).collect(Collectors.toList());

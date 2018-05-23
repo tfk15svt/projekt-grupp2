@@ -26,6 +26,9 @@ public class MakeTableFromGameList {
     private boolean countHome;
     private boolean countAway;
 
+    List<Game> log;
+    Integer gamePeriod;
+
     public MakeTableFromGameList(List<Game> games, List<Team> teams, boolean[] conditions) {
         this.listOfGames = games;
         this.listOfTeams = teams;
@@ -51,8 +54,6 @@ public class MakeTableFromGameList {
         return JsonOutputformat.create(sortedRows);
     }
 
-
-
     public void sortList() {
         int notSortedRowsLength = notSortedRows.size();
         while (notSortedRowsLength > 0) {
@@ -76,9 +77,9 @@ public class MakeTableFromGameList {
 
     }
 
-   
-    @JsonPropertyOrder({ "teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points" })
+    @JsonPropertyOrder({"teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points"})
     private class TableRow {
+
         long teamId;
         String teamName;
         int fullTimeWins;
@@ -88,6 +89,7 @@ public class MakeTableFromGameList {
         int scoredGoals;
         int opponentScore;
         int overTimeWins;
+
         TableRow(Team team) {
             this.teamId = team.getDao().getLongId();
             this.teamName = team.getName();
@@ -103,6 +105,7 @@ public class MakeTableFromGameList {
             listOfGames.forEach((game) -> {
                 long homeTeamId = game.getHomeTeam().getDao().getLongId();
                 long awayTeamId = game.getAwayTeam().getDao().getLongId();
+
                 if ((homeTeamId == teamId) && countHome/*&& (game.getResult() != null)*/) {
                     int homeScore = game.getResult().getHomeScore();
                     int awayScore = game.getResult().getAwayScore();
@@ -146,7 +149,6 @@ public class MakeTableFromGameList {
                     }
                 }
             });
-            
         }
 
         public String getTeamName() {
@@ -181,6 +183,5 @@ public class MakeTableFromGameList {
             return 3 * fullTimeWins + 2 * overTimeWins + (tied - overTimeWins);
         }
 
-        
     }
 }

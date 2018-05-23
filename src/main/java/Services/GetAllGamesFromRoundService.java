@@ -23,6 +23,7 @@ public class GetAllGamesFromRoundService extends Service {
             throw new ServiceException ("No round with that id");
         }
     }
+    @Override
     public List<Game> execute (){
         RoundBroker roundBroker = getBrokerFactory().getRoundBroker();
         if (roundBroker.findById(roundId) == null){

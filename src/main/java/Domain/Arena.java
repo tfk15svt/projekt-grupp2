@@ -40,4 +40,12 @@ public class Arena {
     public void setTeam (Team team){
         dao.setParent(team.getDao()); //Lista?
     }
+    
+    public void maxCapacity(int maxCapacity){
+        dao.setLong("max_capacity", maxCapacity);
+    }
+    
+    public Long getMaxCapacity(){
+        return dao.getLong("max_capacity");
+    }
 }
