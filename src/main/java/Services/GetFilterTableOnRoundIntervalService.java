@@ -66,10 +66,9 @@ public class GetFilterTableOnRoundIntervalService extends Service {
                 intervalGames.add(game);
             }
         }
-        for (Team team : allSeasonTeams) {
+        allSeasonTeams.forEach((team) -> {
             boolean contains = false;
             long teamId = (long) team.getDao().getLongId();
-
             for (Team addedTeam : intervalTeams) {
                 long addedTeamId = (long) addedTeam.getDao().getLongId();
                 contains = contains || (addedTeamId == teamId);
@@ -77,7 +76,7 @@ public class GetFilterTableOnRoundIntervalService extends Service {
             if (!contains) {
                 intervalTeams.add(team);
             }
-        }
+        });
         boolean[] conditions = new boolean[2];
         conditions[0] = true;
         conditions[1] = true;
