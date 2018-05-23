@@ -7,6 +7,7 @@ package Services;
 
 import AssistantClasses.GetTeamsFromListOfGames;
 import AssistantClasses.MakeTableFromGameList;
+import AssistantClasses.MakeTableFromGameList.TableRow;
 import Domain.Game;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ShowTableForDateIntervalService extends Service{
         this.endDate = endDate;
     }
     @Override
-    public String execute() {
+    public List<TableRow> execute() {
         List<Game> listGames = getBrokerFactory().getLeagueBroker().getGamesWithinDateInterVal(leagueId, startDate, endDate);
         GetTeamsFromListOfGames getTeams = new GetTeamsFromListOfGames(listGames);
         getTeams.init(getBrokerFactory());

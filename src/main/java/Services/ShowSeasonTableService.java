@@ -6,6 +6,7 @@
 package Services;
 
 import AssistantClasses.MakeTableFromGameList;
+import AssistantClasses.MakeTableFromGameList.TableRow;
 import Domain.Game;
 import Domain.Team;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ShowSeasonTableService extends Service {
     }
 
     @Override
-    public String execute() {
+    public List<TableRow> execute() {
         GetAllGamesFromSeasonService getGamesService = getBrokerFactory().getServiceBroker().getAllGamesFromSeasonService(seasonId);
         getGamesService.init(getBrokerFactory());
         allSeasonGames = getGamesService.execute();

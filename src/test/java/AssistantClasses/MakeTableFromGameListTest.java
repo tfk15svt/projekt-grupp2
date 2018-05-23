@@ -187,7 +187,7 @@ public class MakeTableFromGameListTest {
         System.out.println("execute");
         MakeTableFromGameList instance = new MakeTableFromGameList(games, teams, conditions);
 
-        String reString = instance.execute();
+        String reString = JsonOutputformat.create(instance.execute());
         String result = JsonOutputformat.create(expList);
         assertTrue(result.equals(reString));
     }

@@ -6,6 +6,7 @@
 package Services;
 
 import AssistantClasses.MakeTableFromGameList;
+import AssistantClasses.MakeTableFromGameList.TableRow;
 import Domain.Game;
 import Domain.Season;
 import Domain.Team;
@@ -45,7 +46,7 @@ public class GetFilterTableOnRoundIntervalService extends Service {
     }
 
     @Override
-    public String execute() {
+    public List<TableRow> execute() {
         Game game;
         intervalGames = new ArrayList<>();
         intervalTeams = new ArrayList<>();

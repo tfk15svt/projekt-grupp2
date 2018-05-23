@@ -246,7 +246,7 @@ public class ShowMergedTableForSeasonsServiceTest {
         ShowMergedTableForSeasonsService instance = new ShowMergedTableForSeasonsService(seasonIds);
         instance.init(brokerFactory);
         String expResult = JsonOutputformat.create(expList);        
-        String reString = instance.execute();
+        String reString = JsonOutputformat.create(instance.execute());
         assertTrue(expResult.equals(reString));
     }
     
