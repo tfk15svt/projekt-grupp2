@@ -52,6 +52,12 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         if (wonPeriods < 0) {
             throw new ServiceException("Wonperiods cannot be less then 0");
         }
+        if (this.homeGames == null) {
+            throw new ServiceException("homeGames cannot be null");
+        }
+        if (this.awayGames == null) {
+            throw new ServiceException("awayGames cannot be null");
+        }
     }
 
     ShowTeamWinLossStatistics(List<Long> seasonIds, Boolean[] firstLastGoal, Boolean[] fullOvertime, Integer wonPeriods, List<Long> teamIds , Boolean[] homeAway) {
@@ -79,6 +85,12 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         if (wonPeriods < 0) {
             throw new ServiceException("Wonperiods cannot be less then 0");
         }
+        if (this.homeGames == null) {
+            throw new ServiceException("homeGames cannot be null");
+        }
+        if (this.awayGames == null) {
+            throw new ServiceException("awayGames cannot be null");
+        }
 
     }
 
@@ -103,6 +115,12 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
         }
         if (wonPeriods < 0) {
             throw new ServiceException("Wonperiods cannot be less then 0");
+        }
+        if (this.homeGames == null) {
+            throw new ServiceException("homeGames cannot be null");
+        }
+        if (this.awayGames == null) {
+            throw new ServiceException("awayGames cannot be null");
         }
     }
 

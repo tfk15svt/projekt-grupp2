@@ -17,13 +17,13 @@ import java.util.List;
  *
  * @author Simon
  */
-public class ShowPercentGoalsOnPeriodFilter extends Service {
+public class ShowPercentGoalsOnIntervalFilter extends Service {
 
     private final Long seasonId;
     private final Integer startDate;
     private final Integer endDate;
 
-    public ShowPercentGoalsOnPeriodFilter(Long seasonId, Integer startDate, Integer endDate) {
+    public ShowPercentGoalsOnIntervalFilter(Long seasonId, Integer startDate, Integer endDate) {
         this.seasonId = seasonId;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -5,7 +5,7 @@
  */
 package Services.Show;
 
-import Services.Show.ShowPercentGoalsOnPeriodFilter;
+import Services.Show.ShowPercentGoalsOnIntervalFilter;
 import Services.Get.GetAllGamesFromSeasonService;
 import Broker.BrokerFactory;
 import Broker.ServiceBroker;
@@ -66,10 +66,10 @@ public class ShowPercentGoalsOnPeriodFilterTest {
     @Test
     public void testConstructor(){
         try{
-            new ShowPercentGoalsOnPeriodFilter(null, startDate, endDate);
-            new ShowPercentGoalsOnPeriodFilter(seasonId, null, endDate);
-            new ShowPercentGoalsOnPeriodFilter(seasonId, startDate, null);
-            new ShowPercentGoalsOnPeriodFilter(null, null, null);
+            new ShowPercentGoalsOnIntervalFilter(null, startDate, endDate);
+            new ShowPercentGoalsOnIntervalFilter(seasonId, null, endDate);
+            new ShowPercentGoalsOnIntervalFilter(seasonId, startDate, null);
+            new ShowPercentGoalsOnIntervalFilter(null, null, null);
         }catch(ServiceException e){
             e.getMessage();
         }
@@ -77,7 +77,7 @@ public class ShowPercentGoalsOnPeriodFilterTest {
     
     @Test
     public void testInit() {
-        ShowPercentGoalsOnPeriodFilter s = new ShowPercentGoalsOnPeriodFilter(seasonId, startDate, endDate);
+        ShowPercentGoalsOnIntervalFilter s = new ShowPercentGoalsOnIntervalFilter(seasonId, startDate, endDate);
         try{
             s.init(null);
         }catch(ServiceException e){
@@ -88,7 +88,7 @@ public class ShowPercentGoalsOnPeriodFilterTest {
     
     @Test
     public void testExecute(){
-        ShowPercentGoalsOnPeriodFilter s1 = new ShowPercentGoalsOnPeriodFilter(seasonId, startDate, endDate);
+        ShowPercentGoalsOnIntervalFilter s1 = new ShowPercentGoalsOnIntervalFilter(seasonId, startDate, endDate);
         s1.init(brokerFactory);
         System.out.println("Show Goals: " + "\n" + s1.execute());
     }

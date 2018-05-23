@@ -5,7 +5,7 @@
  */
 package Services.Show;
 
-import Services.Show.ShowPercentGoalsOnPeriodFilter;
+import Services.Show.ShowPercentGoalsOnIntervalFilter;
 import Broker.BrokerFactory;
 import Services.SetUpTestObjects;
 import org.junit.After;
@@ -33,7 +33,7 @@ public class ShowPercentGoalsOnPeriodFilterIT {
 
     @Test
     public void testExecute() {
-        ShowPercentGoalsOnPeriodFilter s = new ShowPercentGoalsOnPeriodFilter(SetUpTestObjects.getSeasonId2(), 20190432, 20190433);
+        ShowPercentGoalsOnIntervalFilter s = new ShowPercentGoalsOnIntervalFilter(SetUpTestObjects.getSeasonId2(), 20190432, 20190433);
         s.init(new BrokerFactory());
         System.out.println("PERCENT: " + s.execute());
     }
