@@ -977,13 +977,13 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance1_2_oneSeason.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
         String expResult2 = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        String reString1 = instance1_1_twoSeasons.execute();
-        String reString2 = instance1_2_oneSeason.execute();
+        String reString1 = JsonOutputformat.create(instance1_1_twoSeasons.execute());
+        String reString2 = JsonOutputformat.create(instance1_2_oneSeason.execute());
         assertTrue(expResult1.equals(reString1));
         assertTrue(expResult2.equals(reString2));
         instance1_2_oneSeason = new ShowTableWithDynamicFiltersService(seasonOneList);
         instance1_2_oneSeason.init(brokerFactory);
-        reString2 = instance1_2_oneSeason.execute();
+        reString2 = JsonOutputformat.create(instance1_2_oneSeason.execute());
         assertTrue(expResult2.equals(reString2));
     }
 
@@ -994,7 +994,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
 
         instance2.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString1 = instance2.execute();
+        String reString1 = JsonOutputformat.create(instance2.execute());
         assertTrue(expResult1.equals(reString1));
     }
 
@@ -1006,21 +1006,21 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance3 = new ShowTableWithDynamicFiltersService(seasonIds, homeAwayConditions);
         instance3.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        String reString1 = instance3.execute();
+        String reString1 = JsonOutputformat.create(instance3.execute());
         assertTrue(expResult1.equals(reString1));
         homeAwayConditions[1] = true;
         homeAwayConditions[0] = false;
         instance3 = new ShowTableWithDynamicFiltersService(seasonIds, homeAwayConditions);
         instance3.init(brokerFactory);
         String expResult2 = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        String reString2 = instance3.execute();
+        String reString2 = JsonOutputformat.create(instance3.execute());
         assertTrue(expResult2.equals(reString2));
         homeAwayConditions[1] = true;
         homeAwayConditions[0] = true;
         instance3 = new ShowTableWithDynamicFiltersService(seasonOneList, homeAwayConditions);
         instance3.init(brokerFactory);
         String expResult3 = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        String reString3 = instance3.execute();
+        String reString3 = JsonOutputformat.create(instance3.execute());
         assertTrue(expResult3.equals(reString3));
     }
 
@@ -1032,21 +1032,21 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance4 = new ShowTableWithDynamicFiltersService(leagueId, homeAwayConditions);
         instance4.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        String reString1 = instance4.execute();
+        String reString1 = JsonOutputformat.create(instance4.execute());
         assertTrue(expResult1.equals(reString1));
         homeAwayConditions[1] = true;
         homeAwayConditions[0] = false;
         instance4 = new ShowTableWithDynamicFiltersService(leagueId, homeAwayConditions);
         instance4.init(brokerFactory);
         expResult1 = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        reString1 = instance4.execute();
+        reString1 = JsonOutputformat.create(instance4.execute());
         assertTrue(expResult1.equals(reString1));
         homeAwayConditions[0] = true;
         homeAwayConditions[1] = true;
         instance4 = new ShowTableWithDynamicFiltersService(leagueId, homeAwayConditions);
         instance4.init(brokerFactory);
         expResult1 = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        reString1 = instance4.execute();
+        reString1 = JsonOutputformat.create(instance4.execute());
         assertTrue(expResult1.equals(reString1));
     }
 
@@ -1060,11 +1060,11 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance5 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, chooseDate);
         instance5.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        String reString1 = instance5.execute();
+        String reString1 = JsonOutputformat.create(instance5.execute());
         assertTrue(expResult1.equals(reString1));
         instance5 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound);
         instance5.init(brokerFactory);
-        reString1 = instance5.execute();
+        reString1 = JsonOutputformat.create(instance5.execute());
         assertTrue(expResult1.equals(reString1));
     }
 
@@ -1078,7 +1078,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance6 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound);
         instance6.init(brokerFactory);
         String expResult1 = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        String reString1 = instance6.execute();
+        String reString1 = JsonOutputformat.create(instance6.execute());
         assertTrue(expResult1.equals(reString1));
         startEndDate[0] = 1;
         startEndDate[1] = 4;
@@ -1086,7 +1086,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         startEndRound[1] = 1;
         instance6 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound);
         instance6.init(brokerFactory);
-        reString1 = instance6.execute();
+        reString1 = JsonOutputformat.create(instance6.execute());
         assertTrue(expResult1.equals(reString1));
 
         startEndDate[0] = 1;
@@ -1096,7 +1096,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance6 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound);
         instance6.init(brokerFactory);
         expResult1 = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString1 = instance6.execute();
+        reString1 = JsonOutputformat.create(instance6.execute());
         assertFalse(expResult1.equals(reString1));
     }
 
@@ -1107,7 +1107,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance7 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, chooseDate);
         instance7.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance7.execute();
+        String reString = JsonOutputformat.create(instance7.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1115,7 +1115,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance7 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, chooseDate);
         instance7.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance7.execute();
+        reString = JsonOutputformat.create(instance7.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1123,7 +1123,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance7 = new ShowTableWithDynamicFiltersService(leagueId, startEndRound, chooseRound);
         instance7.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        reString = instance7.execute();
+        reString = JsonOutputformat.create(instance7.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1131,7 +1131,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance7 = new ShowTableWithDynamicFiltersService(leagueId, startEndRound, chooseRound);
         instance7.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance7.execute();
+        reString = JsonOutputformat.create(instance7.execute());
         assertTrue(expResult.equals(reString));
     }
     @Test
@@ -1143,7 +1143,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance8 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound);
         instance8.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance8.execute();
+        String reString = JsonOutputformat.create(instance8.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1153,7 +1153,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance8 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound);
         instance8.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance8.execute();
+        reString = JsonOutputformat.create(instance8.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1163,7 +1163,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance8 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound);
         instance8.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance8.execute();
+        reString = JsonOutputformat.create(instance8.execute());
         assertTrue(expResult.equals(reString));
         
     }
@@ -1178,19 +1178,19 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance9.execute();
+        String reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         instance9 = new ShowTableWithDynamicFiltersService(seasonOneList, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         instance9 = new ShowTableWithDynamicFiltersService(seasonTwoList, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1198,7 +1198,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, chooseDate, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 3;
@@ -1206,7 +1206,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, chooseDate, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1216,7 +1216,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 2;
@@ -1224,7 +1224,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1234,7 +1234,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
         
         homeAwayConditions[0] = false;
@@ -1242,7 +1242,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance9 = new ShowTableWithDynamicFiltersService(seasonIds, startEndRound, chooseRound, homeAwayConditions);
         instance9.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        reString = instance9.execute();
+        reString = JsonOutputformat.create(instance9.execute());
         assertTrue(expResult.equals(reString));
     }
     @Test
@@ -1256,19 +1256,19 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance10.execute();
+        String reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         instance10 = new ShowTableWithDynamicFiltersService(seasonOneList, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         instance10 = new ShowTableWithDynamicFiltersService(seasonTwoList, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1276,7 +1276,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 3;
@@ -1284,7 +1284,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1294,7 +1294,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 2;
@@ -1302,7 +1302,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1312,7 +1312,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
         
         homeAwayConditions[0] = false;
@@ -1320,7 +1320,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance10 = new ShowTableWithDynamicFiltersService(seasonIds, startEndDate, startEndRound, homeAwayConditions);
         instance10.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        reString = instance10.execute();
+        reString = JsonOutputformat.create(instance10.execute());
         assertTrue(expResult.equals(reString));
     }
     @Test
@@ -1334,7 +1334,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance11 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, chooseDate, homeAwayConditions);
         instance11.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance11.execute();
+        String reString = JsonOutputformat.create(instance11.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1342,7 +1342,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance11 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, chooseDate, homeAwayConditions);
         instance11.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance11.execute();
+        reString = JsonOutputformat.create(instance11.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1352,7 +1352,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance11 = new ShowTableWithDynamicFiltersService(leagueId, startEndRound, chooseRound, homeAwayConditions);
         instance11.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance11.execute();
+        reString = JsonOutputformat.create(instance11.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1362,7 +1362,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance11 = new ShowTableWithDynamicFiltersService(leagueId, startEndRound, chooseRound, homeAwayConditions);
         instance11.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        reString = instance11.execute();
+        reString = JsonOutputformat.create(instance11.execute());
         assertTrue(expResult.equals(reString));
         
         homeAwayConditions[0] = false;
@@ -1370,7 +1370,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance11 = new ShowTableWithDynamicFiltersService(leagueId, startEndRound, chooseRound, homeAwayConditions);
         instance11.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        reString = instance11.execute();
+        reString = JsonOutputformat.create(instance11.execute());
         assertTrue(expResult.equals(reString));
     }
     @Test
@@ -1384,7 +1384,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance12 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound, homeAwayConditions);
         instance12.init(brokerFactory);
         String expResult = JsonOutputformat.create(tabel1TwoSeasonsHomeAndAway);
-        String reString = instance12.execute();
+        String reString = JsonOutputformat.create(instance12.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1392,7 +1392,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance12 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound, homeAwayConditions);
         instance12.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance12.execute();
+        reString = JsonOutputformat.create(instance12.execute());
         assertTrue(expResult.equals(reString));
         
         startEndDate[0] = 1;
@@ -1402,7 +1402,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance12 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound, homeAwayConditions);
         instance12.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel2OneSeasonHomeAndAway);
-        reString = instance12.execute();
+        reString = JsonOutputformat.create(instance12.execute());
         assertTrue(expResult.equals(reString));
         
         startEndRound[0] = 1;
@@ -1412,7 +1412,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance12 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound, homeAwayConditions);
         instance12.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel3TwoSeasonsHome);
-        reString = instance12.execute();
+        reString = JsonOutputformat.create(instance12.execute());
         assertTrue(expResult.equals(reString));
         
         homeAwayConditions[0] = false;
@@ -1420,7 +1420,7 @@ public class ShowTableWithDynamicFiltersServiceTest {
         instance12 = new ShowTableWithDynamicFiltersService(leagueId, startEndDate, startEndRound, homeAwayConditions);
         instance12.init(brokerFactory);
         expResult = JsonOutputformat.create(tabel4TwoSeasonsAway);
-        reString = instance12.execute();
+        reString = JsonOutputformat.create(instance12.execute());
         assertTrue(expResult.equals(reString));
     }
 }
