@@ -10,6 +10,7 @@ import Broker.BrokerFactory;
 import Domain.Game;
 import Services.Service;
 import Services.ServiceException;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,14 @@ public class ShowPercentGoalsOnIntervalFilter extends Service {
         }
         return listOfTeamsString;
     }
+//    @JsonPropertyOrder({ "teamName", "gamesPlayed", "fullTimeWins", "tied", "losses", "scoredGoals", "opponentScore", "points" })
+//    private static class GoalPercentage {
+//        private int periodNumber;
+//        private String homeTeamName;
+//        private double homeScorePercentage;
+//        private 
+//        
+//    }
 }
 
 
