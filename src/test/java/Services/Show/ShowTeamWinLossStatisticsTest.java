@@ -21,6 +21,7 @@ import Services.ServiceException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class ShowTeamWinLossStatisticsTest {
     private static List<Game> seasonOneListOfGames;
     private static GetAllGamesFromSeasonService getAllGamesFromSeasonOne;
     private static Result result1, result2, result3, result4;
-    private static List<String> table1, table2, table3, table4, table5, table6, table7;
+    private static List<TableRow> table1, table2, table3, table4, table5, table6, table7;
     private static TableRow table1Team1, table1Team2, table2Team1, table2Team2, table3Team1, table3Team2,
     table4Team1, table4Team2, table5Team1, table5Team2, table6Team1, table6Team2, table7Team1, table7Team2;
     
@@ -215,8 +216,8 @@ public class ShowTeamWinLossStatisticsTest {
         table1Team2.teamName = "team2";
         table1Team2.winPercentage = 25;
         
-        table1.add(JsonOutputformat.create(table1Team1));
-        table1.add(JsonOutputformat.create(table1Team2));
+        table1.add(table1Team1);
+        table1.add(table1Team2);
         
         table2 = new ArrayList<>();
         table2Team1 = new TableRow();
@@ -237,8 +238,8 @@ public class ShowTeamWinLossStatisticsTest {
         table2Team2.teamName = "team2";
         table2Team2.winPercentage = 0;
         
-        table2.add(JsonOutputformat.create(table2Team1));
-        table2.add(JsonOutputformat.create(table2Team2));
+        table2.add(table2Team1);
+        table2.add(table2Team2);
         
         
         table3 = new ArrayList<>();
@@ -260,8 +261,8 @@ public class ShowTeamWinLossStatisticsTest {
         table3Team2.teamName = "team2";
         table3Team2.winPercentage = 25;
         
-        table3.add(JsonOutputformat.create(table3Team2));
-        table3.add(JsonOutputformat.create(table3Team1));
+        table3.add(table3Team2);
+        table3.add(table3Team1);
         
         
         table4 = new ArrayList<>();
@@ -283,8 +284,8 @@ public class ShowTeamWinLossStatisticsTest {
         table4Team2.teamName = "team2";
         table4Team2.winPercentage = 50;
         
-        table4.add(JsonOutputformat.create(table4Team1));
-        table4.add(JsonOutputformat.create(table4Team2));
+        table4.add(table4Team1);
+        table4.add(table4Team2);
         
         table5 = new ArrayList<>();
         table5Team1 = new TableRow();
@@ -305,8 +306,8 @@ public class ShowTeamWinLossStatisticsTest {
         table5Team2.teamName = "team2";
         table5Team2.winPercentage = 50;
         
-        table5.add(JsonOutputformat.create(table5Team1));
-        table5.add(JsonOutputformat.create(table5Team2));
+        table5.add(table5Team1);
+        table5.add(table5Team2);
         
         table6 = new ArrayList<>();
         table6Team1 = new TableRow();
@@ -327,8 +328,8 @@ public class ShowTeamWinLossStatisticsTest {
         table6Team2.teamName = "team2";
         table6Team2.winPercentage = 0;
         
-        table6.add(JsonOutputformat.create(table6Team1));
-        table6.add(JsonOutputformat.create(table6Team2));
+        table6.add(table6Team1);
+        table6.add(table6Team2);
         
         table7 = new ArrayList<>();
         table7Team1 = new TableRow();
@@ -349,8 +350,8 @@ public class ShowTeamWinLossStatisticsTest {
         table7Team2.teamName = "team2";
         table7Team2.winPercentage = 50;
         
-        table7.add(JsonOutputformat.create(table7Team1));
-        table7.add(JsonOutputformat.create(table7Team2));
+        table7.add(table7Team1);
+        table7.add(table7Team2);
     }
 
     @Test
@@ -564,73 +565,65 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] homeAway = {true, true};
         ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(firstLastGoal, fullOvertime, 0, teamIds, homeAway);
         instance.init(brokerFactory);
-        List<String> res = instance.execute();
-        assertEquals(table1.get(0), res.get(0));
-        assertEquals(table1.get(1), res.get(1));
+        String res = JsonOutputformat.create(instance.execute());
+        assertTrue(res.contentEquals(JsonOutputformat.create(table1)));
         
         Boolean[] firstLastGoal2 = {false, false};
         Boolean[] fullOvertime2 = {true, true};
         Boolean[] homeAway2 = {true, false};
         ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(firstLastGoal2, fullOvertime2, 0, teamIds, homeAway2);
         instance2.init(brokerFactory);
-        List<String> res2 = instance2.execute();
-        assertEquals(table2.get(0), res2.get(0));
-        assertEquals(table2.get(1), res2.get(1));
+        String res2 = JsonOutputformat.create(instance2.execute());
+        assertTrue(res2.contentEquals(JsonOutputformat.create(table2)));
         
         Boolean[] firstLastGoal3 = {false, false};
         Boolean[] fullOvertime3 = {true, true};
         Boolean[] homeAway3 = {false, true};
         ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(firstLastGoal3, fullOvertime3, 0, teamIds, homeAway3);
         instance3.init(brokerFactory);
-        List<String> res3 = instance3.execute();
-        assertEquals(table3.get(0), res3.get(0));
-        assertEquals(table3.get(1), res3.get(1));
+        String res3 = JsonOutputformat.create(instance3.execute());
+        assertTrue(res3.contentEquals(JsonOutputformat.create(table3)));
         
         Boolean[] firstLastGoal4 = {true, false};
         Boolean[] fullOvertime4 = {true, true};
         Boolean[] homeAway4 = {true, true};
         ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(firstLastGoal4, fullOvertime4, 0, teamIds, homeAway4);
         instance4.init(brokerFactory);
-        List<String> res4 = instance4.execute();
-        assertEquals(table4.get(0), res4.get(0));
-        assertEquals(table4.get(1), res4.get(1));
+        String res4 = JsonOutputformat.create(instance4.execute());
+        assertTrue(res4.contentEquals(JsonOutputformat.create(table4)));
+
         
         Boolean[] firstLastGoal5 = {false, true};
         Boolean[] fullOvertime5 = {true, true};
         Boolean[] homeAway5 = {true, true};
         ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(firstLastGoal5, fullOvertime5, 0, teamIds, homeAway5);
         instance5.init(brokerFactory);
-        List<String> res5 = instance5.execute();
-        assertEquals(table4.get(0), res5.get(0));
-        assertEquals(table4.get(1), res5.get(1));
+        String res5 = JsonOutputformat.create(instance5.execute());
+        assertTrue(res5.contentEquals(JsonOutputformat.create(table4)));
         
         Boolean[] firstLastGoal6 = {false, false};
         Boolean[] fullOvertime6 = {false, true};
         Boolean[] homeAway6 = {true, true};
         ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(firstLastGoal6, fullOvertime6, 0, teamIds, homeAway6);
         instance6.init(brokerFactory);
-        List<String> res6 = instance6.execute();
-        assertEquals(table5.get(0), res6.get(0));
-        assertEquals(table5.get(1), res6.get(1));
+        String res6 = JsonOutputformat.create(instance6.execute());
+        assertTrue(res6.contentEquals(JsonOutputformat.create(table5)));
         
         Boolean[] firstLastGoal7 = {false, false};
         Boolean[] fullOvertime7 = {true, false};
         Boolean[] homeAway7 = {true, true};
         ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(firstLastGoal7, fullOvertime7, 0, teamIds, homeAway7);
         instance7.init(brokerFactory);
-        List<String> res7 = instance7.execute();
-        assertEquals(table6.get(0), res7.get(0));
-        assertEquals(table6.get(1), res7.get(1));
+        String res7 = JsonOutputformat.create(instance7.execute());
+        assertTrue(res7.contentEquals(JsonOutputformat.create(table6)));
         
         Boolean[] firstLastGoal8 = {false, false};
         Boolean[] fullOvertime8 = {true, true};
         Boolean[] homeAway8 = {true, true};
         ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(firstLastGoal8, fullOvertime8, 1, teamIds, homeAway8);
         instance8.init(brokerFactory);
-        List<String> res8 = instance8.execute();
-        assertEquals(table7.get(0), res8.get(0));
-        assertEquals(table7.get(1), res8.get(1));
-        
+        String res8 = JsonOutputformat.create(instance8.execute());
+        assertTrue(res8.contentEquals(JsonOutputformat.create(table7)));
 
     }
     @Test
@@ -641,72 +634,64 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] homeAway = {true, true};
         ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, homeAway);
         instance.init(brokerFactory);
-        List<String> res = instance.execute();
-        assertEquals(table1.get(0), res.get(0));
-        assertEquals(table1.get(1), res.get(1));
+        String res = JsonOutputformat.create(instance.execute());
+        assertTrue(res.contentEquals(JsonOutputformat.create(table1)));
         
         Boolean[] firstLastGoal2 = {false, false};
         Boolean[] fullOvertime2 = {true, true};
         Boolean[] homeAway2 = {true, false};
         ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal2, fullOvertime2, 0, homeAway2);
         instance2.init(brokerFactory);
-        List<String> res2 = instance2.execute();
-        assertEquals(table2.get(0), res2.get(0));
-        assertEquals(table2.get(1), res2.get(1));
+        String res2 = JsonOutputformat.create(instance2.execute());
+        assertTrue(res2.contentEquals(JsonOutputformat.create(table2)));
         
         Boolean[] firstLastGoal3 = {false, false};
         Boolean[] fullOvertime3 = {true, true};
         Boolean[] homeAway3 = {false, true};
         ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal3, fullOvertime3, 0, homeAway3);
         instance3.init(brokerFactory);
-        List<String> res3 = instance3.execute();
-        assertEquals(table3.get(0), res3.get(0));
-        assertEquals(table3.get(1), res3.get(1));
+        String res3 = JsonOutputformat.create(instance3.execute());
+        assertTrue(res3.contentEquals(JsonOutputformat.create(table3)));
         
         Boolean[] firstLastGoal4 = {true, false};
         Boolean[] fullOvertime4 = {true, true};
         Boolean[] homeAway4 = {true, true};
         ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal4, fullOvertime4, 0, homeAway4);
         instance4.init(brokerFactory);
-        List<String> res4 = instance4.execute();
-        assertEquals(table4.get(0), res4.get(0));
-        assertEquals(table4.get(1), res4.get(1));
+        String res4 = JsonOutputformat.create(instance4.execute());
+        assertTrue(res4.contentEquals(JsonOutputformat.create(table4)));
         
         Boolean[] firstLastGoal5 = {false, true};
         Boolean[] fullOvertime5 = {true, true};
         Boolean[] homeAway5 = {true, true};
         ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal5, fullOvertime5, 0, homeAway5);
         instance5.init(brokerFactory);
-        List<String> res5 = instance5.execute();
-        assertEquals(table4.get(0), res5.get(0));
-        assertEquals(table4.get(1), res5.get(1));
+        String res5 = JsonOutputformat.create(instance5.execute());
+        assertTrue(res5.contentEquals(JsonOutputformat.create(table4)));
         
         Boolean[] firstLastGoal6 = {false, false};
         Boolean[] fullOvertime6 = {false, true};
         Boolean[] homeAway6 = {true, true};
         ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal6, fullOvertime6, 0, homeAway6);
         instance6.init(brokerFactory);
-        List<String> res6 = instance6.execute();
-        assertEquals(table5.get(0), res6.get(0));
-        assertEquals(table5.get(1), res6.get(1));
+        String res6 = JsonOutputformat.create(instance6.execute());
+        assertTrue(res6.contentEquals(JsonOutputformat.create(table5)));
         
         Boolean[] firstLastGoal7 = {false, false};
         Boolean[] fullOvertime7 = {true, false};
         Boolean[] homeAway7 = {true, true};
         ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal7, fullOvertime7, 0, homeAway7);
         instance7.init(brokerFactory);
-        List<String> res7 = instance7.execute();
-        assertEquals(table6.get(0), res7.get(0));
-        assertEquals(table6.get(1), res7.get(1));
+        String res7 = JsonOutputformat.create(instance7.execute());
+        assertTrue(res7.contentEquals(JsonOutputformat.create(table6)));
         
         Boolean[] firstLastGoal8 = {false, false};
         Boolean[] fullOvertime8 = {true, true};
         Boolean[] homeAway8 = {true, true};
         ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal8, fullOvertime8, 1, homeAway8);
         instance8.init(brokerFactory);
-        List<String> res8 = instance8.execute();
-        assertEquals(table7.get(0), res8.get(0));
-        assertEquals(table7.get(1), res8.get(1));
+        String res8 = JsonOutputformat.create(instance8.execute());
+        assertTrue(res8.contentEquals(JsonOutputformat.create(table7)));
     }
     @Test
     public void testExecute3() {
@@ -716,72 +701,65 @@ public class ShowTeamWinLossStatisticsTest {
         Boolean[] homeAway = {true, true};
         ShowTeamWinLossStatistics instance = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal, fullOvertime, 0, teamIds, homeAway);
         instance.init(brokerFactory);
-        List<String> res = instance.execute();
-        assertEquals(table1.get(0), res.get(0));
-        assertEquals(table1.get(1), res.get(1));
+        String res = JsonOutputformat.create(instance.execute());
+        assertTrue(res.contentEquals(JsonOutputformat.create(table1)));
         
         Boolean[] firstLastGoal2 = {false, false};
         Boolean[] fullOvertime2 = {true, true};
         Boolean[] homeAway2 = {true, false};
         ShowTeamWinLossStatistics instance2 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal2, fullOvertime2, 0, teamIds, homeAway2);
         instance2.init(brokerFactory);
-        List<String> res2 = instance2.execute();
-        assertEquals(table2.get(0), res2.get(0));
-        assertEquals(table2.get(1), res2.get(1));
+        String res2 = JsonOutputformat.create(instance2.execute());
+        assertTrue(res2.contentEquals(JsonOutputformat.create(table2)));
         
         Boolean[] firstLastGoal3 = {false, false};
         Boolean[] fullOvertime3= {true, true};
         Boolean[] homeAway3 = {false, true};
         ShowTeamWinLossStatistics instance3 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal3, fullOvertime3, 0, teamIds, homeAway3);
         instance3.init(brokerFactory);
-        List<String> res3 = instance3.execute();
-        assertEquals(table3.get(0), res3.get(0));
-        assertEquals(table3.get(1), res3.get(1));
+        String res3 = JsonOutputformat.create(instance3.execute());
+        assertTrue(res3.contentEquals(JsonOutputformat.create(table3)));
         
         Boolean[] firstLastGoal4 = {true, false};
         Boolean[] fullOvertime4 = {true, true};
         Boolean[] homeAway4 = {true, true};
         ShowTeamWinLossStatistics instance4 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal4, fullOvertime4, 0, teamIds, homeAway4);
         instance4.init(brokerFactory);
-        List<String> res4 = instance4.execute();
-        assertEquals(table4.get(0), res4.get(0));
-        assertEquals(table4.get(1), res4.get(1));
+        String res4 = JsonOutputformat.create(instance4.execute());
+        assertTrue(res4.contentEquals(JsonOutputformat.create(table4)));
         
         Boolean[] firstLastGoal5 = {false, true};
         Boolean[] fullOvertime5 = {true, true};
         Boolean[] homeAway5 = {true, true};
         ShowTeamWinLossStatistics instance5 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal5, fullOvertime5, 0, teamIds, homeAway5);
         instance5.init(brokerFactory);
-        List<String> res5 = instance5.execute();
-        assertEquals(table4.get(0), res5.get(0));
-        assertEquals(table4.get(1), res5.get(1));
+        String res5 = JsonOutputformat.create(instance5.execute());
+        assertTrue(res5.contentEquals(JsonOutputformat.create(table4)));
         
         Boolean[] firstLastGoal6 = {false, false};
         Boolean[] fullOvertime6 = {false, true};
         Boolean[] homeAway6 = {true, true};
         ShowTeamWinLossStatistics instance6 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal6, fullOvertime6, 0, teamIds, homeAway6);
         instance6.init(brokerFactory);
-        List<String> res6 = instance6.execute();
-        assertEquals(table5.get(0), res6.get(0));
-        assertEquals(table5.get(1), res6.get(1));
+        String res6 = JsonOutputformat.create(instance6.execute());
+        assertTrue(res6.contentEquals(JsonOutputformat.create(table5)));
         
         Boolean[] firstLastGoal7 = {false, false};
         Boolean[] fullOvertime7 = {true, false};
         Boolean[] homeAway7 = {true, true};
         ShowTeamWinLossStatistics instance7 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal7, fullOvertime7, 0, teamIds, homeAway7);
         instance7.init(brokerFactory);
-        List<String> res7 = instance7.execute();
-        assertEquals(table6.get(0), res7.get(0));
-        assertEquals(table6.get(1), res7.get(1));
+        String res7 = JsonOutputformat.create(instance7.execute());
+        assertTrue(res7.contentEquals(JsonOutputformat.create(table6)));
         
         Boolean[] firstLastGoal8 = {false, false};
         Boolean[] fullOvertime8 = {true, true};
         Boolean[] homeAway8 = {true, true};
         ShowTeamWinLossStatistics instance8 = new ShowTeamWinLossStatistics(seasonIds, firstLastGoal8, fullOvertime8, 1, teamIds, homeAway8);
         instance8.init(brokerFactory);
-        List<String> res8 = instance8.execute();
-        assertEquals(table7.get(0), res8.get(0));
-        assertEquals(table7.get(1), res8.get(1));
+        String res8 = JsonOutputformat.create(instance8.execute());
+        
+        assertTrue(res8.contentEquals(JsonOutputformat.create(table7)));
     }
     
 

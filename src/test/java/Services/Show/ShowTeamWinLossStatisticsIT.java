@@ -5,6 +5,7 @@
  */
 package Services.Show;
 
+import AssistantClasses.JsonOutputformat;
 import Services.Show.ShowTeamWinLossStatistics;
 import Broker.BrokerFactory;
 import Services.SetUpTestObjects;
@@ -56,8 +57,9 @@ public class ShowTeamWinLossStatisticsIT {
         System.out.println("Services.ShowTeamWinLossStatisticsIT.testExecute() \n ");
 
         try {
-            List<String> result = instance.execute();
-            result.stream().forEach(str -> System.out.println(str));
+            String result = JsonOutputformat.create(instance.execute());
+            //result.stream().forEach(str -> System.out.println(str));
+            System.out.println(result);
         } catch (Exception e) {
         }
         

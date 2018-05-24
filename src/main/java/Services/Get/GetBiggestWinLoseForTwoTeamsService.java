@@ -33,14 +33,12 @@ public class GetBiggestWinLoseForTwoTeamsService extends Service{
     }
 
     @Override
-    public String execute() {
+    public Game execute() {
         Result result = getBrokerFactory().getResultBroker().getBiggestDifferensBetweenTwoTeams(teamId1, teamId2);
         GameDao gameDao = result.getDao().parent(GameDao.class);
         Game game = getBrokerFactory().getGameBroker().create(gameDao);
         
-        return "" + game.getHomeTeam().getName() + " " + result.getHomeScore() + " - " + result.getAwayScore() + " " + game.getAwayTeam().getName() ;
+//        return "" + game.getHomeTeam().getName() + " " + result.getHomeScore() + " - " + result.getAwayScore() + " " + game.getAwayTeam().getName() ;
+        return game;
     }
-    
-    
-    
 }

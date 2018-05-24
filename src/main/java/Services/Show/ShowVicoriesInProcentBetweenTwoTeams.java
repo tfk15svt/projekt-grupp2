@@ -64,24 +64,24 @@ public class ShowVicoriesInProcentBetweenTwoTeams extends Service {
             dateInterval();
             seasonInterval();
         }
-        
-        if(start == null && end != null || start != null && end == null){
+
+        if (start == null && end != null || start != null && end == null) {
             throw new ServiceException("One of start/end is null.");
         }
         return "GP:" + numberOfGamesInt + " team1:" + procentTeam1 + "%" + " team2:" + procentTeam2 + "%" + " tied:" + procentTied + "%";
     }
 
-    public void allGames(){
+    public void allGames() {
         List<Game> gameBetweenTwoTeams = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(teamId1, teamId2);
         List<Game> listOfGames = new ArrayList<>();
         Game game;
-            for (int i = 0; i < gameBetweenTwoTeams.size(); i++) {
-                game = gameBetweenTwoTeams.get(i);
-                listOfGames.add(game);
-            }
-            makeProcentStats(listOfGames);
+        for (int i = 0; i < gameBetweenTwoTeams.size(); i++) {
+            game = gameBetweenTwoTeams.get(i);
+            listOfGames.add(game);
+        }
+        makeProcentStats(listOfGames);
     }
-    
+
     public void roundInterval() {
         List<Game> gameBetweenTwoTeams = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(teamId1, teamId2);
         List<Game> roundGames = new ArrayList<>();
@@ -94,35 +94,35 @@ public class ShowVicoriesInProcentBetweenTwoTeams extends Service {
         }
         makeProcentStats(roundGames);
     }
-    
-    public void dateInterval(){
+
+    public void dateInterval() {
         List<Game> gameBetweenTwoTeams = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(teamId1, teamId2);
         List<Game> dateGames = new ArrayList<>();
         Game game;
-        for(int i = 0; i < gameBetweenTwoTeams.size(); i++){
+        for (int i = 0; i < gameBetweenTwoTeams.size(); i++) {
             game = gameBetweenTwoTeams.get(i);
-            if(game.getDate() >= start && game.getDate() <= end){
+            if (game.getDate() >= start && game.getDate() <= end) {
                 dateGames.add(game);
             }
         }
         makeProcentStats(dateGames);
     }
-    
-    public void seasonInterval(){
+
+    public void seasonInterval() {
         List<Game> gameBetweenTwoTeams = getBrokerFactory().getTeamBroker().getAllGamesForTwoTeams(teamId1, teamId2);
         List<Game> seasonGames = new ArrayList<>();
         Game game;
-        for(int i = 0; i < gameBetweenTwoTeams.size(); i++){
+        for (int i = 0; i < gameBetweenTwoTeams.size(); i++) {
             game = gameBetweenTwoTeams.get(i);
-            if(game.getRound().getSeason().getYear() >= start && game.getRound().getSeason().getYear() <= end){
+            if (game.getRound().getSeason().getYear() >= start && game.getRound().getSeason().getYear() <= end) {
                 seasonGames.add(game);
             }
         }
         makeProcentStats(seasonGames);
     }
-    
-    public void makeProcentStats(List<Game> listOfGames){
-        for(Game game : listOfGames){
+
+    public void makeProcentStats(List<Game> listOfGames) {
+        for (Game game : listOfGames) {
             if (game.getHomeTeam().getId().equals(teamId1) && game.getResult().getHomeScore() > game.getResult().getAwayScore()) {
                 team1Wins++;
                 numberOfGames++;
@@ -153,15 +153,15 @@ public class ShowVicoriesInProcentBetweenTwoTeams extends Service {
                 numberOfGamesInt++;
             }
         }
-        if(numberOfGames == 0){
+        if (numberOfGames == 0) {
             procentTeam1 = 0;
             procentTeam2 = 0;
             procentTied = 0;
         }
-        if(numberOfGames != 0){
-        procentTeam1 = (team1Wins / numberOfGames) * 100;
-        procentTeam2 = (team2Wins / numberOfGames) * 100;
-        procentTied = (tied / numberOfGames) * 100;
+        if (numberOfGames != 0) {
+            procentTeam1 = (team1Wins / numberOfGames) * 100;
+            procentTeam2 = (team2Wins / numberOfGames) * 100;
+            procentTied = (tied / numberOfGames) * 100;
         }
     }
 }

@@ -125,7 +125,7 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
     }
 
     @Override
-    public List<String> execute() {
+    public List<TableRow> execute() {
         if (seasonIds == null) {
             listOfGames = teamIds.stream()
                     .map(id -> getBrokerFactory().getTeamBroker().getAllGamesForOneTeam(id))
@@ -160,7 +160,8 @@ public class ShowTeamWinLossStatistics extends Service { /// to do ::: Perioder,
          rows.stream().forEach(tableRow -> tableRow.create());
          rows = rows.stream().sorted((row2, row1) -> ((Double) row1.winPercentage).compareTo((Double) row2.winPercentage))
                  .collect(Collectors.toList());
-         return rows.stream().map(row -> JsonOutputformat.create(row)).collect(Collectors.toList());
+         //return rows.stream().map(row -> JsonOutputformat.create(row)).collect(Collectors.toList());
+         return rows;
     }
 
     @JsonPropertyOrder({"teamName", "winPercentage", "lossPercentage", "gamesPlayed", "gamesWon", "gamesLossed"})
